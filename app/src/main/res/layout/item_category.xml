@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/padding_default"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingBottom="@dimen/padding_default"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/cat_logo_image_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/background_circle"
+        android:src="@mipmap/ic_launcher"/>
+
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/cat_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/typography_subheading"
+        android:text="Category Name"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginStart="@dimen/padding_default"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_chevron_right_black_24dp" />
+
+</LinearLayout>
+
+
+
+

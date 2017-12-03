@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/splash_root_layout"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+>
+
+<include
+    android:id="@+id/splash_no_connection_layout"
+    layout="@layout/layout_no_connection"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
+    android:visibility="gone"
+    android:layout_centerInParent="true"/>
+
+<!--<FrameLayout
+    android:id="@+id/frameLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp">
+
+    <ImageView
+        android:id="@+id/splash_left_tt_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/left_icon" />
+
+    <ImageView
+        android:layout_toRightOf="@id/splash_left_tt_icon"
+        android:id="@+id/splash_right_tt_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/right_icon" />
+
+
+    <ImageView
+        android:id="@+id/splash_tt_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/tt_text" />
+
+</FrameLayout> -->
+</RelativeLayout>
