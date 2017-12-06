@@ -10,10 +10,14 @@ public class Revels extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
+        // TODO: Move below method call to the splash screen once made
+
+    }
+    private void loadData(){
+
     }
 
 }

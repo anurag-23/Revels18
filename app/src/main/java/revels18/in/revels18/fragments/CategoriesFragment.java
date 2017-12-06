@@ -45,7 +45,7 @@ public class CategoriesFragment extends Fragment {
     private static final int LOAD_CATEGORIES = 0;
     private static final int UPDATE_CATEGORIES = 1;
     private MenuItem searchItem;
-
+    private String TAG = "CategoriesFragment";
     public CategoriesFragment() {
     }
 
@@ -83,6 +83,8 @@ public class CategoriesFragment extends Fragment {
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
+        }else{
+            Log.i(TAG, "onCreateView: No categories in realm");
         }
         return view;
     }
