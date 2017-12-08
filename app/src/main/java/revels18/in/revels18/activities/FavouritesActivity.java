@@ -1,4 +1,4 @@
-package revels18.in.revels18.fragments;
+package revels18.in.revels18.activities;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,12 +34,12 @@ import io.realm.Realm;
 import revels18.in.revels18.R;
 import revels18.in.revels18.Receivers.NotificationReceiver;
 import revels18.in.revels18.adapters.FavouritesEventsAdapter;
+import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 
-
-public class FavouritesFragment extends Fragment {
-    String TAG = "FavouritesFragment";
+public class FavouritesActivity extends AppCompatActivity {
+    String TAG = "FavouritesActivity";
     private Realm realm = Realm.getDefaultInstance();
     private List<FavouritesModel> favouritesDay1 =  new ArrayList<>();
     private List<FavouritesModel> favouritesDay2 =  new ArrayList<>();
@@ -57,9 +57,8 @@ public class FavouritesFragment extends Fragment {
     private FavouritesEventsAdapter adapterDay2;
     private FavouritesEventsAdapter adapterDay3;
     private FavouritesEventsAdapter adapterDay4;
+    Context context;
 
-    public FavouritesFragment() {
-    }
 
     public static FavouritesFragment newInstance() {
         FavouritesFragment fragment = new FavouritesFragment();
@@ -68,36 +67,39 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.favourites);
+        setTitle(R.string.favourites);
+        setContentView(R.layout.activity_favourites);
+        context=this;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().findViewById(R.id.toolbar).setElevation(0);
-                AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.app_bar);
+                findViewById(R.id.toolbar).setElevation(0);
+                AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
                 appBarLayout.setElevation(0);
                 appBarLayout.setTargetElevation(0);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        displayEvents();
         favouritesDay1 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","1").findAll());
         favouritesDay2 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","2").findAll());
         favouritesDay3 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","3").findAll());
         favouritesDay4 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","4").findAll());
-        setHasOptionsMenu(true);
+
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
         realm.close();
     }
-    @Override
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_favourites_fragment, menu);
         MenuItem deleteAll = menu.findItem(R.id.action_delete_all);
         deleteAll.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(context)
                         .setTitle("Delete Favourites")
                         .setMessage("Are you sure you want to delete all favourites?")
                         .setIcon(R.drawable.ic_delete_all)
@@ -137,24 +139,19 @@ public class FavouritesFragment extends Fragment {
             }
         });
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favourites, container, false);
-        recyclerViewDay1 = (RecyclerView)view.findViewById(R.id.favourites_day_1_recycler_view);
-        recyclerViewDay2 = (RecyclerView)view.findViewById(R.id.favourites_day_2_recycler_view);
-        recyclerViewDay3 = (RecyclerView)view.findViewById(R.id.favourites_day_3_recycler_view);
-        recyclerViewDay4 = (RecyclerView)view.findViewById(R.id.favourites_day_4_recycler_view);
 
-        noEventsDay1 = (TextView)view.findViewById(R.id.fav_day_1_no_events);
-        noEventsDay2 = (TextView)view.findViewById(R.id.fav_day_2_no_events);
-        noEventsDay3 = (TextView)view.findViewById(R.id.fav_day_3_no_events);
-        noEventsDay4 = (TextView)view.findViewById(R.id.fav_day_4_no_events);
-
-        displayEvents();
-        return view;
-    }
     public void displayEvents(){
+
+        recyclerViewDay1 = (RecyclerView)findViewById(R.id.favourites_day_1_recycler_view);
+        recyclerViewDay2 = (RecyclerView)findViewById(R.id.favourites_day_2_recycler_view);
+        recyclerViewDay3 = (RecyclerView)findViewById(R.id.favourites_day_3_recycler_view);
+        recyclerViewDay4 = (RecyclerView)findViewById(R.id.favourites_day_4_recycler_view);
+
+        noEventsDay1 = (TextView)findViewById(R.id.fav_day_1_no_events);
+        noEventsDay2 = (TextView)findViewById(R.id.fav_day_2_no_events);
+        noEventsDay3 = (TextView)findViewById(R.id.fav_day_3_no_events);
+        noEventsDay4 = (TextView)findViewById(R.id.fav_day_4_no_events);
+
         FavouritesEventsAdapter.EventClickListener eventListener = new  FavouritesEventsAdapter.EventClickListener(){
             @Override
             public void onItemClick(FavouritesModel event) {
@@ -167,11 +164,11 @@ public class FavouritesFragment extends Fragment {
             noEventsDay1.setVisibility(View.VISIBLE);
             ((View)noEventsDay1.getParent()).setVisibility(View.VISIBLE);
         }else{
-            adapterDay1 = new FavouritesEventsAdapter(favouritesDay1, eventListener,getActivity());
+            adapterDay1 = new FavouritesEventsAdapter(favouritesDay1, eventListener,this);
             recyclerViewDay1.setAdapter(adapterDay1);
             recyclerViewDay1.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay1.setNestedScrollingEnabled(false);
-            recyclerViewDay1.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerViewDay1.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         }
         if(favouritesDay2.isEmpty()){
             recyclerViewDay2.setVisibility(View.GONE);
@@ -179,11 +176,11 @@ public class FavouritesFragment extends Fragment {
             noEventsDay2.setVisibility(View.VISIBLE);
             ((View)noEventsDay2.getParent()).setVisibility(View.VISIBLE);
         }else{
-            adapterDay2 = new FavouritesEventsAdapter(favouritesDay2, eventListener,getActivity());
+            adapterDay2 = new FavouritesEventsAdapter(favouritesDay2, eventListener,this);
             recyclerViewDay2.setAdapter(adapterDay2);
             recyclerViewDay2.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay2.setNestedScrollingEnabled(false);
-            recyclerViewDay2.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerViewDay2.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         }
         if(favouritesDay3.isEmpty()){
             recyclerViewDay3.setVisibility(View.GONE);
@@ -191,11 +188,11 @@ public class FavouritesFragment extends Fragment {
             noEventsDay3.setVisibility(View.VISIBLE);
             ((View)noEventsDay3.getParent()).setVisibility(View.VISIBLE);
         }else{
-            adapterDay3 = new FavouritesEventsAdapter(favouritesDay3, eventListener,getActivity());
+            adapterDay3 = new FavouritesEventsAdapter(favouritesDay3, eventListener,this);
             recyclerViewDay3.setAdapter(adapterDay3);
             recyclerViewDay3.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay3.setNestedScrollingEnabled(false);
-            recyclerViewDay3.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerViewDay3.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         }
         if(favouritesDay4.isEmpty()){
             recyclerViewDay4.setVisibility(View.GONE);
@@ -203,16 +200,16 @@ public class FavouritesFragment extends Fragment {
             noEventsDay4.setVisibility(View.VISIBLE);
             ((View)noEventsDay4.getParent()).setVisibility(View.VISIBLE);
         }else{
-            adapterDay4 = new FavouritesEventsAdapter(favouritesDay4, eventListener,getActivity());
+            adapterDay4 = new FavouritesEventsAdapter(favouritesDay4, eventListener,this);
             recyclerViewDay4.setAdapter(adapterDay4);
             recyclerViewDay4.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay4.setNestedScrollingEnabled(false);
-            recyclerViewDay4.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerViewDay4.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         }
     }
     private void displayBottomSheet(final FavouritesModel event){
-        final View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+        final View view = View.inflate(this, R.layout.activity_event_dialogue, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
         Log.i("TT17", "displayBottomSheet: NEW!");
         final String eventID = event.getId();
         EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
@@ -316,18 +313,18 @@ public class FavouritesFragment extends Fragment {
         realm.commitTransaction();
     }
     private void removeNotification(FavouritesModel event){
-        Intent intent = new Intent(getActivity(), NotificationReceiver.class);
+        Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
         intent.putExtra("eventID", event.getId());
 
-        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         //Request Codes
         int RC1 = Integer.parseInt(event.getCatID()+event.getId()+"0");
         int RC2 = Integer.parseInt(event.getCatID()+event.getId()+"1");
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(getActivity(), RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getActivity(), RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent1);
         alarmManager.cancel(pendingIntent2);
     }
