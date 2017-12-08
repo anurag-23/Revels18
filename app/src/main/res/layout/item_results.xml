@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding_default"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingBottom="@dimen/padding_default"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_weight="0"
+            android:id="@+id/result_cat_logo_image_view"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/background_circle"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginRight="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"/>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/res_event_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/typography_subheading"
+                android:textColor="@color/black"
+                tools:text="Event Name"
+                android:fontFamily="sans-serif-medium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ROUND:"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:textSize="@dimen/typography_body"/>
+                <TextView
+                    android:id="@+id/res_round_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Category"
+                    android:textSize="@dimen/typography_body"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/result_expand_image_view"
+            android:layout_weight="0"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:tint="@color/colorPrimary"/>
+
+    </LinearLayout>
+</LinearLayout>

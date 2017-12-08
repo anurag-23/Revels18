@@ -23,7 +23,7 @@ public class EventsFragment extends Fragment {
     TabLayout tabs;
     TextView testTV;
     View eventsLayout;
-    private final int NUM_DAYS = 3;
+    private final int NUM_DAYS = 4;
     private String TAG = "EventsFragment";
     public static EventsFragment newInstance() {
         EventsFragment fragment = new EventsFragment();
@@ -74,6 +74,10 @@ public class EventsFragment extends Fragment {
                 case 3:
                     //Day 3 Tab Selected
                     testTV.setText("Day 3!");
+                    break;
+                case 4:
+                    //Day 4 Tab Selected
+                    testTV.setText("Day 4!");
                     break;
                 default:
                     Log.d(TAG, "onTabSelected: Error in the tab index");

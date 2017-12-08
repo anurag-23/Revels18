@@ -28,6 +28,7 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
+import revels18.in.revels18.Receivers.NotificationReceiver;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
@@ -237,7 +238,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         }
         return false;
     }
-    /*private void addNotification(ScheduleModel event){
+    private void addNotification(ScheduleModel event){
         Intent intent = new Intent(activity, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
@@ -290,8 +291,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             Log.d("Alarm", "set for "+calendar3.toString());
         }
-    }*/
-    /*private void removeNotification(ScheduleModel event){
+    }
+    private void removeNotification(ScheduleModel event){
         Intent intent = new Intent(activity, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
@@ -306,7 +307,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent1);
         alarmManager.cancel(pendingIntent2);
-    }*/
+    }
     private ScheduleModel getScheduleFromEvent(EventModel event){
         ScheduleModel s = realm.where(ScheduleModel.class).equalTo("eventID", event.getEventId()).findFirst();
         return s;
