@@ -1,25 +1,93 @@
-<LinearLayout android:orientation="vertical"
-    android:id="@+id/events_layout"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+    <revels18.in.revels18.views.SwipeScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/events_swipe_scroll_view"
+        >
+
+        <LinearLayout
+            android:id="@+id/events_linear_layout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabMode="fixed">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/padding_default">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:tabGravity="fill"
+                app:tabMode="fixed">
 
-        </android.support.design.widget.TabLayout>
+            </android.support.design.widget.TabLayout>
+            <TextView
+                android:id="@+id/testTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Events Fragment"/>
+            <android.support.v7.widget.CardView
+                android:id="@+id/events_card_view"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/day_1"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="@dimen/padding_default"
+                        android:paddingRight="@dimen/padding_default"
+                        android:textSize="@dimen/typography_title"
+                        android:background="?android:attr/selectableItemBackground"/>
 
-        <TextView
-            android:id="@+id/testTV"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:text="Events Fragment..." />
+                    <TextView
+                        android:id="@+id/events_no_events_text_view"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_events"
+                        android:paddingLeft="@dimen/padding_default"
+                        android:paddingRight="@dimen/padding_default"
+                        android:textSize="@dimen/typography_subheading"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="@dimen/padding_default" />
 
-    </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/events_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:nestedScrollingEnabled="false"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </revels18.in.revels18.views.SwipeScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
 
 
