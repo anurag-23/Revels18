@@ -28,6 +28,7 @@ import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.fragments.HomeFragment;
 import revels18.in.revels18.fragments.OnlineEventsFragment;
 import revels18.in.revels18.fragments.ResultsFragment;
+import revels18.in.revels18.fragments.RevelsCupFragment;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -105,6 +106,12 @@ public class MainActivity extends AppCompatActivity  {
                     break;
                 case R.id.bottom_nav_categories:
                     selectedFragment = CategoriesFragment.newInstance();
+                    break;
+                case R.id.bottom_nav_revels_cup:
+                    selectedFragment = RevelsCupFragment.newInstance();
+                    break;
+                case R.id.bottom_nav_results:
+                    selectedFragment = ResultsFragment.newInstance();
                     break;
             }
 
