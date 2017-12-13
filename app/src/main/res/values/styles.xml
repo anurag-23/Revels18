@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppBarTheme" parent = "ThemeOverlay.AppCompat.Dark">
+
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

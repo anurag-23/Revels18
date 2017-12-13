@@ -60,10 +60,6 @@ public class FavouritesActivity extends AppCompatActivity {
     Context context;
 
 
-    public static FavouritesFragment newInstance() {
-        FavouritesFragment fragment = new FavouritesFragment();
-        return fragment;
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,25 +76,23 @@ public class FavouritesActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        displayEvents();
         favouritesDay1 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","1").findAll());
         favouritesDay2 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","2").findAll());
         favouritesDay3 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","3").findAll());
         favouritesDay4 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","4").findAll());
-
+        displayEvents();
     }
+
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        realm.close();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_favourites_fragment, menu);
+        return true;
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_favourites_fragment, menu);
-        MenuItem deleteAll = menu.findItem(R.id.action_delete_all);
-        deleteAll.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            case R.id.action_delete_all:{
                 new AlertDialog.Builder(context)
                         .setTitle("Delete Favourites")
                         .setMessage("Are you sure you want to delete all favourites?")
@@ -137,7 +131,25 @@ public class FavouritesActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.dialog_no,null).show();
                 return true;
             }
-        });
+
+            case android.R.id.home:{
+                finish();
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     public void displayEvents(){

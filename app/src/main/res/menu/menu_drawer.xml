@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/menu_registrations"
+            android:title="@string/registrations"
+            android:icon="@drawable/ic_registrations_24dp"
+            app:showAsAction="always"/>
+        <item
+            android:id="@+id/menu_favourites"
+            android:title="@string/drawer_favourites"
+            android:icon="@drawable/ic_fav_deselected"
+            app:showAsAction="always"/>
+        <item
+            android:id="@+id/menu_pro_show"
+            android:title="@string/drawer_pro_show"
+            app:showAsAction="never"/>
 
-    <group android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_home"
-            android:icon="@drawable/drawer_home"
-            android:title="@string/drawer_home" />
-        <item
-            android:id="@+id/drawer_favourites"
-            android:icon="@drawable/drawer_favourites"
-            android:title="@string/drawer_favourites" />
-        <item
-            android:id="@+id/drawer_online_events"
-            android:icon="@drawable/drawer_online"
-            android:title="@string/drawer_online_events" />
+            android:id="@+id/menu_about_us"
+            android:title="@string/drawer_about_us"
+            app:showAsAction="never"/>
 
         <item
-            android:id="@+id/drawer_results"
-            android:icon="@drawable/drawer_results"
-            android:title="@string/drawer_results" />
-    </group>
+            android:id="@+id/menu_developers"
+            android:title="@string/drawer_developers"
+            app:showAsAction="never"/>
 
-    <group android:id="@+id/drawer_divider"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_developers"
-            android:icon="@drawable/drawer_developers"
-            android:title="@string/drawer_developers" />
-        <item
-            android:id="@+id/drawer_about_us"
-            android:icon="@drawable/drawer_about"
-            android:title="@string/drawer_about_us" />
-    </group>
 </menu>

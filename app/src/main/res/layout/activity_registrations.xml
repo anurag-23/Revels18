@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_registrations"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="revels18.in.revels18.activities.RegistrationsActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:elevation="0dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:cardElevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:theme="@style/AppBarTheme"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
+        </FrameLayout>
+    </android.support.design.widget.AppBarLayout>
+
+</LinearLayout>
