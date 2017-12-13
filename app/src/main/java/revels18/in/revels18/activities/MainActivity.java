@@ -1,32 +1,27 @@
 package revels18.in.revels18.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import revels18.in.revels18.R;
 import revels18.in.revels18.application.Revels;
-import revels18.in.revels18.fragments.AboutUsFragment;
 import revels18.in.revels18.fragments.CategoriesFragment;
-import revels18.in.revels18.fragments.DevelopersFragment;
 import revels18.in.revels18.fragments.EventsFragment;
 import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.fragments.HomeFragment;
-import revels18.in.revels18.fragments.OnlineEventsFragment;
 import revels18.in.revels18.fragments.ResultsFragment;
 import revels18.in.revels18.fragments.RevelsCupFragment;
 
@@ -36,25 +31,25 @@ import static android.view.View.VISIBLE;
 public class MainActivity extends AppCompatActivity  {
     private FragmentManager fm;
     Fragment selectedFragment;
-    private NavigationView drawerView;
+    ///private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
     //String CCT_LAUNCH_URL = "https://www.techtatva.in";
     //private FirebaseRemoteConfig firebaseRemoteConfig;
 
-    @Override
+    /*@Override
     protected void onPostResume() {
         super.onPostResume();
         if(selectedFragment.getClass()==OnlineEventsFragment.class) {
-            drawerView.setCheckedItem(R.id.drawer_home);
+            //drawerView.setCheckedItem(R.id.drawer_home);
             navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
             navigation.setVisibility(VISIBLE);
             appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
             appBarLayout.setVisibility(VISIBLE);
             navigation.setSelectedItemId(R.id.bottom_nav_home);
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +64,15 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
 
-        drawerView = (NavigationView) findViewById(R.id.nav_view);
+        /*drawerView = (NavigationView) findViewById(R.id.nav_view);
         drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
         drawerView.setCheckedItem(R.id.drawer_home);
-        drawerView.setSelected(true);
+        drawerView.setSelected(true);*/
 
         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigation.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener);
@@ -91,6 +86,42 @@ public class MainActivity extends AppCompatActivity  {
                 .build();
         firebaseRemoteConfig.setConfigSettings(configSettings);*/
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_drawer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.menu_registrations:{
+            startActivity(new Intent(MainActivity.this, RegistrationsActivity.class));
+            return true;
+        }
+            case R.id.menu_favourites: {
+            startActivity(new Intent(MainActivity.this, FavouritesActivity.class));
+            return true;
+        }
+            case R.id.menu_pro_show: {
+            startActivity(new Intent(MainActivity.this, ProShowActivity.class));
+            return true;
+        }
+            case R.id.menu_about_us: {
+            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+            return true;
+        }
+            case R.id.menu_developers: {
+            startActivity(new Intent(MainActivity.this, DevelopersActivity.class));
+            return true;
+        }
+    }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnBottomNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -123,7 +154,7 @@ public class MainActivity extends AppCompatActivity  {
 
     };
 
-    private NavigationView.OnNavigationItemSelectedListener mOnDrawerItemSelectedListener
+    /*private NavigationView.OnNavigationItemSelectedListener mOnDrawerItemSelectedListener
             = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -186,31 +217,27 @@ public class MainActivity extends AppCompatActivity  {
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
-    };
+    };*/
 
     @Override
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
-            if (drawerView.getMenu().getItem(0).isChecked() &&  navigation.getMenu().getItem(0).isChecked() ){
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+            if ( navigation.getMenu().getItem(0).isChecked() ){
                 finishAffinity();
             }
             else{
-                if(Revels.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){
+                if(Revels.searchOpen ==1 ){
                     fm.beginTransaction().replace(R.id.main_frame_layout, new CategoriesFragment()).commit();
                     Revels.searchOpen =0;
                 }
-                if(Revels.searchOpen ==2 && drawerView.getMenu().getItem(0).isChecked()){
+                if(Revels.searchOpen ==2 ){
                     fm.beginTransaction().replace(R.id.main_frame_layout, new EventsFragment()).commit();
                     Revels.searchOpen =0;
                 }
                 else{
                     fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
-                    drawerView.setCheckedItem(R.id.drawer_home);
                     navigation.setSelectedItemId(R.id.bottom_nav_home);
                 }
                 if(navigation.getVisibility()==GONE)
@@ -220,7 +247,7 @@ public class MainActivity extends AppCompatActivity  {
                 {appBarLayout.setVisibility(VISIBLE);}
             }
         }
-    }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -253,13 +280,13 @@ public class MainActivity extends AppCompatActivity  {
     }
     public void changeFragment(Fragment fragment){
         if(fragment.getClass() == FavouritesFragment.class){
-            drawerView.setCheckedItem(R.id.drawer_favourites);
+            //drawerView.setCheckedItem(R.id.drawer_favourites);
             appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
             navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
             appBarLayout.setVisibility(VISIBLE);
             navigation.setVisibility(GONE);
         }else if(fragment.getClass() == ResultsFragment.class){
-            drawerView.setCheckedItem(R.id.drawer_results);
+            //drawerView.setCheckedItem(R.id.drawer_results);
             appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
             appBarLayout.setVisibility(VISIBLE);
             navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);

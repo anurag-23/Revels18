@@ -93,7 +93,6 @@ public class EventsFragment extends Fragment {
         });
     }
     class DayTabListener implements TabLayout.OnTabSelectedListener{
-        //Update switch case if there are more than 3 days
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int day = tab.getPosition() + 1;

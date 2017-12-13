@@ -2,12 +2,13 @@
     <string name="app_name">Revels 18</string>
     <string name="drawer_home">Home</string>
     <string name="drawer_favourites">Favourites</string>
-    <string name="drawer_online_events">Online Events</string>
+    <string name="drawer_pro_show">ProShow Portal</string>
+    <string name="registrations">Registrations</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_developers">Developers</string>
     <string name="drawer_about_us">About Us</string>
     <string name="bottom_nav_home">Home</string>
-    <string name="bottom_nav_events">Events</string>
+    <string name="bottom_nav_events">Schedule</string>
     <string name="bottom_nav_categories">Categories</string>
     <string name="bottom_nav_revels_cup">Revels Cup</string>
     <string name="bottom_nav_results">Results</string>
