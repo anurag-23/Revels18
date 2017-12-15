@@ -24,4 +24,6 @@
     <dimen name="recycler_view_extra_padding">88dp</dimen>
     <dimen name="typography_large_title">20sp</dimen>
     <dimen name="typography_medium_title">18sp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+
 </resources>
