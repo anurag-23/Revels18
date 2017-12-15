@@ -3,8 +3,6 @@ package revels18.in.revels18.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,15 +24,10 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.adapters.CategoriesAdapter;
 import revels18.in.revels18.application.Revels;
-import revels18.in.revels18.models.categories.CategoriesListModel;
 import revels18.in.revels18.models.categories.CategoryModel;
-import revels18.in.revels18.network.APIClient;
 
 public class CategoriesFragment extends Fragment {
 
@@ -127,7 +120,7 @@ public class CategoriesFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_hardware, menu);
         searchItem = menu.findItem(R.id.action_search);
-        MenuItem filter = menu.findItem(R.id.menu_filter);
+        MenuItem filter = menu.findItem(R.id.action_filter);
         filter.setVisible(false);
         final SearchView searchView = (SearchView)searchItem.getActionView();
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);

@@ -31,7 +31,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         void onItemClick(ScheduleModel event, View view);
     }
     public interface FavouriteClickListener {
-        void onItemClick(ScheduleModel event);
+        void onItemClick(ScheduleModel event, boolean add);
     }
 
     public interface EventLongPressListener{
@@ -43,7 +43,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 .inflate(R.layout.item_event, parent, false);
         return new EventViewHolder(itemView);
     }
-
+    public void updateList(List<ScheduleModel> eventScheduleList){
+        this.eventScheduleList = eventScheduleList;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         ScheduleModel event = eventScheduleList.get(position);
@@ -62,13 +65,30 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         this.activity = activity;
     }
     public class EventViewHolder extends RecyclerView.ViewHolder{
-        public TextView eventName, eventVenue, eventTime;
+        public TextView eventName, eventVenue, eventTime, eventRound;
         public ImageView eventIcon, favIcon;
-        public RelativeLayout eventItem;
         public void onBind(final ScheduleModel event,final EventClickListener eventClickListener, final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
             eventVenue.setText(event.getVenue());
+            eventRound.setText(event.getStartTime());
+            //TODO: Check DB If event is a favourite and change favIcon accordingly
+            favIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Favourites Clicked
+                    String favTag = favIcon.getTag().toString();
+                    if(favTag.equals("deselected")){
+                        favIcon.setTag("selected");
+                        favIcon.setImageResource(R.drawable.ic_fav_selected);
+                        favouriteListener.onItemClick(event, true);
+                    }else{
+                        favIcon.setTag("deselected");
+                        favIcon.setImageResource(R.drawable.ic_fav_deselected);
+                        favouriteListener.onItemClick(event, false);
+                    }
+                }
+            });
         }
         public EventViewHolder(View view){
             super(view);
@@ -77,7 +97,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventName = (TextView)view.findViewById(R.id.event_name_text_view);
             eventVenue = (TextView)view.findViewById(R.id.event_venue_text_view);
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
-            eventItem = (RelativeLayout)view.findViewById(R.id.event_item_relative_layout);
+            eventRound = (TextView)view.findViewById(R.id.event_round_text_view);
+
         }
     }
 }
