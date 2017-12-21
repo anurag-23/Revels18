@@ -23,6 +23,7 @@ public class RevelsCupFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.bottom_nav_revels_cup);
     }
 
     @Override

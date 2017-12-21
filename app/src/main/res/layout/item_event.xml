@@ -55,7 +55,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="2"
                 android:text="Event Name"
-                android:textSize="@dimen/typography_subheading" />
+                android:textSize="@dimen/typography_subheading"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/event_fav_ico"

@@ -14,7 +14,7 @@
             android:id="@+id/bottom_nav_categories"
             android:icon="@drawable/bottom_nav_categories"
             android:title="@string/bottom_nav_categories" />
-        <!--TODO:Change Results and Revels icons-->
+        <!--TODO:Change Categories icons-->
         <item
             android:id="@+id/bottom_nav_revels_cup"
             android:icon="@drawable/bottom_nav_revels_cup"
@@ -24,5 +24,7 @@
             android:icon="@drawable/drawer_results"
             android:title="@string/bottom_nav_results" />
     </group>
+
+    <!--TODO:Change The text style of the title-->
 
 </menu>
