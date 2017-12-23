@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -70,9 +71,11 @@ public class CategoriesFragment extends Fragment {
         RecyclerView categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
-        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        categoriesRecyclerView.addItemDecoration(dividerItemDecoration);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        categoriesRecyclerView.setLayoutManager(gridLayoutManager);
+        //categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        //categoriesRecyclerView.addItemDecoration(dividerItemDecoration);
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
