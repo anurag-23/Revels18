@@ -1,13 +1,234 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="revels18.in.revels18.fragments.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/home_swipe_refresh_layout">
 
-</FrameLayout>
+        <android.support.v4.widget.NestedScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--Favourites Card-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/event_fragment"
+                                android:textSize="@dimen/typography_title"
+                                android:textColor="@color/black"
+                                android:fontFamily="sans-serif-medium"/>
+
+                            <TextView
+                                android:id="@+id/home_events_more_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:clickable="true"
+                                android:text="@string/more"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/typography_small"
+                                android:background="?android:attr/selectableItemBackground"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/home_events_none_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_events2"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_events_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <!--Categories Card-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/categories"
+                                android:textSize="@dimen/typography_title"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/home_categories_more_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:clickable="true"
+                                android:text="@string/more"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/typography_small"
+                                android:background="?android:attr/selectableItemBackground"/>
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/home_categories_none_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_categories"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_categories_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <!--Results Card-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/home_results_item"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/results"
+                                android:textSize="@dimen/typography_title"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/home_results_more_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:clickable="true"
+                                android:text="@string/more"
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/typography_small"
+                                android:background="?android:attr/selectableItemBackground"/>
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/home_results_none_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No Results available!"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_results_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:drawable/divider_horizontal_bright"/>
+
+                <TextView
+                    android:id="@+id/instagram_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/home_insta_title"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/typography_title" />
+                <ProgressBar
+                    android:id="@+id/insta_progress"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:indeterminateTint="@color/insta_text_grey"/>
+                <TextView
+                    android:id="@+id/insta_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unable_to_load_insta"
+                    android:textSize="@dimen/typography_body"
+                    android:visibility="gone"
+                    android:padding="10dp"/>
+                <!--InstaFeed Recycler View-->
+                <android.support.v7.widget.RecyclerView
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/home_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

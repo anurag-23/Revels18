@@ -167,12 +167,12 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
                     if(favIcon.getTag().equals("deselected")) {
                         favIcon.setImageResource(R.drawable.ic_fav_selected);
                         favIcon.setTag("selected");
-                        addFavourite(getScheduleFromEvent(event));
+                        addFavourite(event);
                         Snackbar.make(v.getRootView(), event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
                     }else{
                         favIcon.setImageResource(R.drawable.ic_fav_deselected);
                         favIcon.setTag("deselected");
-                        removeFavourite(getScheduleFromEvent(event));
+                        removeFavourite(event);
                         Snackbar.make(v.getRootView(), event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                     }
                 }
@@ -189,45 +189,37 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             dialog.show();
         }
     }
-    private void addFavourite(ScheduleModel eventSchedule){
+    private void addFavourite(EventModel event){
         FavouritesModel favourite = new FavouritesModel();
         //Get Corresponding EventDetailsModel from Realm
-        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
+        //EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
         //Create and Set Values for FavouritesModel
-        favourite.setId(eventSchedule.getEventID());
-        favourite.setCatID(eventSchedule.getCatID());
-        favourite.setEventName(eventSchedule.getEventName());
-        favourite.setRound(eventSchedule.getRound());
-        favourite.setVenue(eventSchedule.getVenue());
-        favourite.setDate(eventSchedule.getDate());
-        favourite.setDay(eventSchedule.getDay());
-        favourite.setStartTime(eventSchedule.getStartTime());
-        favourite.setEndTime(eventSchedule.getEndTime());
-        favourite.setParticipants(eventDetails.getMaxTeamSize());
-        favourite.setContactName(eventDetails.getContactName());
-        favourite.setContactNumber(eventDetails.getContactNo());
-        favourite.setCatName(eventDetails.getCatName());
-        favourite.setDescription(eventDetails.getDescription());
+        favourite.setId(event.getEventId());
+        favourite.setCatID(event.getCatId());
+        favourite.setEventName(event.getEventName());
+        favourite.setRound(event.getRound());
+        favourite.setVenue(event.getVenue());
+        favourite.setDate(event.getDate());
+        favourite.setDay(event.getDay());
+        favourite.setStartTime(event.getStartTime());
+        favourite.setEndTime(event.getEndTime());
+        favourite.setParticipants(event.getEventMaxTeamNumber());
+        favourite.setContactName(event.getContactName());
+        favourite.setContactNumber(event.getContactNumber());
+        favourite.setCatName(event.getCatName());
+        favourite.setDescription(event.getDescription());
         //Commit to Realm
         realm.beginTransaction();
         realm.copyToRealm(favourite);
         realm.commitTransaction();
-        //addNotification(eventSchedule);
+        addNotification(event);
         favourites.add(favourite);
     }
-    private void removeFavourite(ScheduleModel eventSchedule){
+    private void removeFavourite(EventModel event){
         realm.beginTransaction();
-        realm.where(FavouritesModel.class).equalTo("id",eventSchedule.getEventID()).equalTo("day",eventSchedule.getDay()).findAll().deleteAllFromRealm();
+        realm.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("day", event.getDay()).findAll().deleteAllFromRealm();
         realm.commitTransaction();
-
-        for(int i=0;i<favourites.size();i++){
-            //Removing corresponding FavouritesModel from favourites
-            FavouritesModel favourite = favourites.get(i);
-            if((favourite.getId().equals(eventSchedule.getEventID()))&&(favourite.getDay().equals(eventSchedule.getDay()))){
-                favourites.remove(favourite);
-            }
-        }
-        //removeNotification(eventSchedule);
+        removeNotification(event);
     }
     private boolean favouritesContainsEvent(ScheduleModel eventSchedule){
         for(FavouritesModel favourite : favourites){
@@ -238,18 +230,18 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         }
         return false;
     }
-    private void addNotification(ScheduleModel event){
+    private void addNotification(EventModel event){
         Intent intent = new Intent(activity, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
-        intent.putExtra("eventID", event.getEventID());
+        intent.putExtra("eventID", event.getEventId());
         intent.putExtra("catName", event.getCatName());
         Log.i("CategoryEventsAdapter", "addNotification: "+event.getStartTime());
         AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
         //Request Codes
-        int RC1 = Integer.parseInt(event.getCatID()+event.getEventID()+"0");
-        int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
+        int RC1 = Integer.parseInt(event.getCatId()+event.getEventId()+"0");
+        int RC2 = Integer.parseInt(event.getCatId()+event.getEventId()+"1");
         pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
@@ -292,17 +284,17 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             Log.d("Alarm", "set for "+calendar3.toString());
         }
     }
-    private void removeNotification(ScheduleModel event){
+    private void removeNotification(EventModel event){
         Intent intent = new Intent(activity, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
-        intent.putExtra("eventID", event.getEventID());
+        intent.putExtra("eventID", event.getEventId());
 
         AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
         //Request Codes
-        int RC1 = Integer.parseInt(event.getCatID()+event.getEventID()+"0");
-        int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
+        int RC1 = Integer.parseInt(event.getCatId()+event.getEventId()+"0");
+        int RC2 = Integer.parseInt(event.getCatId()+event.getEventId()+"1");
         pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent1);

@@ -18,14 +18,17 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/padding_default">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_1_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/favourites_day_1_card_view"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +51,7 @@
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_events"
+                        android:text="@string/no_favourites"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
@@ -64,19 +67,23 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+        </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/favourites_day_2_card_view"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
-                <LinearLayout
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/favourites_day_2_card_view"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -95,7 +102,7 @@
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_events"
+                        android:text="@string/no_favourites"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
@@ -111,19 +118,23 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_3_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
-                <LinearLayout
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/favourites_day_3_card_view"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,7 +154,7 @@
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_events"
+                        android:text="@string/no_favourites"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
@@ -159,20 +170,23 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_4_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <LinearLayout
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/favourites_day_4_card_view"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -192,7 +206,7 @@
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_events"
+                        android:text="@string/no_favourites"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
@@ -208,6 +222,7 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            </FrameLayout>
         </LinearLayout>
 
 
