@@ -1,7 +1,11 @@
 package revels18.in.revels18.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.DateFormat;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -16,6 +20,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
@@ -24,6 +32,15 @@ import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.fragments.HomeFragment;
 import revels18.in.revels18.fragments.ResultsFragment;
 import revels18.in.revels18.fragments.RevelsCupFragment;
+import revels18.in.revels18.models.categories.CategoriesListModel;
+import revels18.in.revels18.models.categories.CategoryModel;
+import revels18.in.revels18.models.events.EventDetailsModel;
+import revels18.in.revels18.models.events.EventsListModel;
+import revels18.in.revels18.models.events.ScheduleListModel;
+import revels18.in.revels18.models.events.ScheduleModel;
+import revels18.in.revels18.models.results.ResultModel;
+import revels18.in.revels18.models.results.ResultsListModel;
+import revels18.in.revels18.network.APIClient;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -31,10 +48,13 @@ import static android.view.View.VISIBLE;
 public class MainActivity extends AppCompatActivity  {
     private FragmentManager fm;
     Fragment selectedFragment;
+    private Realm mDatabase;
     ///private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
+    Boolean isConnected;
+    private Context context = this;
     //String CCT_LAUNCH_URL = "https://www.techtatva.in";
     //private FirebaseRemoteConfig firebaseRemoteConfig;
 
@@ -55,6 +75,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDatabase = Realm.getDefaultInstance();
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(Color.parseColor("#0d0d0d"));
@@ -80,11 +101,17 @@ public class MainActivity extends AppCompatActivity  {
         navigation.setSelected(true);
 
         fm = getSupportFragmentManager();
-
         /*firebaseRemoteConfig=FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .build();
         firebaseRemoteConfig.setConfigSettings(configSettings);*/
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+            loadAllFromInternet();
+            Log.i(TAG, "onCreate: Connected and background updated");
+        }
     }
 
     @Override
@@ -279,13 +306,13 @@ public class MainActivity extends AppCompatActivity  {
                 });*/
     }
     public void changeFragment(Fragment fragment){
-        if(fragment.getClass() == FavouritesFragment.class){
+        /*if(fragment.getClass() == FavouritesFragment.class){
             //drawerView.setCheckedItem(R.id.drawer_favourites);
             appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
             navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
             appBarLayout.setVisibility(VISIBLE);
             navigation.setVisibility(GONE);
-        }else if(fragment.getClass() == ResultsFragment.class){
+        }else*/ if(fragment.getClass() == ResultsFragment.class){
             //drawerView.setCheckedItem(R.id.drawer_results);
             appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
             appBarLayout.setVisibility(VISIBLE);
@@ -302,5 +329,93 @@ public class MainActivity extends AppCompatActivity  {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, fragment);
         transaction.commit();
+    }
+
+    private void loadAllFromInternet(){
+        //loadResultsFromInternet();
+        loadEventsFromInternet();
+        loadSchedulesFromInternet();
+        loadCategoriesFromInternet();
+    }
+    private void loadEventsFromInternet() {
+
+        Call<EventsListModel> eventsCall = APIClient.getAPIInterface().getEventsList();
+        eventsCall.enqueue(new Callback<EventsListModel>() {
+            @Override
+            public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    Log.d(TAG, "onResponse: Loading events....");
+                    mDatabase.beginTransaction();
+                    mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getEvents());
+                    mDatabase.commitTransaction();
+                    Log.d(TAG,"Events updated in background");
+                }
+            }
+            @Override
+            public void onFailure(Call<EventsListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Events not updated ");
+            }
+        });
+    }
+    private void loadSchedulesFromInternet() {
+        Call<ScheduleListModel> schedulesCall = APIClient.getAPIInterface().getScheduleList();
+        schedulesCall.enqueue(new Callback<ScheduleListModel>() {
+            @Override
+            public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    mDatabase.beginTransaction();
+                    mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                    Log.d(TAG,"Schedule updated in background");
+                }
+            }
+            @Override
+            public void onFailure(Call<ScheduleListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Schedules not updated ");
+            }
+        });
+    }
+
+    private void loadCategoriesFromInternet() {
+        Call<CategoriesListModel> categoriesCall = APIClient.getAPIInterface().getCategoriesList();
+        categoriesCall.enqueue(new Callback<CategoriesListModel>() {
+            @Override
+            public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    mDatabase.beginTransaction();
+                    mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
+                    //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
+                    mDatabase.copyToRealm(response.body().getCategoriesList());
+                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
+                    mDatabase.commitTransaction();
+                    Log.d(TAG,"Categories updated in background");
+                }
+            }
+            @Override
+            public void onFailure(Call<CategoriesListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Categories not updated");
+            }
+        });
+    }
+    private void loadResultsFromInternet(){
+        Call<ResultsListModel> resultsCall = APIClient.getAPIInterface().getResultsList();
+        resultsCall.enqueue(new Callback<ResultsListModel>() {
+            @Override
+            public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    mDatabase.beginTransaction();
+                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                    Log.d(TAG, "Results updated in the background");
+                }
+            }
+            @Override
+            public void onFailure(Call<ResultsListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Results not updated");
+            }
+        });
     }
 }

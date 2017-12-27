@@ -88,9 +88,9 @@ public class SplashActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Snackbar.make(rootLayout, "Updating data", Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(rootLayout, "Updating data", Snackbar.LENGTH_SHORT).show();
 
-                            loadAllFromInternet();
+                            //loadAllFromInternet();
                             moveForward();
                         }
                     }, 1000);
@@ -108,8 +108,8 @@ public class SplashActivity extends AppCompatActivity {
             }
             else{
                 Log.d("Splash","Data not avail local");
-                if (!isConnected){Log.d(TAG,"not connected");
-
+                if (!isConnected){
+                    Log.d(TAG,"not connected");
                     final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
                     Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
                     noConnectionLayout.setVisibility(View.VISIBLE);
