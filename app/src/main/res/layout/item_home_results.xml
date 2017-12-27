@@ -25,7 +25,6 @@
     <LinearLayout
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingBottom="@dimen/padding_half"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="34dp"
             tools:text="Event Name"
+            android:textColor="@color/black"
             android:textSize="@dimen/typography_body"
             android:gravity="center"
             android:ellipsize="end"

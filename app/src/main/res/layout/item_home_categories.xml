@@ -3,6 +3,10 @@
 <RelativeLayout android:layout_width="98dp"
     android:id="@+id/home_categories_item"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding_half"
+    android:layout_marginBottom="@dimen/padding_half"
+    android:paddingTop="@dimen/padding_half"
+    android:paddingBottom="@dimen/padding_half"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground">
@@ -25,7 +29,6 @@
     <LinearLayout
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingBottom="@dimen/padding_half"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,8 +41,9 @@
         <TextView
             android:id="@+id/home_category_name_text_view"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="wrap_content"
             tools:text="Event Name"
+            android:textColor="@color/black"
             android:textSize="@dimen/typography_body"
             android:gravity="center"
             android:ellipsize="end"

@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
         resultsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
-        fetchResults();
+        updateResultsList();
         resultsMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,10 +255,12 @@ public class HomeFragment extends Fragment {
     }
     public void updateResultsList(){
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
-        if (!results.isEmpty()){
+        List<ResultModel> resultsArrayList=new ArrayList<>();;
+        resultsArrayList=mDatabase.copyFromRealm(results);
+        if (!resultsArrayList.isEmpty()){
             resultsList.clear();
             List<String> eventNamesList = new ArrayList<>();
-            for (ResultModel result : results){
+            for (ResultModel result : resultsArrayList){
                 String eventName = result.getEventName()+" "+result.getRound();
                 if (eventNamesList.contains(eventName)){
                     resultsList.get(eventNamesList.indexOf(eventName)).eventResultsList.add(result);
