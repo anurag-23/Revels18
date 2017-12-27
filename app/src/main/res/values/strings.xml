@@ -30,7 +30,7 @@
     <string name="no_categories">No Categories Available</string>
     <string name="unable_to_load_insta">Unable to load Instagram feed. Swipe down to retry!</string>
     <string name="home_insta_title">#Revels18 on Instagram</string>
-    <string name="more">More</string>
+    <string name="more">MORE</string>
     <string name="event_fragment">Events</string>
     <string name="retry">Retry</string>
     <string name="no_connection_text">Please connect to the internet and retry</string>

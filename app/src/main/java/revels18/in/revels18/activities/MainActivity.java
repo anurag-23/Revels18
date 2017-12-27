@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void loadAllFromInternet(){
-        //loadResultsFromInternet();
+        loadResultsFromInternet();
         loadEventsFromInternet();
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();

@@ -60,7 +60,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.favourite_event, parent, false);
+                .inflate(R.layout.item_home_event, parent, false);
         return new EventViewHolder(itemView);
     }
     @Override
