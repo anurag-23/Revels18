@@ -28,7 +28,9 @@ import io.realm.Realm;
 import revels18.in.revels18.R;
 import revels18.in.revels18.adapters.EventsAdapter;
 import revels18.in.revels18.application.Revels;
+import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
+import revels18.in.revels18.models.favorites.FavouritesModel;
 import revels18.in.revels18.views.SwipeScrollView;
 
 public class EventsFragment extends Fragment {
@@ -82,7 +84,6 @@ public class EventsFragment extends Fragment {
                     }else{
                         Snackbar.make(view, event.getEventName()+" removed from Favourites!",Snackbar.LENGTH_SHORT).show();
                     }
-                    //TODO: Add/Remove event from Favourites in DB
 
                 }
             };
