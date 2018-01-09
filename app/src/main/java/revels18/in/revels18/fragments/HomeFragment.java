@@ -327,7 +327,7 @@ public class HomeFragment extends Fragment {
         });
     }
     public boolean isFavourite(ScheduleModel event){
-        RealmResults<FavouritesModel> favouritesRealmList = mDatabase.where(FavouritesModel.class).equalTo("id",event.getEventID()).contains("day", event.getDay()).findAll();
+        RealmResults<FavouritesModel> favouritesRealmList = mDatabase.where(FavouritesModel.class).equalTo("id",event.getEventID()).contains("day", event.getDay()).equalTo("round", event.getRound()).findAll();
         return (favouritesRealmList.size()!=0);
     }
     public boolean isFavourite(EventResultModel result){

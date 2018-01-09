@@ -222,12 +222,11 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         removeNotification(event);
     }
     private boolean favouritesContainsEvent(ScheduleModel eventSchedule){
-        for(FavouritesModel favourite : favourites){
-            //Checking if Corresponding Event exists
-            if((favourite.getId().equals(eventSchedule.getEventID()))&&(favourite.getDay().equals(eventSchedule.getDay()))){
-                return true;
-            }
+        FavouritesModel favourite = realm.where(FavouritesModel.class).equalTo("id", event.getEventId()).equalTo("day",event.getDay()).equalTo("round" ,event.getRound()).findFirst();
+        if(favourite!=null){
+            return true;
         }
+
         return false;
     }
     private void addNotification(EventModel event){

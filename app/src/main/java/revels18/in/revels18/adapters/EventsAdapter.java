@@ -65,14 +65,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         return eventScheduleList.size();
     }
     public EventsAdapter(Activity activity, List<ScheduleModel> events, EventClickListener eventListener, EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
-        this.eventScheduleList = events;
+        this.eventScheduleList = realm.copyFromRealm(events);
         this.eventListener = eventListener;
         this.favouriteListener = favouriteListener;
         this.eventLongPressListener=eventLongPressListener;
         this.activity = activity;
     }
     public boolean isFavourite(ScheduleModel event){
-        FavouritesModel favourite = realm.where(FavouritesModel.class).equalTo("id", event.getEventID()).equalTo("day",event.getDay()).findFirst();
+        FavouritesModel favourite = realm.where(FavouritesModel.class).equalTo("id", event.getEventID()).equalTo("day",event.getDay()).equalTo("round" ,event.getRound()).findFirst();
         if(favourite!=null){
             return true;
         }
@@ -83,7 +83,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         FavouritesModel favourite = new FavouritesModel();
         Log.i(TAG, "addFavourite: "+eventSchedule.getEventID());
         //Get Corresponding EventDetailsModel from Realm
-        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
+        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).equalTo("day", eventSchedule.getDay()).findFirst();
         //Create and Set Values for FavouritesModel
         favourite.setId(eventSchedule.getEventID());
         favourite.setCatID(eventSchedule.getCatID());
@@ -193,8 +193,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventRound.setText(event.getStartTime());
             if(isFavourite(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
+                favIcon.setTag("selected");
             }else{
                 favIcon.setImageResource(R.drawable.ic_fav_deselected);
+                favIcon.setTag("deselected");
             }
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -211,7 +213,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                         favIcon.setImageResource(R.drawable.ic_fav_deselected);
                         removeFavourite(event);
                         favouriteListener.onItemClick(event, false);
-                    }                        addFavourite(event);
+                    }
                 }
             });
             container.setOnClickListener(new View.OnClickListener() {

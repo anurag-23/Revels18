@@ -17,6 +17,15 @@
     <string name="fest_name">Revels\'18</string>
     <string name="categories">Categories</string>
     <string name="action_search">Search</string>
+    <string name="select_event_venue">Venue:</string>
+    <string name="select_start_time">Start Time:</string>
+    <string name="select_category">Category:</string>
+    <string name="select_event_type">Event Type:</string>
+    <string name="default_start_time">12:00 PM</string>
+    <string name="default_end_time">11:00 PM</string>
+    <string name="select_end_time">End Time:</string>
+    <string name="clear_filters">CLEAR FILTERS</string>
+    <string name="apply_filter">APPLY</string>
     <string name="filter_events">Filter</string>
     <string name="no_favourites">No favourites</string>
     <string name="day_1">Day 1</string>
