@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,9 +63,8 @@ public class EventsFragment extends Fragment {
     RecyclerView eventsRV;
     Realm realm = Realm.getDefaultInstance();
     List<ScheduleModel> events;
-    List<ScheduleModel> day1events = new ArrayList<>();
-    List<EventModel> eventsList;
-    List<EventModel> allEvents;
+    List<ScheduleModel> currentDayEvents = new ArrayList<>();
+    List<ScheduleModel> filteredEvents = new ArrayList<>();
     EventsAdapter adapter;
     SwipeScrollView swipeSV;
     GestureDetector swipeDetector;
@@ -79,8 +79,7 @@ public class EventsFragment extends Fragment {
     private String filterCategory = "All";
     private String filterVenue = "All";
     private String filterEventType = "All";
-    private String startTimeFilter;
-    private String endTimeFilter;
+    private View rootView;
     private List<String> categoriesList = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
     private List<String> eventTypeList = new ArrayList<>();
@@ -104,18 +103,13 @@ public class EventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         final View view= inflater.inflate(R.layout.fragment_events, container, false);
+        rootView = view;
         initViews(view);
-        events = realm.where(ScheduleModel.class).findAll();
+        events = realm.copyFromRealm(realm.where(ScheduleModel.class).findAll());
 
         if(events.size() ==0){
             noEventsTV.setVisibility(View.VISIBLE);
         }else{
-            //List<ScheduleModel> day1events = new ArrayList<>();
-            for (int i = 0; i <events.size() ; i++) {
-                if(events.get(i).getDay().contains(1+"")){
-                    day1events.add(events.get(i));
-                }
-            }
             EventsAdapter.FavouriteClickListener favClickListener = new EventsAdapter.FavouriteClickListener() {
                 @Override
                 public void onItemClick(ScheduleModel event, boolean add) {
@@ -128,16 +122,20 @@ public class EventsFragment extends Fragment {
 
                 }
             };
+            //Fetching list of Venues, Categories and Event names for the filter
             getAllCategories();
             getAllEvents();
             getAllVenues();
-            adapter = new EventsAdapter(getActivity(),day1events, null, null,favClickListener);
+
+            //Binding the Events RecyclerView to the EventsAdapter
+            adapter = new EventsAdapter(getActivity(),filteredEvents, null, null,favClickListener);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             eventsRV.setLayoutManager(layoutManager);
             eventsRV.setItemAnimator(new DefaultItemAnimator());
             eventsRV.setAdapter(adapter);
-//            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(nulleventsRV.getContext(), DividerItemDecoration.VERTICAL);
-//            eventsRV.addItemDecoration(dividerItemDecoration);
+            //Showing 'Day 1' tab by default
+            dayFilter(1);
+
 
         }
         return view;
@@ -173,24 +171,43 @@ public class EventsFragment extends Fragment {
             }
         }
     }
+
     private void applyFilters(){
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
         Date startDate = null;
         Date endDate = null;
+        //Adding all the events of the current day to the currentDayEvents List and filtering those
+        //If this step is not done then the filtering is done on the list that has already been filtered
+        dayFilter(tabs.getSelectedTabPosition()+1);
         List<ScheduleModel> tempList = new ArrayList<>();
-        tempList.addAll(day1events);
-        events.clear();
+        tempList.addAll(currentDayEvents);
 
-        for (ScheduleModel event : tempList) {
+
+        for (ScheduleModel event : currentDayEvents) {
             try{
-                if (!filterCategory.equals("All") && !filterCategory.toLowerCase().equals(event.getCatName().toLowerCase()))
-                    continue;
+                if (!filterCategory.equals("All") && !filterCategory.toLowerCase().equals(event.getCatName().toLowerCase())){
+                    //Filtering the category
+                    if(tempList.contains(event)){
+                        tempList.remove(event);
+                        continue;
+                    }
+                }
 
-                if (!filterVenue.equals("All") && !event.getVenue().toLowerCase().contains(filterVenue.toLowerCase()))
-                    continue;
+                if (!filterVenue.equals("All") && !event.getVenue().toLowerCase().contains(filterVenue.toLowerCase())){
+                    //Filtering based on venue
+                    if(tempList.contains(event)){
+                        tempList.remove(event);
+                        continue;
+                    }
+                }
 
-                if (!filterEventType.equals("All") && !filterEventType.toLowerCase().equals(event.getEventName().toLowerCase()))
-                    continue;
+                if (!filterEventType.equals("All") && !filterEventType.toLowerCase().equals(event.getEventName().toLowerCase())){
+                    //Filtering based on Event Type
+                    if(tempList.contains(event)){
+                        tempList.remove(event);
+                        continue;
+                    }
+                }
 
                 startDate = sdf.parse(event.getStartTime());
                 endDate = sdf.parse(event.getEndTime());
@@ -208,8 +225,11 @@ public class EventsFragment extends Fragment {
                 c4.set(c2.get(Calendar.YEAR), c2.get(Calendar.MONTH), c2.get(Calendar.DATE), filterEndHour, filterEndMinute, c2.get(Calendar.SECOND));
                 c4.set(Calendar.MILLISECOND, c2.get(Calendar.MILLISECOND));
 
-                if ((c1.getTimeInMillis() >= c3.getTimeInMillis()) && (c2.getTimeInMillis() <= c4.getTimeInMillis())){
-                    events.add(event);
+                if (!((c1.getTimeInMillis() >= c3.getTimeInMillis()) && (c2.getTimeInMillis() <= c4.getTimeInMillis()))){
+                    if(tempList.contains(event)){
+                        tempList.remove(event);
+                        continue;
+                    }
                 }
 
             }catch(Exception e){
@@ -217,7 +237,7 @@ public class EventsFragment extends Fragment {
             }
         }
 
-        if (events.isEmpty()){
+        if (tempList.isEmpty()){
             if (view != null)
                 Snackbar.make(view, "No events found!", Snackbar.LENGTH_SHORT).show();
         }
@@ -226,7 +246,8 @@ public class EventsFragment extends Fragment {
                 Snackbar.make(view, "Filters applied for Day "+getArguments().getInt("day", 1)+"!", Snackbar.LENGTH_SHORT).show();
         }
 
-        adapter.notifyDataSetChanged();
+        adapter.updateList(tempList);
+
     }
     private void clearFilters(){
         filterStartHour = 12;
@@ -406,14 +427,11 @@ public class EventsFragment extends Fragment {
                 clearFiltersLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        eventsList.clear();
-                        eventsList.addAll(allEvents);
                         dialog.hide();
-                        adapter.notifyDataSetChanged();
                         clearFilters();
-
+                        applyFilters();
                         if(eventsLayout != null)
-                            Snackbar.make(eventsLayout, "Filters cleared!", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(rootView, "Filters cleared!", Snackbar.LENGTH_SHORT).show();
                     }
                 });
 
@@ -479,20 +497,22 @@ public class EventsFragment extends Fragment {
         });
     }
     public void dayFilter(int day){
-        List<ScheduleModel> temp = new ArrayList<>();
+        currentDayEvents.clear();
         for(int i=0;i<events.size();i++){
             if(events.get(i).getDay().contains(day+"")){
-                temp.add(events.get(i));
+                currentDayEvents.add(events.get(i));
             }
         }
-        adapter.updateList(temp);
+        adapter.updateList(currentDayEvents);
     }
+    //TODO(Low Priority) : Search query persistance across tabs
     public void queryFilter(String query){
         query = query.toLowerCase();
         List<ScheduleModel> temp = new ArrayList<>();
-        for(int i=0;i<events.size();i++){
-            if(events.get(i).getEventName().toLowerCase().contains(query) || events.get(i).getCatName().toLowerCase().contains(query)){
-                temp.add(events.get(i));
+        for(int i=0;i<currentDayEvents.size();i++){
+            if((currentDayEvents.get(i).getEventName().toLowerCase().contains(query) || currentDayEvents.get(i).getCatName().toLowerCase().contains(query))){
+                temp.add(currentDayEvents.get(i));
+                Log.d(TAG, "queryFilter: "+currentDayEvents.get(i).getEventName());
             }
         }
         adapter.updateList(temp);
@@ -507,18 +527,26 @@ public class EventsFragment extends Fragment {
                 case 1:
                     //Day 1 Tab Selected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 case 2:
                     //Day 2 Tab Selected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 case 3:
                     //Day 3 Tab Selected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 case 4:
                     //Day 4 Tab Selected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 default:
                     Log.d(TAG, "onTabSelected: Error in the tab index");
@@ -541,14 +569,20 @@ public class EventsFragment extends Fragment {
                 case 1:
                     //Day 1 Tab ReSelected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 case 2:
                     //Day 2 Tab ReSelected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 case 3:
                     //Day 3 Tab ReSelected
                     dayFilter(day);
+                    applyFilters();
+
                     break;
                 default:
                     Log.d(TAG, "onTabReSelected: Error in the tab index");

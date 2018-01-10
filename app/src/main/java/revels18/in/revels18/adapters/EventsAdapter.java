@@ -51,7 +51,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         return new EventViewHolder(itemView);
     }
     public void updateList(List<ScheduleModel> eventScheduleList){
-        this.eventScheduleList = eventScheduleList;
+        this.eventScheduleList.clear();
+        this.eventScheduleList.addAll(eventScheduleList);
         notifyDataSetChanged();
     }
     @Override
@@ -65,7 +66,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         return eventScheduleList.size();
     }
     public EventsAdapter(Activity activity, List<ScheduleModel> events, EventClickListener eventListener, EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
-        this.eventScheduleList = realm.copyFromRealm(events);
+        this.eventScheduleList = events;
         this.eventListener = eventListener;
         this.favouriteListener = favouriteListener;
         this.eventLongPressListener=eventLongPressListener;
@@ -94,23 +95,28 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         favourite.setDay(eventSchedule.getDay());
         favourite.setStartTime(eventSchedule.getStartTime());
         favourite.setEndTime(eventSchedule.getEndTime());
-        favourite.setParticipants(eventDetails.getMaxTeamSize());
-        favourite.setContactName(eventDetails.getContactName());
-        favourite.setContactNumber(eventDetails.getContactNo());
-        favourite.setCatName(eventDetails.getCatName());
-        favourite.setDescription(eventDetails.getDescription());
+        if(eventDetails!=null) {
+            favourite.setParticipants(eventDetails.getMaxTeamSize());
+            favourite.setContactName(eventDetails.getContactName());
+            favourite.setContactNumber(eventDetails.getContactNo());
+            favourite.setCatName(eventDetails.getCatName());
+            favourite.setDescription(eventDetails.getDescription());
+        }
         //Commit to Realm
-        realm.beginTransaction();
-        realm.copyToRealm(favourite);
-        realm.commitTransaction();
+        if(realm!=null){
+            realm.beginTransaction();
+            realm.copyToRealm(favourite);
+            realm.commitTransaction();
+        }
         //TODO: Add notification for favourite event
     }
     public void removeFavourite(ScheduleModel event){
         realm.beginTransaction();
-        realm.where(FavouritesModel.class).equalTo("id",event.getEventID()).equalTo("day",event.getDay()).findAll().deleteAllFromRealm();
+        realm.where(FavouritesModel.class).equalTo("id",event.getEventID()).equalTo("day",event.getDay()).equalTo("round", event.getRound()).findAll().deleteAllFromRealm();
         realm.commitTransaction();
         //TODO: Remove Notification
     }
+
     private void displayBottomSheet(final ScheduleModel event, Context context){
         final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(context);
