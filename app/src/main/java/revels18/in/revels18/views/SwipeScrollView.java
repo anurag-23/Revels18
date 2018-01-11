@@ -25,7 +25,6 @@ public class SwipeScrollView extends NestedScrollView {
     }
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.d(TAG, "onTouchEvent: ");
         if (gestureDetector.onTouchEvent(ev))
             return true;
         else
