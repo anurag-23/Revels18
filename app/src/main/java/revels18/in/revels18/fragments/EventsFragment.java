@@ -5,12 +5,10 @@ import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
+
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -274,9 +272,6 @@ public class EventsFragment extends Fragment {
                 final Dialog dialog = new Dialog(getActivity());
 
                 dialog.setContentView(view);
-
-                /*BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);*/
 
                 LinearLayout clearFiltersLayout = (LinearLayout)view.findViewById(R.id.clear_filters_layout);
                 LinearLayout startTimeLayout = (LinearLayout)view.findViewById(R.id.filter_start_time_layout);

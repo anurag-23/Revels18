@@ -1,7 +1,10 @@
 package revels18.in.revels18.adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,7 +21,6 @@ import java.util.List;
 import io.realm.Realm;
 import revels18.in.revels18.R;
 import revels18.in.revels18.models.events.EventDetailsModel;
-import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 
@@ -117,11 +119,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         //TODO: Remove Notification
     }
 
-    private void displayBottomSheet(final ScheduleModel event, Context context){
+    private void displayEventDialog(final ScheduleModel event, Context context){
         final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(context);
+        final Dialog dialog = new Dialog(context);
+        dialog.setCanceledOnTouchOutside(true);
         final String eventID = event.getEventID();
-
         EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
         //TODO: Add Icons for the event logo
@@ -185,7 +187,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
         deleteIcon.setVisibility(View.GONE);
         dialog.setContentView(view);
-        Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
+        //Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
         dialog.show();
     }
     public class EventViewHolder extends RecyclerView.ViewHolder{
@@ -226,7 +228,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 @Override
                 public void onClick(View view) {
                     Log.i(TAG, "onClick: Event clicked"+event.getEventName());
-                    displayBottomSheet(event, view.getContext());
+                    displayEventDialog(event, view.getContext());
 
                 }
             });
@@ -242,4 +244,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             container = view.findViewById(R.id.event_item_relative_layout);
         }
     }
+
 }
+
