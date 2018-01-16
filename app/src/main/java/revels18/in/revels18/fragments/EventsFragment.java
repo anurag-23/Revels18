@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.Snackbar;
@@ -24,15 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
-import com.appyvet.rangebar.IRangeBarFormatter;
-import com.appyvet.rangebar.RangeBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,12 +41,12 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import revels18.in.revels18.R;
+import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.MainActivity;
+import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.EventsAdapter;
 import revels18.in.revels18.application.Revels;
-import revels18.in.revels18.models.events.EventDetailsModel;
-import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
-import revels18.in.revels18.models.favorites.FavouritesModel;
 import revels18.in.revels18.views.SwipeScrollView;
 
 public class EventsFragment extends Fragment {
@@ -259,7 +255,7 @@ public class EventsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_hardware, menu);
+        inflater.inflate(R.menu.menu_schedule, menu);
         Log.d(TAG, "onCreateOptionsMenu: ");
         searchItem = menu.findItem(R.id.action_search);
         filterItem = menu.findItem(R.id.action_filter);
@@ -467,6 +463,21 @@ public class EventsFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_registrations:{
+                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                return true;
+            }
+            case R.id.menu_favourites: {
+                startActivity(new Intent((MainActivity)getActivity(), FavouritesActivity.class));
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

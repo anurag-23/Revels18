@@ -3,13 +3,12 @@ package revels18.in.revels18.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -24,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import revels18.in.revels18.R;
+import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.MainActivity;
+import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.CategoriesAdapter;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.models.categories.CategoryModel;
@@ -87,7 +88,7 @@ public class CategoriesFragment extends Fragment {
     private void displayData(){
         if (mDatabase != null){
             categoriesList.clear();
-            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
+            List<CategoryModel> categoryResults = mDatabase.copyFromRealm(mDatabase.where(CategoryModel.class).findAllSorted("categoryName"));
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
@@ -102,10 +103,9 @@ public class CategoriesFragment extends Fragment {
         }*/
         if (mDatabase != null){
             categoriesList.clear();
-            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName");
+            List<CategoryModel> categoryResults = mDatabase.copyFromRealm(mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName"));
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
-                categoriesList = mDatabase.copyFromRealm(categoryResults);
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
             }
@@ -121,10 +121,8 @@ public class CategoriesFragment extends Fragment {
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_hardware, menu);
+        inflater.inflate(R.menu.menu_categories, menu);
         searchItem = menu.findItem(R.id.action_search);
-        MenuItem filter = menu.findItem(R.id.action_filter);
-        filter.setVisible(false);
         final SearchView searchView = (SearchView)searchItem.getActionView();
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -156,6 +154,22 @@ public class CategoriesFragment extends Fragment {
 
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_registrations:{
+                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                return true;
+            }
+            case R.id.menu_favourites: {
+                startActivity(new Intent((MainActivity)getActivity(), FavouritesActivity.class));
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();

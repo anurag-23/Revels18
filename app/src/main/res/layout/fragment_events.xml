@@ -13,7 +13,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/padding_default">
+            android:paddingBottom="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false">
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
@@ -26,19 +28,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/day_1"
-                    android:textColor="@color/white"
-                    android:fontFamily="sans-serif-medium"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="@dimen/padding_default"
-                    android:paddingRight="@dimen/padding_default"
-                    android:textSize="@dimen/typography_title"
-                    android:background="?android:attr/selectableItemBackground"/>
+                android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
                 <TextView
                     android:id="@+id/events_no_events_text_view"
@@ -49,17 +41,16 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:paddingRight="@dimen/padding_default"
                     android:textSize="@dimen/typography_subheading"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="@dimen/padding_default" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/events_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
                     android:clipToPadding="false"
-                    android:paddingLeft="@dimen/padding_half"
-                    android:paddingRight="@dimen/padding_half"
-                    android:nestedScrollingEnabled="false"/>
+                    android:clipChildren="false"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -9,8 +9,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardElevation="3dp">
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:id="@+id/insta_feed_item_linear_layout"

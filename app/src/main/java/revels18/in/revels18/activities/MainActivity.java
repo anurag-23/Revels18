@@ -3,7 +3,6 @@ package revels18.in.revels18.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.text.DateFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -28,7 +27,6 @@ import revels18.in.revels18.R;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
 import revels18.in.revels18.fragments.EventsFragment;
-import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.fragments.HomeFragment;
 import revels18.in.revels18.fragments.ResultsFragment;
 import revels18.in.revels18.fragments.RevelsCupFragment;
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_drawer, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -124,14 +122,6 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.menu_registrations:{
-            startActivity(new Intent(MainActivity.this, RegistrationsActivity.class));
-            return true;
-        }
-            case R.id.menu_favourites: {
-            startActivity(new Intent(MainActivity.this, FavouritesActivity.class));
-            return true;
-        }
             case R.id.menu_pro_show: {
             startActivity(new Intent(MainActivity.this, ProShowActivity.class));
             return true;
@@ -314,10 +304,7 @@ public class MainActivity extends AppCompatActivity  {
             navigation.setVisibility(GONE);
         }else*/ if(fragment.getClass() == ResultsFragment.class){
             //drawerView.setCheckedItem(R.id.drawer_results);
-            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-            appBarLayout.setVisibility(VISIBLE);
-            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-            navigation.setVisibility(GONE);
+            navigation.setSelectedItemId(R.id.bottom_nav_results);
         }else if(fragment.getClass() ==  CategoriesFragment.class){
             navigation.setSelectedItemId(R.id.bottom_nav_categories);
         }else if(fragment.getClass() == EventsFragment.class){

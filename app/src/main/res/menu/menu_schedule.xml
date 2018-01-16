@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="1"
+        android:title="@string/action_search"
+        android:icon="@drawable/ic_search"
+        app:actionViewClass= "android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_filter"
+        android:title="@string/filter_events"
+        android:icon="@drawable/ic_filter_list"
+        android:orderInCategory="2"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_registrations"
+        android:title="@string/registrations"
+        android:icon="@drawable/ic_registrations_24dp"
+        app:showAsAction="never"
+        android:orderInCategory="3"/>
+    <item
+        android:id="@+id/menu_favourites"
+        android:title="@string/drawer_favourites"
+        android:icon="@drawable/ic_fav_deselected"
+        app:showAsAction="never"
+        android:orderInCategory="4"/>
+</menu>

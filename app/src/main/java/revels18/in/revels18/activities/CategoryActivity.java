@@ -68,6 +68,7 @@ public class CategoryActivity extends AppCompatActivity {
     private TextView noEventsDay4;
     private TextView catNameTextView;
     private TextView catDescTextView;
+    private List<ScheduleModel> scheduleResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +140,8 @@ public class CategoryActivity extends AppCompatActivity {
         if (mDatabase == null)
             return;
 
-        RealmResults<ScheduleModel> scheduleResults = mDatabase.where(ScheduleModel.class).equalTo("catID", catID).findAllSorted("startTime");
+        RealmResults<ScheduleModel> scheduleResultsRealm = mDatabase.where(ScheduleModel.class).equalTo("catID", catID).findAllSorted("startTime");
+        scheduleResults=mDatabase.copyFromRealm(scheduleResultsRealm);
 
         for (ScheduleModel schedule : scheduleResults){
             EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
