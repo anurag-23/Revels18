@@ -145,6 +145,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                     removeFavourite(event);
                     Snackbar.make(v.getRootView(), event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                 }
+                notifyDataSetChanged();
             }
         });
         if(isFavourite(event)){

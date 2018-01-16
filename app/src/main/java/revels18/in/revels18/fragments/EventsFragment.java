@@ -117,7 +117,7 @@ public class EventsFragment extends Fragment {
                     }else{
                         Snackbar.make(view, event.getEventName()+" removed from Favourites!",Snackbar.LENGTH_SHORT).show();
                     }
-
+                    adapter.notifyDataSetChanged();
                 }
             };
             //Fetching list of Venues, Categories and Event names for the filter
@@ -469,6 +469,11 @@ public class EventsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 
     private void initViews(View view){
         swipeDetector = new GestureDetector(view.getContext(), new SwipeListener());
