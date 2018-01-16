@@ -2,6 +2,7 @@ package revels18.in.revels18.adapters;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -101,19 +102,29 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                     if(eventListener!=null){
                         eventListener.onItemClick(event);
                     }
-                    displayBottomSheet(event);
+                    displayEventDialog(event, context);
+//                    displayBottomSheet(event);
                 }
             });
         }
-        private void displayBottomSheet(final ScheduleModel event){
-            final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
-            final BottomSheetDialog dialog = new BottomSheetDialog(context);
-            final String eventID = event.getEventID();
+        public boolean isFavourite(ScheduleModel event){
+            FavouritesModel favourite = mDatabase.where(FavouritesModel.class).equalTo("id", event.getEventID()).equalTo("day",event.getDay()).equalTo("round" ,event.getRound()).findFirst();
+            if(favourite!=null){
+                return true;
+            }
 
+            return false;
+        }
+        private void displayEventDialog(final ScheduleModel event, Context context){
+            final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
+            final Dialog dialog = new Dialog(context);
+            dialog.setCanceledOnTouchOutside(true);
+            final String eventID = event.getEventID();
             EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-            //IconCollection icons = new IconCollection();
-            //eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
+            //TODO: Add Icons for the event logo
+//        IconCollection icons = new IconCollection();
+//        eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
             final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,9 +141,10 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                         removeFavourite(event);
                         Snackbar.make(v.getRootView(), event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                     }
+                    notifyDataSetChanged();
                 }
             });
-            if(favouritesContainsEvent(event)){
+            if(isFavourite(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
                 favIcon.setTag("selected");
             }else{
@@ -172,7 +184,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
             deleteIcon.setVisibility(View.GONE);
             dialog.setContentView(view);
-            Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
+            //Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
             dialog.show();
         }
         private void addFavourite(ScheduleModel eventSchedule){
