@@ -1,6 +1,7 @@
 package revels18.in.revels18.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,6 +14,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -27,6 +31,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.MainActivity;
+import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.ResultsAdapter;
 import revels18.in.revels18.models.results.EventResultModel;
 import revels18.in.revels18.models.results.ResultModel;
@@ -148,6 +155,28 @@ public class ResultsFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_others, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_registrations:{
+                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                return true;
+            }
+            case R.id.menu_favourites: {
+                startActivity(new Intent((MainActivity)getActivity(), FavouritesActivity.class));
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

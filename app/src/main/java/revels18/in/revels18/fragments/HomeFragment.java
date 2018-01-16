@@ -1,6 +1,7 @@
 package revels18.in.revels18.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,6 +19,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -35,7 +39,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.MainActivity;
+import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.HomeAdapter;
 import revels18.in.revels18.adapters.HomeCategoriesAdapter;
 import revels18.in.revels18.adapters.HomeEventsAdapter;
@@ -90,6 +96,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.fest_name);
+        setHasOptionsMenu(true);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -255,7 +262,7 @@ public class HomeFragment extends Fragment {
     }
     public void updateResultsList(){
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
-        List<ResultModel> resultsArrayList=new ArrayList<>();;
+        List<ResultModel> resultsArrayList=new ArrayList<>();
         resultsArrayList=mDatabase.copyFromRealm(results);
         if (!resultsArrayList.isEmpty()){
             resultsList.clear();
@@ -351,6 +358,27 @@ public class HomeFragment extends Fragment {
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swipe_refresh_layout);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_home, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_registrations:{
+                startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                return true;
+            }
+            case R.id.menu_favourites: {
+                startActivity(new Intent(getActivity(), FavouritesActivity.class));
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

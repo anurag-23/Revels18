@@ -53,6 +53,10 @@ public class FavouritesActivity extends AppCompatActivity {
     private TextView noEventsDay2;
     private TextView noEventsDay3;
     private TextView noEventsDay4;
+    private TextView eventsClearDay1;
+    private TextView eventsClearDay2;
+    private TextView eventsClearDay3;
+    private TextView eventsClearDay4;
     private FavouritesEventsAdapter adapterDay1;
     private FavouritesEventsAdapter adapterDay2;
     private FavouritesEventsAdapter adapterDay3;
@@ -81,6 +85,30 @@ public class FavouritesActivity extends AppCompatActivity {
         favouritesDay3 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","3").findAll());
         favouritesDay4 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","4").findAll());
         displayEvents();
+        eventsClearDay1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                clearFavouriteCard(1);
+            }
+        });
+        eventsClearDay2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                clearFavouriteCard(2);
+            }
+        });
+        eventsClearDay3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                clearFavouriteCard(3);
+            }
+        });
+        eventsClearDay4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                clearFavouriteCard(4);
+            }
+        });
     }
 
 
@@ -163,6 +191,11 @@ public class FavouritesActivity extends AppCompatActivity {
         noEventsDay2 = (TextView)findViewById(R.id.fav_day_2_no_events);
         noEventsDay3 = (TextView)findViewById(R.id.fav_day_3_no_events);
         noEventsDay4 = (TextView)findViewById(R.id.fav_day_4_no_events);
+
+        eventsClearDay1= (TextView)findViewById(R.id.favourites_events_clear_1);
+        eventsClearDay2= (TextView)findViewById(R.id.favourites_events_clear_2);
+        eventsClearDay3= (TextView)findViewById(R.id.favourites_events_clear_3);
+        eventsClearDay4= (TextView)findViewById(R.id.favourites_events_clear_4);
 
         FavouritesEventsAdapter.EventClickListener eventListener = new  FavouritesEventsAdapter.EventClickListener(){
             @Override
@@ -343,6 +376,51 @@ public class FavouritesActivity extends AppCompatActivity {
     private void removeNotifications(List<FavouritesModel> events){
         for(FavouritesModel event:events){
             removeNotification(event);
+        }
+    }
+    private void clearFavouriteCard(int id){
+        int favSize;
+        switch(id){
+            case 1:
+                favSize = favouritesDay1.size();
+                removeNotifications(favouritesDay1);
+                favouritesDay1.clear();
+                if(adapterDay1!=null){
+                    adapterDay1.notifyItemRangeRemoved(0,favSize);
+                }
+                displayEvents();
+                updateRealm();
+                break;
+            case 2:
+                favSize = favouritesDay2.size();
+                removeNotifications(favouritesDay2);
+                favouritesDay2.clear();
+                if(adapterDay2!=null){
+                    adapterDay2.notifyItemRangeRemoved(0,favSize);
+                }
+                displayEvents();
+                updateRealm();
+                break;
+            case 3:
+                favSize = favouritesDay3.size();
+                removeNotifications(favouritesDay3);
+                favouritesDay3.clear();
+                if(adapterDay3!=null){
+                    adapterDay3.notifyItemRangeRemoved(0,favSize);
+                }
+                displayEvents();
+                updateRealm();
+                break;
+            case 4:
+                favSize = favouritesDay4.size();
+                removeNotifications(favouritesDay4);
+                favouritesDay4.clear();
+                if(adapterDay4!=null){
+                    adapterDay4.notifyItemRangeRemoved(0,favSize);
+                }
+                displayEvents();
+                updateRealm();
+                break;
         }
     }
 }

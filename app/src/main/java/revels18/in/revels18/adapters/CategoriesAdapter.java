@@ -55,10 +55,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(activity, CategoryActivity.class);
-            intent.putExtra("catName", categoriesList.get(getAdapterPosition()).getCategoryName());
-            intent.putExtra("catID", categoriesList.get(getAdapterPosition()).getCategoryID());
-            intent.putExtra("catDesc", categoriesList.get(getAdapterPosition()).getCategoryDescription());
-            activity.startActivity(intent);
+                intent.putExtra("catName", categoriesList.get(getAdapterPosition()).getCategoryName());
+                intent.putExtra("catID", categoriesList.get(getAdapterPosition()).getCategoryID());
+                intent.putExtra("catDesc", categoriesList.get(getAdapterPosition()).getCategoryDescription());
+                activity.startActivity(intent);
         }
     }
 }

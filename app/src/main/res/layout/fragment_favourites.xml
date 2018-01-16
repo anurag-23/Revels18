@@ -18,196 +18,278 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/padding_default">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_1_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="wrap_content">
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_1"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_title"
-                        android:background="?android:attr/selectableItemBackground"/>
 
-                    <TextView
-                        android:id="@+id/fav_day_1_no_events"
-                        android:visibility="gone"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_events"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_subheading"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="8dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/favourites_day_1_recycler_view"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/day_1"
+                            android:textSize="@dimen/typography_title"
+                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:id="@+id/favourites_events_more_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:clickable="true"
+                            android:text="@string/clear"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/typography_small"
+                            android:background="?android:attr/selectableItemBackground"/>
+                    </LinearLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/favourites_day_1_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"/>
+                        android:layout_height="125dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/fav_day_1_no_events"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_favourites"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/favourites_day_1_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/favourites_day_2_card_view"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_2"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_title"
-                        android:background="?android:attr/selectableItemBackground"/>
 
-                    <TextView
-                        android:id="@+id/fav_day_2_no_events"
-                        android:visibility="gone"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_events"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_subheading"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="8dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/favourites_day_2_recycler_view"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/day_2"
+                            android:textSize="@dimen/typography_title"
+                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:id="@+id/favourites_events_more_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:clickable="true"
+                            android:text="@string/clear"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/typography_small"
+                            android:background="?android:attr/selectableItemBackground"/>
+                    </LinearLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/favourites_day_2_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"/>
+                        android:layout_height="125dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/fav_day_2_no_events"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_favourites"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/favourites_day_2_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_3_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_3"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_title"
-                        android:background="?android:attr/selectableItemBackground"/>
 
-                    <TextView
-                        android:id="@+id/fav_day_3_no_events"
-                        android:visibility="gone"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_events"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_subheading"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="8dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/favourites_day_3_recycler_view"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/day_3"
+                            android:textSize="@dimen/typography_title"
+                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:id="@+id/favourites_events_more_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:clickable="true"
+                            android:text="@string/clear"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/typography_small"
+                            android:background="?android:attr/selectableItemBackground"/>
+                    </LinearLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/favourites_day_3_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"/>
+                        android:layout_height="125dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/fav_day_3_no_events"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_favourites"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/favourites_day_3_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/favourites_day_4_card_view"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_4"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_title"
-                        android:background="?android:attr/selectableItemBackground"/>
 
-                    <TextView
-                        android:id="@+id/fav_day_4_no_events"
-                        android:visibility="gone"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_events"
-                        android:paddingLeft="@dimen/padding_default"
-                        android:paddingRight="@dimen/padding_default"
-                        android:textSize="@dimen/typography_subheading"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="8dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/favourites_day_4_recycler_view"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/day_4"
+                            android:textSize="@dimen/typography_title"
+                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:id="@+id/favourites_events_more_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:clickable="true"
+                            android:text="@string/clear"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/typography_small"
+                            android:background="?android:attr/selectableItemBackground"/>
+                    </LinearLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/favourites_day_4_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"/>
+                        android:layout_height="125dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/fav_day_4_no_events"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_favourites"
+                            android:fontFamily="sans-serif-medium"
+                            android:visibility="gone"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/favourites_day_4_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
         </LinearLayout>
 
 
