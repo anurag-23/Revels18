@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/bottom_nav_home"
             android:icon="@drawable/bottom_nav_home"
-            android:title="@string/bottom_nav_home" />
+            android:title="@string/bottom_nav_home"
+            app:showAsAction="always|withText"/>
         <item
             android:id="@+id/bottom_nav_events"
             android:icon="@drawable/bottom_nav_events"
-            android:title="@string/bottom_nav_events" />
+            android:title="@string/bottom_nav_events"
+            app:showAsAction="always|withText"/>
         <item
             android:id="@+id/bottom_nav_categories"
             android:icon="@drawable/bottom_nav_categories"
-            android:title="@string/bottom_nav_categories" />
+            android:title="@string/bottom_nav_categories"
+            app:showAsAction="always|withText"/>
         <!--TODO:Change Categories icons-->
         <item
             android:id="@+id/bottom_nav_revels_cup"
             android:icon="@drawable/bottom_nav_revels_cup"
-            android:title="@string/bottom_nav_revels_cup" />
+            android:title="@string/bottom_nav_revels_cup"
+
+            app:showAsAction="always|withText"/>
         <item
             android:id="@+id/bottom_nav_results"
             android:icon="@drawable/drawer_results"
-            android:title="@string/bottom_nav_results" />
+            android:title="@string/bottom_nav_results"
+            app:showAsAction="always|withText"/>
     </group>
 
     <!--TODO:Change The text style of the title-->

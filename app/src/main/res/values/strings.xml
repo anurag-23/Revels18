@@ -53,5 +53,20 @@
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
 
+    <string name="head">Head</string>
+    <string name="developer">Developer</string>
+    <string name="Anurag">Anurag Choudhary</string>
+    <string name="Abhishek">Abhishek Vora</string>
+    <string name="Gautham">Gautham Vinod</string>
+    <string name="Rahul">Rahul Sathanapalli</string>
+    <string name="Manas">Manas</string>
+    <string name="Saptarshi">Saptarshi Roy Choudhuri</string>
+    <string name="Mahima">Mahima Borah</string>
+    <string name="Rhitam">Rhitam Dutta</string>
+    <string name="Anjali">Anjali Premjit</string>
+    <string name="Krishna">Krishna Birla</string>
+
+    <string name="about_us">Nautilus, in \"20,000 Leagues Under the Sea\" , was imagined by Jules Verne a full twenty-four years before Simon Lake used it as a reference to realise his dream of building a working submarine. Technology has a rich history of first appearing in fiction, before pioneers of the age bring such ideas into reality. Gadgets resembling Google Glass, Skype\'s realtime language translator, and iPads have appeared in Star Trek more than three decades before the world got their hands on working versions of them. TechTatva \'17 pays its tribute to this nexus between artists and scientists with its theme \"Realising Fiction\". With projects and events that bring out the innovative genius in you, here\'s to hoping somewhere in this fest you bring your day-dreams to reality too!</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
