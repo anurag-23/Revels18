@@ -2,6 +2,7 @@ package revels18.in.revels18.adapters;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +37,7 @@ import revels18.in.revels18.models.favorites.FavouritesModel;
 
 
 public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAdapter.CategoryEventsViewHolder> {
-
+    private String TAG = "CategoryEventsAdapter";
     private List<EventModel> eventsList;
     private final int EVENT_DAY_ZERO = 03;
     private final int EVENT_MONTH = Calendar.OCTOBER;
@@ -84,6 +85,14 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
     public int getItemCount() {
         return eventsList.size();
     }
+    public boolean isFavourite(EventModel event){
+        FavouritesModel favourite = realm.where(FavouritesModel.class).equalTo("id", event.getEventId()).equalTo("day",event.getDay()).equalTo("round" ,event.getRound()).findFirst();
+        if(favourite!=null){
+            return true;
+        }
+
+        return false;
+    }
 
     public class CategoryEventsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView eventLogo;
@@ -104,18 +113,12 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-
-            final EventModel event = eventsList.get(getLayoutPosition());
-
-            final Context context = view.getContext();
-            view = View.inflate(context, R.layout.activity_event_dialogue, null);
-
-            final BottomSheetDialog dialog = new BottomSheetDialog(context);
-
+        private void displayEventDialog(final EventModel event){
+            View view = View.inflate(context, R.layout.activity_event_dialogue, null);
+            final Dialog dialog = new Dialog(context);
+            dialog.setCanceledOnTouchOutside(true);
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-
+            //TODO: Update event logo
             //IconCollection icons = new IconCollection();
             //eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
@@ -177,7 +180,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
                     }
                 }
             });
-            if(favouritesContainsEvent(getScheduleFromEvent(event))){
+            if(isFavourite(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
                 favIcon.setTag("selected");
             }else{
@@ -187,6 +190,17 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             dialog.setContentView(view);
             Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
             dialog.show();
+        }
+        @Override
+        public void onClick(View view) {
+
+            final EventModel event = eventsList.get(getLayoutPosition());
+            final Context context = view.getContext();
+            Log.d(TAG, "onClick: s");
+            displayEventDialog(event);
+
+
+
         }
     }
     private void addFavourite(EventModel event){
