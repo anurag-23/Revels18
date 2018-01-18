@@ -1,6 +1,7 @@
 package revels18.in.revels18.activities;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +10,6 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,24 +18,26 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
 import revels18.in.revels18.Receivers.NotificationReceiver;
 import revels18.in.revels18.adapters.FavouritesEventsAdapter;
-import revels18.in.revels18.fragments.FavouritesFragment;
 import revels18.in.revels18.models.events.EventDetailsModel;
+import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 
 public class FavouritesActivity extends AppCompatActivity {
@@ -124,7 +126,7 @@ public class FavouritesActivity extends AppCompatActivity {
                 new AlertDialog.Builder(context)
                         .setTitle("Delete Favourites")
                         .setMessage("Are you sure you want to delete all favourites?")
-                        .setIcon(R.drawable.ic_delete_all)
+                        .setIcon(R.drawable.ic_delete_all_dialog)
                         .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -254,10 +256,10 @@ public class FavouritesActivity extends AppCompatActivity {
     }
     private void displayBottomSheet(final FavouritesModel event){
         final View view = View.inflate(this, R.layout.activity_event_dialogue, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        final Dialog dialog = new Dialog(this);
         Log.i("TT17", "displayBottomSheet: NEW!");
         final String eventID = event.getId();
-        EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+        final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
 
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
         ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
@@ -295,13 +297,13 @@ public class FavouritesActivity extends AppCompatActivity {
         eventContactName.setText(event.getContactName() + " : ");
 
         TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-        eventContact.setText(  event.getContactNumber());
+        eventContact.setText(  schedule.getContactNo());
         eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         eventContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
                 startActivity(intent);
             }
         });
@@ -357,6 +359,7 @@ public class FavouritesActivity extends AppCompatActivity {
         realm.copyToRealm(favouritesDay4);
         realm.commitTransaction();
     }
+
     private void removeNotification(FavouritesModel event){
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
@@ -378,49 +381,58 @@ public class FavouritesActivity extends AppCompatActivity {
             removeNotification(event);
         }
     }
-    private void clearFavouriteCard(int id){
-        int favSize;
-        switch(id){
-            case 1:
-                favSize = favouritesDay1.size();
-                removeNotifications(favouritesDay1);
-                favouritesDay1.clear();
-                if(adapterDay1!=null){
-                    adapterDay1.notifyItemRangeRemoved(0,favSize);
-                }
-                displayEvents();
-                updateRealm();
-                break;
-            case 2:
-                favSize = favouritesDay2.size();
-                removeNotifications(favouritesDay2);
-                favouritesDay2.clear();
-                if(adapterDay2!=null){
-                    adapterDay2.notifyItemRangeRemoved(0,favSize);
-                }
-                displayEvents();
-                updateRealm();
-                break;
-            case 3:
-                favSize = favouritesDay3.size();
-                removeNotifications(favouritesDay3);
-                favouritesDay3.clear();
-                if(adapterDay3!=null){
-                    adapterDay3.notifyItemRangeRemoved(0,favSize);
-                }
-                displayEvents();
-                updateRealm();
-                break;
-            case 4:
-                favSize = favouritesDay4.size();
-                removeNotifications(favouritesDay4);
-                favouritesDay4.clear();
-                if(adapterDay4!=null){
-                    adapterDay4.notifyItemRangeRemoved(0,favSize);
-                }
-                displayEvents();
-                updateRealm();
-                break;
-        }
+    private void clearFavouriteCard(final int id){
+        new AlertDialog.Builder(context)
+                .setTitle("Delete Favourites")
+                .setMessage("Are you sure you want to delete all favourites from Day "+id+"?")
+                .setIcon(R.drawable.ic_delete_all_dialog)
+                .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(id){
+                            case 1:
+                                int favSize = favouritesDay1.size();
+                                removeNotifications(favouritesDay1);
+                                favouritesDay1.clear();
+                                if(adapterDay1!=null){
+                                    adapterDay1.notifyItemRangeRemoved(0,favSize);
+                                }
+                                displayEvents();
+                                updateRealm();
+                                break;
+                            case 2:
+                                favSize = favouritesDay2.size();
+                                removeNotifications(favouritesDay2);
+                                favouritesDay2.clear();
+                                if(adapterDay2!=null){
+                                    adapterDay2.notifyItemRangeRemoved(0,favSize);
+                                }
+                                displayEvents();
+                                updateRealm();
+                                break;
+                            case 3:
+                                favSize = favouritesDay3.size();
+                                removeNotifications(favouritesDay3);
+                                favouritesDay3.clear();
+                                if(adapterDay3!=null){
+                                    adapterDay3.notifyItemRangeRemoved(0,favSize);
+                                }
+                                displayEvents();
+                                updateRealm();
+                                break;
+                            case 4:
+                                favSize = favouritesDay4.size();
+                                removeNotifications(favouritesDay4);
+                                favouritesDay4.clear();
+                                if(adapterDay4!=null){
+                                    adapterDay4.notifyItemRangeRemoved(0,favSize);
+                                }
+                                displayEvents();
+                                updateRealm();
+                                break;
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.dialog_no,null).show();
     }
 }

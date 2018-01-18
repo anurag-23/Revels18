@@ -88,7 +88,7 @@
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_weight="0"
+
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_categories"
@@ -96,7 +96,7 @@
                     android:layout_marginRight="@dimen/padding_2x"/>
 
                 <TextView
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_category"
@@ -106,7 +106,6 @@
                     android:layout_marginRight="@dimen/padding_half"/>
 
                 <Spinner
-                    android:layout_weight="0"
                     android:id="@+id/category_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -124,14 +123,14 @@
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_weight="0"
+
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_event_type"
                     android:layout_marginRight="@dimen/padding_2x"/>
 
                 <TextView
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_event_type"
@@ -141,7 +140,7 @@
                     android:layout_marginRight="@dimen/padding_half"/>
 
                 <Spinner
-                    android:layout_weight="0"
+
                     android:id="@+id/event_type_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -160,7 +159,7 @@
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_weight="0"
+
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_time"
@@ -168,7 +167,7 @@
                     android:layout_marginRight="@dimen/padding_2x"/>
 
                 <TextView
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_start_time"
@@ -177,8 +176,9 @@
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="@dimen/padding_half"/>
 
+
                 <LinearLayout
-                    android:layout_weight="0"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -213,7 +213,7 @@
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_weight="0"
+
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_time"
@@ -222,7 +222,7 @@
                     android:layout_marginRight="@dimen/padding_2x"/>
 
                 <TextView
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_end_time"
@@ -230,9 +230,13 @@
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="@dimen/padding_half"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
 
                 <LinearLayout
-                    android:layout_weight="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -266,7 +270,7 @@
                 android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_weight="0"
+
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_venue"
@@ -274,7 +278,7 @@
                     android:layout_marginRight="@dimen/padding_2x"/>
 
                 <TextView
-                    android:layout_weight="1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_event_venue"
@@ -284,11 +288,11 @@
                     android:layout_marginRight="@dimen/padding_half"/>
 
                 <Spinner
-                    android:layout_weight="0"
                     android:id="@+id/event_venue_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end|right"/>
+
 
             </LinearLayout>
 

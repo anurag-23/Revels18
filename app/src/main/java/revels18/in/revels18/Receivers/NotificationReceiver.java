@@ -37,7 +37,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
                     //TODO: Change Icon
-                    //.setSmallIcon(catIcon)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setAutoCancel(true)

@@ -18,7 +18,7 @@
     <item
         android:id="@+id/menu_favourites"
         android:title="@string/drawer_favourites"
-        android:icon="@drawable/ic_fav_deselected"
+        android:icon="@drawable/ic_menu_fav"
         app:showAsAction="never"
         android:orderInCategory="4"/>
 </menu>
