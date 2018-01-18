@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +49,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     private List<FavouritesModel> favourites = mDatabase.copyFromRealm(favouritesRealm);
     private PendingIntent pendingIntent1 = null;
     private PendingIntent pendingIntent2 = null;
+    //TODO: Change EVENT_DAY_ZERO and EVENT_MONTH
     private final int EVENT_DAY_ZERO = 03;
     private final int EVENT_MONTH = Calendar.OCTOBER;
     public interface EventClickListener {
@@ -120,7 +123,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             final Dialog dialog = new Dialog(context);
             dialog.setCanceledOnTouchOutside(true);
             final String eventID = event.getEventID();
-            EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+            final EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
             //TODO: Add Icons for the event logo
 //        IconCollection icons = new IconCollection();
@@ -177,6 +180,14 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
 
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
                 eventContact.setText(  schedule.getContactNo());
+                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                eventContact.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
+                        activity.startActivity(intent);
+                    }
+                });
             }
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
@@ -288,6 +299,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
 
                 Log.d("Alarm", "set for "+calendar3.toString());
+                Log.d("Alarm set","Set");
             }
         }
         private void removeNotification(ScheduleModel event){

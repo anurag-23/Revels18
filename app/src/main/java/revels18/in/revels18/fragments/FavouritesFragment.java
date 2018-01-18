@@ -100,7 +100,7 @@ public class FavouritesFragment extends Fragment {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Delete Favourites")
                         .setMessage("Are you sure you want to delete all favourites?")
-                        .setIcon(R.drawable.ic_delete_all)
+                        .setIcon(R.drawable.ic_delete_all_toolbar)
                         .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

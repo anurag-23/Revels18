@@ -70,13 +70,12 @@
 
             <ImageView
                 android:visibility="visible"
-                android:alpha="0.54"
                 android:id="@+id/event_delete_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_delete"
+                app:srcCompat="@drawable/ic_fav_selected"
                 android:clickable="true" />
 
             <ImageView

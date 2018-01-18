@@ -111,14 +111,26 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             eventRound = (TextView) itemView.findViewById(R.id.cat_event_round_text_view);
 
             itemView.setOnClickListener(this);
+            Log.d(TAG, "CategoryEventsViewHolder: set listener ");
         }
 
-        private void displayEventDialog(final EventModel event){
-            View view = View.inflate(context, R.layout.activity_event_dialogue, null);
-            final Dialog dialog = new Dialog(context);
-            dialog.setCanceledOnTouchOutside(true);
+        @Override
+        public void onClick(View view) {
+
+            /*final EventModel event = eventsList.get(getLayoutPosition());
+            final Context context = view.getContext();
+            Log.d(TAG, "onClick: s");
+            displayEventDialog(event);*/
+
+            final EventModel event = eventsList.get(getLayoutPosition());
+
+            final Context context = view.getContext();
+            view = View.inflate(context, R.layout.activity_event_dialogue, null);
+
+            Dialog dialog = new Dialog(context);
+
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-            //TODO: Update event logo
+
             //IconCollection icons = new IconCollection();
             //eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
@@ -149,7 +161,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
             eventContact.setText(event.getContactNumber());
             eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-
             eventContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -180,7 +191,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
                     }
                 }
             });
-            if(isFavourite(event)){
+            if(favouritesContainsEvent(getScheduleFromEvent(event))){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
                 favIcon.setTag("selected");
             }else{
@@ -190,16 +201,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             dialog.setContentView(view);
             Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
             dialog.show();
-        }
-        @Override
-        public void onClick(View view) {
-
-            final EventModel event = eventsList.get(getLayoutPosition());
-            final Context context = view.getContext();
-            Log.d(TAG, "onClick: s");
-            displayEventDialog(event);
-
-
 
         }
     }

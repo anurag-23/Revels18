@@ -21,6 +21,10 @@
             android:name=".activities.CategoryActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
+        <receiver
+            android:name="revels18.in.revels18.Receivers.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true" />
         <activity
             android:name=".activities.SplashActivity"
             android:configChanges="orientation|screenSize"

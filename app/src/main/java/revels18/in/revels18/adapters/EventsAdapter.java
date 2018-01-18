@@ -1,9 +1,14 @@
 package revels18.in.revels18.adapters;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
@@ -16,10 +21,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
+import revels18.in.revels18.Receivers.NotificationReceiver;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
@@ -30,6 +41,11 @@ import revels18.in.revels18.models.favorites.FavouritesModel;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder>{
     String TAG = "EventsAdapter";
+    //TODO: Change EVENT_DAY_ZERO and EVENT_MONTH
+    private final int EVENT_DAY_ZERO = 03;
+    private final int EVENT_MONTH = Calendar.OCTOBER;
+    private PendingIntent pendingIntent1 = null;
+    private PendingIntent pendingIntent2 = null;
     private Activity activity;
     private List<ScheduleModel> eventScheduleList;
     private final EventClickListener eventListener;
@@ -110,13 +126,84 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             realm.copyToRealm(favourite);
             realm.commitTransaction();
         }
-        //TODO: Add notification for favourite event
+        addNotification(eventSchedule);
+
     }
     public void removeFavourite(ScheduleModel event){
         realm.beginTransaction();
         realm.where(FavouritesModel.class).equalTo("id",event.getEventID()).equalTo("day",event.getDay()).equalTo("round", event.getRound()).findAll().deleteAllFromRealm();
         realm.commitTransaction();
-        //TODO: Remove Notification
+        removeNotification(event);
+    }
+    private void addNotification(ScheduleModel event){
+        Intent intent = new Intent(activity, NotificationReceiver.class);
+        intent.putExtra("eventName", event.getEventName());
+        intent.putExtra("startTime", event.getStartTime());
+        intent.putExtra("eventVenue", event.getVenue());
+        intent.putExtra("eventID", event.getEventID());
+        intent.putExtra("catName", event.getCatName());
+        Log.i(TAG, "addNotification: "+event.getStartTime());
+        AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        //Request Codes
+        int RC1 = Integer.parseInt(event.getCatID()+event.getEventID()+"0");
+        int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
+        pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
+        Date d = null;
+        try {
+            d = sdf.parse(event.getStartTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return;
+        }
+        int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 04th October
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(d);
+        calendar1.set(Calendar.MONTH,EVENT_MONTH);
+        calendar1.set(Calendar.YEAR, 2017);
+        calendar1.set(Calendar.DATE, eventDate);
+        calendar1.set(Calendar.SECOND, 0);
+        long eventTimeInMillis = calendar1.getTimeInMillis();
+        calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY)-1);
+
+        Calendar calendar2 = Calendar.getInstance();
+        Log.d("Calendar 1", calendar1.getTimeInMillis()+"");
+        Log.d("Calendar 2", calendar2.getTimeInMillis()+"");
+
+        if(calendar2.getTimeInMillis() <= eventTimeInMillis)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(Calendar.SECOND, 0);
+        calendar3.set(Calendar.MINUTE, 30);
+        calendar3.set(Calendar.HOUR, 8);
+        calendar3.set(Calendar.AM_PM, Calendar.AM);
+        calendar3.set(Calendar.MONTH, Calendar.SEPTEMBER);
+        calendar3.set(Calendar.YEAR, 2017);
+        calendar3.set(Calendar.DATE, eventDate);
+        Log.d("Calendar 3", calendar3.getTimeInMillis()+"");
+        if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()){
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
+
+            Log.d("Alarm", "set for "+calendar3.toString());
+        }
+    }
+    private void removeNotification(ScheduleModel event){
+        Intent intent = new Intent(activity, NotificationReceiver.class);
+        intent.putExtra("eventName", event.getEventName());
+        intent.putExtra("startTime", event.getStartTime());
+        intent.putExtra("eventVenue", event.getVenue());
+        intent.putExtra("eventID", event.getEventID());
+
+        AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        //Request Codes
+        int RC1 = Integer.parseInt(event.getCatID()+event.getEventID()+"0");
+        int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
+        pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent1);
+        alarmManager.cancel(pendingIntent2);
     }
 
     private void displayEventDialog(final ScheduleModel event, Context context){
@@ -124,7 +211,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         final Dialog dialog = new Dialog(context);
         dialog.setCanceledOnTouchOutside(true);
         final String eventID = event.getEventID();
-        EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+        final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
         //TODO: Add Icons for the event logo
 //        IconCollection icons = new IconCollection();
@@ -181,6 +268,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
             TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
             eventContact.setText(  schedule.getContactNo());
+            eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+            eventContact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
+                    activity.startActivity(intent);
+                }
+            });
         }
         TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
         eventCategory.setText(event.getCatName());
