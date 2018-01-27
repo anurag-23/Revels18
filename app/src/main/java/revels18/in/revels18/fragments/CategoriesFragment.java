@@ -22,7 +22,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Case;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.MainActivity;
@@ -102,11 +104,11 @@ public class CategoriesFragment extends Fragment {
             startActivity(intent);
         }*/
         if (mDatabase != null){
-            categoriesList.clear();
-            List<CategoryModel> categoryResults = mDatabase.copyFromRealm(mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName"));
+            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text, Case.INSENSITIVE ).findAllSorted("categoryName");
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
-                categoriesList.addAll(categoryResults);
+                categoriesList.addAll(mDatabase.copyFromRealm(categoryResults));
+                //categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
             }
         }

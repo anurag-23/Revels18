@@ -441,13 +441,13 @@ public class EventsFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String text) {
                 queryFilter(text);
-                Revels.searchOpen = 1;
+                Revels.searchOpen = 2;
                 return false;
             }
             @Override
             public boolean onQueryTextChange(String text) {
                 queryFilter(text);
-                Revels.searchOpen = 1;
+                Revels.searchOpen = 2;
                 return false;
             }
         });
@@ -456,7 +456,7 @@ public class EventsFragment extends Fragment {
             @Override
             public boolean onClose() {
                 searchView.clearFocus();
-                Revels.searchOpen = 1;
+                Revels.searchOpen = 2;
                 return false;
             }
 

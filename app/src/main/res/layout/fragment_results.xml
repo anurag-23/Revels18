@@ -23,7 +23,7 @@
                 android:visibility="gone"
                 android:id="@+id/no_results_layout"/>
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:id="@+id/results_available"
                 android:visibility="visible"
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     android:id="@+id/results_recycler_view"
                     tools:context=".fragments.ResultsFragment" />
 
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
