@@ -1,6 +1,7 @@
 package revels18.in.revels18.adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -69,16 +70,13 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         }
         @Override
         public void onClick(View view) {
-            displayBottomSheet(resultsList.get(getAdapterPosition()));
+            displayInfoDialog(resultsList.get(getAdapterPosition()));
         }
-        public void displayBottomSheet(EventResultModel result){
+        public void displayInfoDialog(EventResultModel result){
             View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
-            final BottomSheetDialog dialog = new BottomSheetDialog(context);
+            final Dialog dialog = new Dialog(context);
 
             dialog.setContentView(bottomSheetView);
-
-            BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);
             eventName.setText(result.eventName);

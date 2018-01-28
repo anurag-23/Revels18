@@ -1,6 +1,7 @@
 package revels18.in.revels18.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
         ResultModel result = resultsList.get(position);
         holder.teamID.setText(result.getTeamID());
         if(result.getRound().toLowerCase().contains("f")||result.getRound().toLowerCase().contains("final")){
-            holder.teamPosition.setVisibility(View.VISIBLE);
+            holder.teamPosition.setTextColor(ContextCompat.getColor(context, R.color.black));
             holder.teamPosition.setText(result.getPosition()+".");
         }
 

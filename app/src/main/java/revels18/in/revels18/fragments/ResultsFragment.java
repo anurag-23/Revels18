@@ -11,14 +11,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -41,14 +44,16 @@ import revels18.in.revels18.models.results.ResultsListModel;
 import revels18.in.revels18.network.APIClient;
 
 public class ResultsFragment extends Fragment {
+    String TAG="ResultsFragment";
     Realm mDatabase;
     private List<EventResultModel> resultsList = new ArrayList<>();
     private ResultsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout rootLayout;
+    private View view;
     private LinearLayout noResultsLayout;
 
-    private CardView resultsAvailable;
+    private FrameLayout resultsAvailable;
     public ResultsFragment() {
     }
     public static ResultsFragment newInstance() {
@@ -59,38 +64,42 @@ public class ResultsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.results);
         mDatabase = Realm.getDefaultInstance();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view= inflater.inflate(R.layout.fragment_results, container, false);
+        view= inflater.inflate(R.layout.fragment_results, container, false);
         rootLayout=(LinearLayout) view.findViewById(R.id.results_root_layout);
-        resultsAvailable=(CardView)view.findViewById(R.id.results_available);
+        resultsAvailable=(FrameLayout)view.findViewById(R.id.results_available);
         noResultsLayout = (LinearLayout) view.findViewById(R.id.no_results_layout);
         RecyclerView resultsRecyclerView = (RecyclerView)view.findViewById(R.id.results_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.results_swipe_refresh_layout);
         adapter = new ResultsAdapter(resultsList,getContext(), getActivity());
         resultsRecyclerView.setAdapter(adapter);
-        resultsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(resultsRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        resultsRecyclerView.addItemDecoration(dividerItemDecoration);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        resultsRecyclerView.setLayoutManager(gridLayoutManager);
         displayData();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
-                boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
-                if(isConnectedTemp){updateData();}
-                else{
-                    Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(false);}
-
+                refreshData(view);
             }
         });
         return view;
+    }
+    private void refreshData(View view){
+        ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
+        boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+        if(isConnectedTemp){updateData();}
+        else{
+            if (mDatabase == null){
+                resultsAvailable.setVisibility(View.GONE);
+                noResultsLayout.setVisibility(View.VISIBLE);
+            }
+            Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);}
     }
     private void displayData(){
         if (mDatabase == null){
@@ -148,8 +157,10 @@ public class ResultsFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                resultsAvailable.setVisibility(View.GONE);
-                noResultsLayout.setVisibility(View.VISIBLE);
+                if (mDatabase == null){
+                    resultsAvailable.setVisibility(View.GONE);
+                    noResultsLayout.setVisibility(View.VISIBLE);
+                }
                 Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -158,13 +169,19 @@ public class ResultsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_others, menu);
+        inflater.inflate(R.menu.menu_results, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
+            case R.id.menu_refresh:{
+                swipeRefreshLayout.setRefreshing(true);
+                refreshData(view);
+                return true;
+            }
+
             case R.id.menu_registrations:{
                 startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
                 return true;

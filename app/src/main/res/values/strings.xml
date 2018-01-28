@@ -4,6 +4,7 @@
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_pro_show">ProShow Portal</string>
     <string name="registrations">Registrations</string>
+    <string name="refresh">Refresh</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_developers">Developers</string>
     <string name="drawer_about_us">About Us</string>
@@ -14,6 +15,8 @@
     <string name="bottom_nav_results">Results</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="revels">Revels</string>
+    <string name="revels_cup_results">Revels Cup Results</string>
     <string name="fest_name">Revels\'18</string>
     <string name="categories">Categories</string>
     <string name="action_search">Search</string>
@@ -59,7 +62,7 @@
     <string name="Abhishek">Abhishek Vora</string>
     <string name="Gautham">Gautham Vinod</string>
     <string name="Rahul">Rahul Sathanapalli</string>
-    <string name="Manas">Manas</string>
+    <string name="Manas">Manas Gupta</string>
     <string name="Saptarshi">Saptarshi Roy Choudhuri</string>
     <string name="Mahima">Mahima Borah</string>
     <string name="Rhitam">Rhitam Dutta</string>

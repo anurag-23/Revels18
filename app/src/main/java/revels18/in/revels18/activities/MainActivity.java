@@ -24,11 +24,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.Utilities.BottomNavigationViewHelper;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
 import revels18.in.revels18.fragments.EventsFragment;
 import revels18.in.revels18.fragments.HomeFragment;
 import revels18.in.revels18.fragments.ResultsFragment;
+import revels18.in.revels18.fragments.ResultsTabsFragment;
 import revels18.in.revels18.fragments.RevelsCupFragment;
 import revels18.in.revels18.models.categories.CategoriesListModel;
 import revels18.in.revels18.models.categories.CategoryModel;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity  {
         drawerView.setSelected(true);*/
 
         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.bottom_nav_home);
         navigation.setSelected(true);
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity  {
                     selectedFragment = RevelsCupFragment.newInstance();
                     break;
                 case R.id.bottom_nav_results:
-                    selectedFragment = ResultsFragment.newInstance();
+                    selectedFragment = ResultsTabsFragment.newInstance();
                     break;
             }
 
@@ -302,7 +305,7 @@ public class MainActivity extends AppCompatActivity  {
             navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
             appBarLayout.setVisibility(VISIBLE);
             navigation.setVisibility(GONE);
-        }else*/ if(fragment.getClass() == ResultsFragment.class){
+        }else*/ if(fragment.getClass() == ResultsTabsFragment.class){
             //drawerView.setCheckedItem(R.id.drawer_results);
             navigation.setSelectedItemId(R.id.bottom_nav_results);
         }else if(fragment.getClass() ==  CategoriesFragment.class){
