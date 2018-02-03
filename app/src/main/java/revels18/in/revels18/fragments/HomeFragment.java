@@ -24,8 +24,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +55,7 @@ import revels18.in.revels18.adapters.HomeResultsAdapter;
 import revels18.in.revels18.models.categories.CategoryModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.models.instagram.Image.Image;
 import revels18.in.revels18.models.instagram.InstagramFeed;
 import revels18.in.revels18.models.results.EventResultModel;
 import revels18.in.revels18.models.results.ResultModel;
@@ -79,6 +86,7 @@ public class HomeFragment extends Fragment {
     private boolean initialLoad = true;
     private boolean firstLoad=true;
     private int processes = 0;
+    private SliderLayout imageSlider;
     String TAG = "HomeFragment";
     Realm mDatabase = Realm.getDefaultInstance();
     private List<EventResultModel> resultsList = new ArrayList<>();
@@ -110,12 +118,27 @@ public class HomeFragment extends Fragment {
 
         progressBar = (ProgressBar)view.findViewById(R.id.insta_progress);
         instaTextView = (TextView)view.findViewById(R.id.insta_text_view);
-
         displayInstaFeed();
 
 
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        //Updating the SliderLayout
+        TextSliderView tsv1 = new TextSliderView(getContext());
+        tsv1.image("https://proshow.mitrevels.in/images/five.jpg");
+        TextSliderView tsv2 = new TextSliderView(getContext());
+        tsv2.image("https://proshow.mitrevels.in/images/three.jpg");
+        TextSliderView tsv3 = new TextSliderView(getContext());
+        tsv3.image("https://proshow.mitrevels.in/images/one.jpg");
+        imageSlider.addSlider(tsv1);
+        imageSlider.addSlider(tsv2);
+        imageSlider.addSlider(tsv3);
+        imageSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        imageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        imageSlider.setCustomAnimation(new DescriptionAnimation());
+        imageSlider.setDuration(400);
+
 
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
@@ -343,6 +366,7 @@ public class HomeFragment extends Fragment {
     }
 
     public View initViews(LayoutInflater inflater, ViewGroup container){
+
         appBarLayout = (AppBarLayout) container.findViewById(R.id.app_bar);
         navigation = (BottomNavigationView) container.findViewById(R.id.bottom_nav);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -357,6 +381,10 @@ public class HomeFragment extends Fragment {
         homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swipe_refresh_layout);
+        imageSlider = (SliderLayout) view.findViewById(R.id.home_image_slider);
+        if(imageSlider==null){
+            Log.d(TAG, "initViews: Null imageSlider");
+        }
         return view;
     }
 

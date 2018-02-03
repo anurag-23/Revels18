@@ -36,9 +36,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.FavouritesActivity" />
-        <activity android:name=".activities.ProShowActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.RegistrationsActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>

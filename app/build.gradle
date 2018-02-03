@@ -35,5 +35,8 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.android.support:customtabs:25.2.0'
     testCompile 'junit:junit:4.12'
 }

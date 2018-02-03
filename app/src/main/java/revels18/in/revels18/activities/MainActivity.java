@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -126,19 +129,24 @@ public class MainActivity extends AppCompatActivity  {
 
         switch (item.getItemId()){
             case R.id.menu_pro_show: {
-            startActivity(new Intent(MainActivity.this, ProShowActivity.class));
-            return true;
-        }
+                //Launch CCT taking the user to the ProShow page
+                //TODO: Change the URL Below
+                String URL = "https://www.google.com/";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(this, Uri.parse(URL));
+                return true;
+            }
             case R.id.menu_about_us: {
-            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-            return true;
-        }
+                startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                return true;
+            }
             case R.id.menu_developers: {
-            startActivity(new Intent(MainActivity.this, DevelopersActivity.class));
-            return true;
+                startActivity(new Intent(MainActivity.this, DevelopersActivity.class));
+                return true;
+            }
         }
-    }
-
         return super.onOptionsItemSelected(item);
     }
 
