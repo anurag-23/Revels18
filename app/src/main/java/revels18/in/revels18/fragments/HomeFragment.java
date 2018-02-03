@@ -24,12 +24,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.squareup.picasso.Picasso;
 
@@ -124,19 +126,27 @@ public class HomeFragment extends Fragment {
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        //Updating the SliderLayout
+        //Updating the SliderLayout with images
+        BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
         TextSliderView tsv1 = new TextSliderView(getContext());
         tsv1.image("https://proshow.mitrevels.in/images/five.jpg");
+        tsv1.setScaleType(imgScaleType);
         TextSliderView tsv2 = new TextSliderView(getContext());
         tsv2.image("https://proshow.mitrevels.in/images/three.jpg");
+        tsv2.setScaleType(imgScaleType);
         TextSliderView tsv3 = new TextSliderView(getContext());
         tsv3.image("https://proshow.mitrevels.in/images/one.jpg");
+        tsv3.setScaleType(imgScaleType);
         imageSlider.addSlider(tsv1);
         imageSlider.addSlider(tsv2);
         imageSlider.addSlider(tsv3);
-        imageSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        //Animation type
+        imageSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        //Setting the Transition time and Interpolator for the Animation
+        imageSlider.setSliderTransformDuration(200,new AccelerateDecelerateInterpolator());
         imageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         imageSlider.setCustomAnimation(new DescriptionAnimation());
+        //Setting the time after which it moves to the next image
         imageSlider.setDuration(400);
 
 
