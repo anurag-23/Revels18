@@ -182,70 +182,6 @@ public class MainActivity extends AppCompatActivity  {
 
     };
 
-    /*private NavigationView.OnNavigationItemSelectedListener mOnDrawerItemSelectedListener
-            = new NavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            selectedFragment=null;
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawerView = (NavigationView) findViewById(R.id.nav_view);
-            int id = item.getItemId();
-
-            if (id == R.id.drawer_home) {
-                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(VISIBLE);
-                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(VISIBLE);
-                navigation.setSelectedItemId(R.id.bottom_nav_home);
-                selectedFragment = HomeFragment.newInstance();
-
-            } else if (id == R.id.drawer_favourites) {
-                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(VISIBLE);
-                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(GONE);
-                selectedFragment = FavouritesFragment.newInstance();
-
-            } else if (id == R.id.drawer_online_events) {
-                selectedFragment = OnlineEventsFragment.newInstance();
-
-            } else if (id == R.id.drawer_results) {
-                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(VISIBLE);
-                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(GONE);
-                selectedFragment = ResultsFragment.newInstance();
-
-            } else if (id == R.id.drawer_developers) {
-                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(VISIBLE);
-                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(GONE);
-
-                selectedFragment = DevelopersFragment.newInstance();
-
-            } else if (id == R.id.drawer_about_us) {
-                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(VISIBLE);
-                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(GONE);
-
-                selectedFragment = AboutUsFragment.newInstance();
-            }
-
-            if(selectedFragment.getClass()==OnlineEventsFragment.class){
-                launchCCT();
-
-            }else{
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, selectedFragment);
-                transaction.commit();
-            }
-
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
-    };*/
 
     @Override
     public void onBackPressed() {
@@ -307,14 +243,7 @@ public class MainActivity extends AppCompatActivity  {
                 });*/
     }
     public void changeFragment(Fragment fragment){
-        /*if(fragment.getClass() == FavouritesFragment.class){
-            //drawerView.setCheckedItem(R.id.drawer_favourites);
-            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-            appBarLayout.setVisibility(VISIBLE);
-            navigation.setVisibility(GONE);
-        }else*/ if(fragment.getClass() == ResultsTabsFragment.class){
-            //drawerView.setCheckedItem(R.id.drawer_results);
+        if(fragment.getClass() == ResultsTabsFragment.class){
             navigation.setSelectedItemId(R.id.bottom_nav_results);
         }else if(fragment.getClass() ==  CategoriesFragment.class){
             navigation.setSelectedItemId(R.id.bottom_nav_categories);
