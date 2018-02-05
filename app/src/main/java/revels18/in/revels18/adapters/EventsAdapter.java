@@ -294,7 +294,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
             eventVenue.setText(event.getVenue());
-            eventRound.setText(event.getStartTime());
+            eventRound.setText("R".concat(event.getRound()));
             if(isFavourite(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
                 favIcon.setTag("selected");
