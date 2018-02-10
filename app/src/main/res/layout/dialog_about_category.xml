@@ -6,23 +6,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:background="@color/colorPrimaryDark">
+    android:paddingLeft="@dimen/padding_half"
+    android:paddingStart="@dimen/padding_half"
+    android:paddingRight="9dp"
+    android:paddingEnd="9dp"
+    android:paddingTop="@dimen/padding_half"
+    android:paddingBottom="@dimen/padding_default">
 
     <LinearLayout
         android:id="@+id/event_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:gravity="start"
         android:orientation="horizontal"
-        android:paddingBottom="12dp"
-        android:paddingLeft="8dp"
+        android:paddingLeft="11dp"
+        android:paddingStart="11dp"
+        android:paddingEnd="8dp"
         android:paddingRight="8dp"
-        android:paddingTop="20dp">
+        android:paddingTop="@dimen/padding_half"
+        android:paddingBottom="@dimen/padding_half">
 
         <TextView
             android:id="@+id/category_about_name"
@@ -33,8 +35,9 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             android:text="Category Name"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/typography_title"
             tools:text="Category Name" />
     </LinearLayout>
@@ -46,13 +49,11 @@
         android:layout_marginBottom="8dp"
         android:background="@android:drawable/divider_horizontal_bright"/>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        app:contentPadding="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -74,8 +75,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/ic_description" />
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@drawable/ic_description" />
 
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+        </ScrollView>
 </LinearLayout>
