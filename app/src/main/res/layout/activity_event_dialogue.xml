@@ -59,7 +59,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingRight="16dp"
+                android:paddingEnd="16dp"
                 android:text="Event Name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/typography_title"
@@ -417,7 +419,8 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="@dimen/typography_body"
-                android:layout_marginRight="@dimen/padding_half"/>
+                android:layout_marginRight="@dimen/padding_half"
+                android:layout_marginEnd="@dimen/padding_half"/>
         </LinearLayout>
             <TextView
                 android:id="@+id/event_description"

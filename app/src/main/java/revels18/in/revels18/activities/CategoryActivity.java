@@ -1,35 +1,9 @@
 package revels18.in.revels18.activities;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
-
-
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -112,7 +86,7 @@ public class CategoryActivity extends AppCompatActivity {
 
             case R.id.about_category:
                 View view = View.inflate(this, R.layout.dialog_about_category, null);
-                final BottomSheetDialog dialog = new BottomSheetDialog(this);
+                final Dialog dialog = new Dialog(this);
                 dialog.setContentView(view);
                 catNameTextView = (TextView)view.findViewById(R.id.category_about_name);
                 catDescTextView = (TextView)view.findViewById(R.id.category_about_description);
