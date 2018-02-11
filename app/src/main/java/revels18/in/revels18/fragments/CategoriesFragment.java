@@ -103,14 +103,17 @@ public class CategoriesFragment extends Fragment {
             Intent intent = new Intent(getContext(),EasterEggActivity.class);
             startActivity(intent);
         }*/
+        text = text.toLowerCase();
         if (mDatabase != null){
-            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text, Case.INSENSITIVE ).findAllSorted("categoryName");
-            if (!categoryResults.isEmpty()){
-                categoriesList.clear();
-                categoriesList.addAll(mDatabase.copyFromRealm(categoryResults));
-                //categoriesList.addAll(categoryResults);
-                adapter.notifyDataSetChanged();
+            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
+            List<CategoryModel> temp = mDatabase.copyFromRealm(categoryResults);
+            categoriesList.clear();
+            for(int i=0;i<temp.size();i++){
+                if(temp.get(i).getCategoryName().toLowerCase().contains(text)){
+                    categoriesList.add(temp.get(i));
+                }
             }
+            adapter.notifyDataSetChanged();
         }
     }
     @Override
