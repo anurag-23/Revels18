@@ -64,7 +64,7 @@ public class EventsFragment extends Fragment {
     GestureDetector swipeDetector;
     private MenuItem searchItem;
     private MenuItem filterItem;
-    private final int NUM_DAYS = 4;
+    private final int NUM_DAYS = 5;
     private String TAG = "EventsFragment";
     private int filterStartHour = 12;
     private int filterStartMinute = 30;
@@ -79,6 +79,7 @@ public class EventsFragment extends Fragment {
     private List<String> eventTypeList = new ArrayList<>();
     String[] sortCriteria = {"startTime", "catName", "eventName"};
     Sort[] sortOrder = {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING};
+    private int PREREVELS_DAY = -1;
     public static EventsFragment newInstance() {
         EventsFragment fragment = new EventsFragment();
         return fragment;
@@ -169,8 +170,8 @@ public class EventsFragment extends Fragment {
 
     private void applyFilters(){
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
-        Date startDate = null;
-        Date endDate = null;
+        Date startDate;
+        Date endDate;
         //Adding all the events of the current day to the currentDayEvents List and filtering those
         //If this step is not done then the filtering is done on the list that has already been filtered
         dayFilter(tabs.getSelectedTabPosition()+1);
@@ -495,7 +496,8 @@ public class EventsFragment extends Fragment {
         eventsLayout = view.findViewById(R.id.events_linear_layout);
         eventsRV = (RecyclerView)view.findViewById(R.id.events_recycler_view);
         noEventsTV = (TextView)view.findViewById(R.id.events_no_events_text_view);
-        for(int i=0;i<NUM_DAYS;i++){
+        tabs.addTab(tabs.newTab().setText("Pre Revels"));
+        for(int i=0;i<NUM_DAYS-1;i++){
             tabs.addTab(tabs.newTab().setText("Day "+(i+1)));
         }
         DayTabListener tabListener = new DayTabListener();
@@ -510,8 +512,19 @@ public class EventsFragment extends Fragment {
     }
     public void dayFilter(int day){
         currentDayEvents.clear();
+        //Filtering PreRevels events
+        if(day == -1){
+            for(int i=0;i<events.size();i++){
+                if(events.get(i).getDay().contains("pre")){
+                    currentDayEvents.add(events.get(i));
+                }
+            }
+            adapter.updateList(currentDayEvents);
+            return;
+        }
+        //Filtering the remaining events
         for(int i=0;i<events.size();i++){
-            if(events.get(i).getDay().contains(day+"")){
+            if(events.get(i).getDay().contains((day-1)+"")){
                 currentDayEvents.add(events.get(i));
             }
         }
@@ -534,35 +547,11 @@ public class EventsFragment extends Fragment {
         public void onTabSelected(TabLayout.Tab tab) {
             int day = tab.getPosition() + 1;
             Log.d(TAG, "onTabSelected: day = "+day);
-
-            switch(day){
-                case 1:
-                    //Day 1 Tab Selected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                case 2:
-                    //Day 2 Tab Selected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                case 3:
-                    //Day 3 Tab Selected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                case 4:
-                    //Day 4 Tab Selected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                default:
-                    Log.d(TAG, "onTabSelected: Error in the tab index");
+            if(tab.getPosition() == 0){
+                day = PREREVELS_DAY;
             }
+            dayFilter(day);
+            applyFilters();
         }
 
         @Override
@@ -575,30 +564,13 @@ public class EventsFragment extends Fragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             int day = tab.getPosition() + 1;
-            Log.d(TAG, "onTabReselected: day = "+day);
-
-            switch(day){
-                case 1:
-                    //Day 1 Tab ReSelected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                case 2:
-                    //Day 2 Tab ReSelected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                case 3:
-                    //Day 3 Tab ReSelected
-                    dayFilter(day);
-                    applyFilters();
-
-                    break;
-                default:
-                    Log.d(TAG, "onTabReSelected: Error in the tab index");
+            if(tab.getPosition() == 0){
+                day = PREREVELS_DAY;
             }
+            Log.d(TAG, "onTabReselected: day = "+day);
+            dayFilter(day);
+            applyFilters();
+
 
         }
     }
@@ -615,9 +587,11 @@ public class EventsFragment extends Fragment {
                 // Right to left Swipe
                 Log.d(TAG, "onFling: RtoL Fling");
                 int tabIndex = tabs.getSelectedTabPosition();
-                if(!(tabIndex==NUM_DAYS - 1)){
+                if(!(tabIndex==NUM_DAYS - 1 )){
                     //Selecting the next tab
-                    tabs.getTabAt(tabIndex+1).select();
+                    TabLayout.Tab t = tabs.getTabAt(tabIndex+1);
+                    if(t!=null)
+                        t.select();
                 }
                 return false;
             }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY &&Math.abs(e1.getY() - e2.getY())<SWIPE_MAX_VERTICAL ) {
@@ -626,7 +600,9 @@ public class EventsFragment extends Fragment {
                 int tabIndex = tabs.getSelectedTabPosition();
                 if(!(tabIndex==0)){
                     //Selecting the previous tab
-                    tabs.getTabAt(tabIndex-1).select();
+                    TabLayout.Tab t = tabs.getTabAt(tabIndex-1);
+                    if(t!=null)
+                        t.select();
                 }
                 return false;
             }
