@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,20 +24,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
-import revels18.in.revels18.Receivers.NotificationReceiver;
+import revels18.in.revels18.receivers.NotificationReceiver;
 import revels18.in.revels18.adapters.FavouritesEventsAdapter;
 import revels18.in.revels18.models.events.EventDetailsModel;
-import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 
 public class FavouritesActivity extends AppCompatActivity {

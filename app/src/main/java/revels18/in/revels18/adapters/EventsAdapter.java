@@ -3,21 +3,17 @@ package revels18.in.revels18.adapters;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +26,8 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
-import revels18.in.revels18.Receivers.NotificationReceiver;
+import revels18.in.revels18.receivers.NotificationReceiver;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
@@ -213,9 +210,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         final String eventID = event.getEventID();
         final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-        //TODO: Add Icons for the event logo
-//        IconCollection icons = new IconCollection();
-//        eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
+        IconCollection icons = new IconCollection();
+        eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
         final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
         favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +291,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
             eventVenue.setText(event.getVenue());
             eventRound.setText("R".concat(event.getRound()));
+            IconCollection icons = new IconCollection();
+            eventIcon.setImageResource(icons.getIconResource(activity, event.getCatName()));
             if(isFavourite(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
                 favIcon.setTag("selected");

@@ -1,4 +1,4 @@
-package revels18.in.revels18.Utilities;
+package revels18.in.revels18.utilities;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

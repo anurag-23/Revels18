@@ -25,7 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <receiver
-            android:name="revels18.in.revels18.Receivers.NotificationReceiver"
+            android:name="revels18.in.revels18.receivers.NotificationReceiver"
             android:enabled="true"
             android:exported="true" />
         <activity

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="10dp"
-            android:clipToPadding="true"
+            android:clipToPadding="false"
             android:clipChildren="false">
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
@@ -24,7 +24,7 @@
                 app:tabSelectedTextColor="@color/white"
                 app:tabIndicatorColor="@color/white"
                 android:layout_weight="1"
-                android:elevation="4dp"
+                app:elevation="4dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed">
 

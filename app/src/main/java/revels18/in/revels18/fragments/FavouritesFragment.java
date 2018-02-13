@@ -32,7 +32,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
-import revels18.in.revels18.Receivers.NotificationReceiver;
+import revels18.in.revels18.receivers.NotificationReceiver;
 import revels18.in.revels18.adapters.FavouritesEventsAdapter;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
