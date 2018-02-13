@@ -37,7 +37,6 @@ public class AboutUsActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
                 appBarLayout.setElevation(0);
-                appBarLayout.setTargetElevation(0);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

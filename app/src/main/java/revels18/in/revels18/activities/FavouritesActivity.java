@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,10 +75,10 @@ public class FavouritesActivity extends AppCompatActivity {
         context=this;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findViewById(R.id.toolbar).setElevation(0);
+                getSupportActionBar().setTitle(R.string.drawer_favourites);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
                 appBarLayout.setElevation(0);
-                appBarLayout.setTargetElevation(0);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -79,15 +79,19 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDatabase = Realm.getDefaultInstance();
-
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            getWindow().setStatusBarColor(Color.parseColor("#0d0d0d"));
-            getWindow().setNavigationBarColor(Color.parseColor("#0d0d0d"));
-
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+                toolbar.setElevation(0);
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle(R.string.drawer_home);
+                AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
+                appBarLayout.setElevation(0);
+                appBarLayout.setTargetElevation(0);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -216,7 +220,15 @@ public class MainActivity extends AppCompatActivity  {
     public void onDestroy(){
         super.onDestroy();
     }
-
+    private void setTitle(String title){
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getSupportActionBar().setTitle(title);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     private void launchCCT(){
         /*firebaseRemoteConfig.fetch()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
