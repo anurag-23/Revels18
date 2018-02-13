@@ -115,7 +115,8 @@ public class EventsFragment extends Fragment {
                     }else{
                         Snackbar.make(view, event.getEventName()+" removed from Favourites!",Snackbar.LENGTH_SHORT).show();
                     }
-                    adapter.notifyDataSetChanged();
+                    if(adapter!=null)
+                        adapter.notifyDataSetChanged();
                 }
             };
             //Fetching list of Venues, Categories and Event names for the filter
@@ -242,7 +243,8 @@ public class EventsFragment extends Fragment {
                 Snackbar.make(view, "Filters applied for Day "+getArguments().getInt("day", 1)+"!", Snackbar.LENGTH_SHORT).show();
         }
 
-        adapter.updateList(tempList);
+        if(adapter!=null)
+            adapter.updateList(tempList);
 
     }
     private void clearFilters(){
@@ -485,7 +487,8 @@ public class EventsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        if(adapter!=null)
+            adapter.notifyDataSetChanged();
     }
 
     private void initViews(View view){
@@ -519,7 +522,8 @@ public class EventsFragment extends Fragment {
                     currentDayEvents.add(events.get(i));
                 }
             }
-            adapter.updateList(currentDayEvents);
+            if(adapter!=null)
+                adapter.updateList(currentDayEvents);
             return;
         }
         //Filtering the remaining events
@@ -528,7 +532,8 @@ public class EventsFragment extends Fragment {
                 currentDayEvents.add(events.get(i));
             }
         }
-        adapter.updateList(currentDayEvents);
+        if(adapter!=null)
+            adapter.updateList(currentDayEvents);
     }
     //TODO(Low Priority) : Search query persistance across tabs
     public void queryFilter(String query){
