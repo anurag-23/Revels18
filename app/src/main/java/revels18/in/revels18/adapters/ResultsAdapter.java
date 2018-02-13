@@ -3,8 +3,6 @@ package revels18.in.revels18.adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.results.EventResultModel;
 
 /**
@@ -44,9 +43,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         EventResultModel result = resultsList.get(position);
         holder.eventName.setText(result.eventName);
         holder.eventRound.setText(result.eventRound);
-
-        /*IconCollection icons = new IconCollection();
-        holder.eventLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));*/
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
     }
 
     @Override

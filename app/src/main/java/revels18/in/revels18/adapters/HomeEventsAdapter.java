@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +28,8 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
-import revels18.in.revels18.Receivers.NotificationReceiver;
+import revels18.in.revels18.receivers.NotificationReceiver;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
@@ -125,9 +125,8 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             final String eventID = event.getEventID();
             final EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-            //TODO: Add Icons for the event logo
-//        IconCollection icons = new IconCollection();
-//        eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
+            IconCollection icons = new IconCollection();
+          eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
             final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
