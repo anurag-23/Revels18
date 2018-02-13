@@ -33,6 +33,10 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -94,7 +98,7 @@ public class HomeFragment extends Fragment {
     private List<EventResultModel> resultsList = new ArrayList<>();
     private List<CategoryModel> categoriesList = new ArrayList<>();
     private List<ScheduleModel> eventsList = new ArrayList<>();
-
+    private FirebaseRemoteConfig firebaseRemoteConfig;
     public HomeFragment() {
     }
 
@@ -122,24 +126,28 @@ public class HomeFragment extends Fragment {
         instaTextView = (TextView)view.findViewById(R.id.insta_text_view);
         displayInstaFeed();
 
-
+        //Setting up Firebase
+        try {
+            firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+            FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                    .build();
+            firebaseRemoteConfig.setConfigSettings(configSettings);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //Checking User's Network Status
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         //Updating the SliderLayout with images
         BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
-        TextSliderView tsv1 = new TextSliderView(getContext());
-        tsv1.image("https://proshow.mitrevels.in/images/five.jpg");
-        tsv1.setScaleType(imgScaleType);
-        TextSliderView tsv2 = new TextSliderView(getContext());
-        tsv2.image("https://proshow.mitrevels.in/images/three.jpg");
-        tsv2.setScaleType(imgScaleType);
-        TextSliderView tsv3 = new TextSliderView(getContext());
-        tsv3.image("https://proshow.mitrevels.in/images/one.jpg");
-        tsv3.setScaleType(imgScaleType);
-        imageSlider.addSlider(tsv1);
-        imageSlider.addSlider(tsv2);
-        imageSlider.addSlider(tsv3);
+        List<String> imageURLs = getImageURLSfromFirebase();
+        for(int i=0;i<imageURLs.size();i++){
+            TextSliderView tsv = new TextSliderView(getContext());
+            tsv.image(imageURLs.get(i));
+            tsv.setScaleType(imgScaleType);
+            imageSlider.addSlider(tsv);
+        }
         //Animation type
         imageSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         //Setting the Transition time and Interpolator for the Animation
@@ -338,7 +346,38 @@ public class HomeFragment extends Fragment {
             homeResultsItem.setVisibility(View.VISIBLE);
         }
     }
+    private List<String> getImageURLSfromFirebase(){
+        final List<String> urls  = new ArrayList<String>();
+        if(firebaseRemoteConfig == null){
+            Log.d(TAG, "getImageURLSfromFirebase: Null FirebaseRC");
+            urls.add("https://proshow.mitrevels.in/images/one.jpg");
+            urls.add("https://proshow.mitrevels.in/images/three.jpg");
+            urls.add("https://proshow.mitrevels.in/images/five.jpg");
+            return urls;
+        }
+        firebaseRemoteConfig.fetch()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
 
+                        if (task.isSuccessful()) {
+                            firebaseRemoteConfig.activateFetched();
+                            firebaseRemoteConfig.activateFetched();
+                            double  n_banners = firebaseRemoteConfig.getDouble("num_banners");
+                            for(int i=0;i<n_banners;i++){
+                                urls.add(firebaseRemoteConfig.getString("banner_"+i));
+                            }
+                        }else{
+                            //Unable to fetch Config Values from Firebase.
+                            //TODO: Add default values here
+                            urls.add("https://proshow.mitrevels.in/images/one.jpg");
+                            urls.add("https://proshow.mitrevels.in/images/three.jpg");
+                            urls.add("https://proshow.mitrevels.in/images/five.jpg");
+                        }
+                    }
+                });
+        return urls;
+    }
     public void fetchResults(){
         processes++;
         Call<ResultsListModel> callResultsList = APIClient.getAPIInterface().getResultsList();
