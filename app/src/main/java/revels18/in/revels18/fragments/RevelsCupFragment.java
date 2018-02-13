@@ -1,6 +1,7 @@
 package revels18.in.revels18.fragments;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,6 +33,15 @@ public class RevelsCupFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.bottom_nav_revels_cup);
+
+        try{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                getActivity().findViewById(R.id.app_bar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

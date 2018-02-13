@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 
 /**
@@ -42,8 +43,8 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
     public void onBindViewHolder(EventViewHolder holder, int position) {
         FavouritesModel event = favourites.get(position);
         holder.onBind(event);
-        //IconCollection icons = new IconCollection();
-        //holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));/
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
     @Override
     public int getItemCount() {

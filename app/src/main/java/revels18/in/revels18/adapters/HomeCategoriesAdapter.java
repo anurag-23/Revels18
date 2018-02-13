@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.activities.CategoryActivity;
 import revels18.in.revels18.models.categories.CategoryModel;
 
@@ -43,8 +44,8 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
         holder.onBind(category);
-        //IconCollection icons = new IconCollection();
-        //holder.categoryLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
+        IconCollection icons = new IconCollection();
+        holder.categoryLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
     }
     @Override
     public int getItemCount() {
@@ -55,7 +56,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
         public ImageView categoryLogo;
         public TextView categoryName;
         public RelativeLayout categoryItem;
-        public  HomeViewHolder(View view) {
+        public HomeViewHolder(View view) {
             super(view);
             initializeViews(view);
         }

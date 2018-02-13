@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.results.EventResultModel;
 
 /**
@@ -44,8 +45,8 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         EventResultModel result = resultsList.get(position);
         holder.onBind(result);
-        //IconCollection icons = new IconCollection();
-        //holder.resultsLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
+        IconCollection icons = new IconCollection();
+        holder.resultsLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
     }
     @Override
     public int getItemCount() {

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,8 +28,8 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
-import revels18.in.revels18.Receivers.NotificationReceiver;
-import revels18.in.revels18.models.events.EventDetailsModel;
+import revels18.in.revels18.receivers.NotificationReceiver;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
@@ -68,8 +67,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         holder.eventName.setText(event.getEventName());
         holder.eventTime.setText(event.getStartTime());
-        //IconCollection icons = new IconCollection();
-        //holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
         holder.eventRound.setVisibility(View.VISIBLE);
 
         if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")) {
@@ -131,8 +130,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
 
-            //IconCollection icons = new IconCollection();
-            //eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
+            IconCollection icons = new IconCollection();
+            eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
             TextView eventName = (TextView) view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());

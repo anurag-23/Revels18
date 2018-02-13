@@ -1,4 +1,4 @@
-package revels18.in.revels18.Receivers;
+package revels18.in.revels18.receivers;
 
 import android.app.Notification;
 import android.app.NotificationManager;

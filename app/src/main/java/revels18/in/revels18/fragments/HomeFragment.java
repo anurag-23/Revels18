@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -111,6 +112,15 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.fest_name);
         setHasOptionsMenu(true);
+
+        try{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                getActivity().findViewById(R.id.app_bar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -167,7 +177,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 //MORE Clicked - Take user to Results Fragment
                 Log.i(TAG, "onClick: Results more");
-                ((MainActivity)getActivity()).changeFragment(ResultsFragment.newInstance());
+                ((MainActivity)getActivity()).changeFragment(ResultsTabsFragment.newInstance());
             }
         });
 

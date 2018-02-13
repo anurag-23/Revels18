@@ -5,8 +5,10 @@ import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -91,6 +93,16 @@ public class EventsFragment extends Fragment {
         eventTypeList.add("All");
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.bottom_nav_events);
+        try{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().findViewById(R.id.toolbar).setElevation(0);
+                AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.app_bar);
+                appBarLayout.setElevation(0);
+                appBarLayout.setTargetElevation(0);
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
 
     }
 
