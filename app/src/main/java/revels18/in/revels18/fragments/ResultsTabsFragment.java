@@ -29,7 +29,7 @@ public class ResultsTabsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.revels);
+        getActivity().setTitle(R.string.bottom_nav_results);
         try{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation(0);

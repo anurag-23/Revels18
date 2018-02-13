@@ -24,7 +24,7 @@
                 app:tabSelectedTextColor="@color/white"
                 app:tabIndicatorColor="@color/white"
                 android:layout_weight="1"
-                app:elevation="4dp"
+                android:elevation="4dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed">
 

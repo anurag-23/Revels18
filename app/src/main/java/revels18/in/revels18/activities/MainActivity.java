@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity  {
                 Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
                 toolbar.setElevation(0);
                 setSupportActionBar(toolbar);
-                getSupportActionBar().setTitle(R.string.drawer_home);
                 AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
                 appBarLayout.setElevation(0);
                 appBarLayout.setTargetElevation(0);
