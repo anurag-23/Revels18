@@ -62,7 +62,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_1"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                     </LinearLayout>
@@ -120,7 +119,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_2"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"
                             android:id="@+id/textView" />
 
@@ -179,7 +177,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_3"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                     </LinearLayout>
@@ -237,7 +234,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_4"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                     </LinearLayout>
