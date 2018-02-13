@@ -150,14 +150,8 @@ public class HomeFragment extends Fragment {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         //Updating the SliderLayout with images
-        BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
-        List<String> imageURLs = getImageURLSfromFirebase();
-        for(int i=0;i<imageURLs.size();i++){
-            TextSliderView tsv = new TextSliderView(getContext());
-            tsv.image(imageURLs.get(i));
-            tsv.setScaleType(imgScaleType);
-            imageSlider.addSlider(tsv);
-        }
+        getImageURLSfromFirebase();
+
         //Animation type
         imageSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         //Setting the Transition time and Interpolator for the Animation
@@ -166,7 +160,7 @@ public class HomeFragment extends Fragment {
         imageSlider.setCustomAnimation(new DescriptionAnimation());
         //Setting the time after which it moves to the next image
         imageSlider.setDuration(400);
-
+        imageSlider.setVisibility(View.GONE);
 
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
@@ -356,37 +350,44 @@ public class HomeFragment extends Fragment {
             homeResultsItem.setVisibility(View.VISIBLE);
         }
     }
-    private List<String> getImageURLSfromFirebase(){
-        final List<String> urls  = new ArrayList<String>();
-        if(firebaseRemoteConfig == null){
-            Log.d(TAG, "getImageURLSfromFirebase: Null FirebaseRC");
-            urls.add("https://proshow.mitrevels.in/images/one.jpg");
-            urls.add("https://proshow.mitrevels.in/images/three.jpg");
-            urls.add("https://proshow.mitrevels.in/images/five.jpg");
-            return urls;
-        }
-        firebaseRemoteConfig.fetch()
+    private void getImageURLSfromFirebase(){
+        long cacheExpiration = 3600;
+        firebaseRemoteConfig.fetch(cacheExpiration)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(Task<Void> task) {
-
+                        List<String> urls  = new ArrayList<String>();
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: Successful");
                             firebaseRemoteConfig.activateFetched();
-                            firebaseRemoteConfig.activateFetched();
-                            double  n_banners = firebaseRemoteConfig.getDouble("num_banners");
-                            for(int i=0;i<n_banners;i++){
-                                urls.add(firebaseRemoteConfig.getString("banner_"+i));
+                            int  n_banners = Integer.parseInt(firebaseRemoteConfig.getString("num_banners"));
+                            Log.d(TAG, "n banners: "+n_banners);
+                            for(int i=1;i<=n_banners;i++){
+                                String url = firebaseRemoteConfig.getString("banner_"+i);
+                                urls.add(url);
+                                Log.d(TAG, "onComplete: URL"+url);
                             }
+
                         }else{
                             //Unable to fetch Config Values from Firebase.
                             //TODO: Add default values here
+                            Log.d(TAG, "onComplete: Default"+task.getException().toString());
                             urls.add("https://proshow.mitrevels.in/images/one.jpg");
                             urls.add("https://proshow.mitrevels.in/images/three.jpg");
                             urls.add("https://proshow.mitrevels.in/images/five.jpg");
+
                         }
+                        BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
+                        for(int i=0;i<urls.size();i++){
+                            TextSliderView tsv = new TextSliderView(getContext());
+                            tsv.image(urls.get(i));
+                            tsv.setScaleType(imgScaleType);
+                            imageSlider.addSlider(tsv);
+                        }
+                        imageSlider.setVisibility(View.VISIBLE);
                     }
                 });
-        return urls;
+
     }
     public void fetchResults(){
         processes++;
