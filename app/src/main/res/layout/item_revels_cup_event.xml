@@ -8,7 +8,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="@dimen/padding_half"
-    android:layout_marginRight="@dimen/padding_half">
+    android:layout_marginRight="@dimen/padding_half"
+    android:layout_marginBottom="@dimen/padding_half">
 <LinearLayout
     android:id="@+id/rc_item_relative_layout"
     android:layout_width="match_parent"
@@ -74,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/typography_large_title"
-                tools:text="VS"
+                android:text="VS"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

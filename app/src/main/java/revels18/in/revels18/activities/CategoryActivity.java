@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,13 +56,6 @@ public class CategoryActivity extends AppCompatActivity {
         if (catID == null) catID = "";
         if (catDesc == null) catDesc = "";
 
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            getWindow().setStatusBarColor(Color.parseColor("#0d0d0d"));
-            getWindow().setNavigationBarColor(Color.parseColor("#0d0d0d"));
-
-        }
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
         setSupportActionBar(toolbar);
 
@@ -69,6 +63,7 @@ public class CategoryActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(catName);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         mDatabase = Realm.getDefaultInstance();
         displayEvents();
     }
