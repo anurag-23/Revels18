@@ -12,27 +12,17 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:elevation="0dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            app:cardElevation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:theme="@style/AppBarTheme"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                />
-
-        </FrameLayout>
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,19 +35,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="#1A1A1A"
                 android:gravity="center"
                 android:elevation="8dp">
-
-                <!--TODO:Add banner below-->
                 <ImageView
                     android:id="@+id/tt16_image"
-                    android:paddingLeft="60dp"
-                    android:layout_width="280dp"
-                    android:layout_height="250dp"
-                    android:adjustViewBounds="true"
-
-                    ></ImageView>
+                    android:src="@drawable/revels_banner"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true">
+                </ImageView>
 
 
             </LinearLayout>

@@ -239,8 +239,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         public void onBind(final ScheduleModel event,final EventClickListener eventClickListener, final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
-            //eventVenue.setText(event.getVenue());
-           // eventRound.setText("R".concat(event.getRound()));
+            eventVenue.setText(event.getVenue());
+            eventRound.setText("R".concat(event.getRound()));
             IconCollection icons = new IconCollection();
             eventIcon.setImageResource(icons.getIconResource(activity, event.getCatName()));
             if(isFavourite(event)){

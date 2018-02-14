@@ -18,23 +18,15 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:elevation="4dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardElevation="0dp"
-                app:layout_scrollFlags="scroll|enterAlways">
-                <android.support.v7.widget.Toolbar
+            <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|enterAlways"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-            </FrameLayout>
         </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/activity_main_content"

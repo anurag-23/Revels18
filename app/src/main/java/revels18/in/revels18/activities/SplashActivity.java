@@ -65,21 +65,38 @@ public class SplashActivity extends AppCompatActivity {
         if (isConnected){
             isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
         }
-        /*final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_tt_icon);
-        final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_tt_icon);
-        final ImageView text = (ImageView) findViewById(R.id.splash_tt_text);
+        final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_revels_icon);
+        final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_revels_icon);
+        final ImageView text = (ImageView) findViewById(R.id.splash_revels_text);
         final FrameLayout container = (FrameLayout)findViewById(R.id.frameLayout4);
-        iconLeft.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_top));
-        iconRight.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_bottom));
-        Animation animation = AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_text);
+
+
+        iconLeft.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                iconRight.setVisibility(View.VISIBLE);
+                iconRight.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first));
+            }
+        }, 750);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                text.setVisibility(View.VISIBLE);
+                text.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first));
+            }
+        }, 1500);
+
+        Animation animation = AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
-            }*/
+            }
 
-            //@Override
-            //public void onAnimationEnd(Animation animation) {
+            @Override
+            public void onAnimationEnd(Animation animation) {
             if (dataAvailableLocally){
                 Log.d(TAG,"Data avail local");
 
@@ -93,7 +110,7 @@ public class SplashActivity extends AppCompatActivity {
                             //loadAllFromInternet();
                             moveForward();
                         }
-                    }, 1000);
+                    }, 2000);
                 }
 
                 else{Log.d(TAG,"not connected");
@@ -102,7 +119,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void run() {
                             moveForward();
                         }
-                    }, 1000);
+                    }, 2000);
                 }
 
             }
@@ -144,13 +161,13 @@ public class SplashActivity extends AppCompatActivity {
                     loadAllFromInternet();
                 }
             }
-            /*}
+            }
             @Override
             public void onAnimationRepeat(Animation animation) {
 
             }
         });
-        text.startAnimation(animation);*/
+        text.startAnimation(animation);
     }
     private void loadAllFromInternet(){
         loadEventsFromInternet();
@@ -188,11 +205,11 @@ public class SplashActivity extends AppCompatActivity {
                             Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
-                    mHandler.postDelayed(test,1000);
+                    mHandler.postDelayed(test,2000);
                 }
             }
         };
-        mHandler.postDelayed(test,1000);
+        mHandler.postDelayed(test,2000);
     }
 
     private void moveForward(){

@@ -19,7 +19,7 @@ android:layout_height="match_parent"
     android:visibility="gone"
     android:layout_centerInParent="true"/>
 
-<!--<FrameLayout
+<FrameLayout
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,24 +28,25 @@ android:layout_height="match_parent"
     android:paddingRight="32dp">
 
     <ImageView
-        android:id="@+id/splash_left_tt_icon"
+        android:id="@+id/splash_left_revels_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/left_icon" />
+        android:src="@drawable/revels_icon_left" />
 
     <ImageView
-        android:layout_toRightOf="@id/splash_left_tt_icon"
-        android:id="@+id/splash_right_tt_icon"
+        android:visibility="gone"
+        android:id="@+id/splash_right_revels_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/right_icon" />
+        android:src="@drawable/revels_icon_right" />
 
 
     <ImageView
-        android:id="@+id/splash_tt_text"
+        android:visibility="gone"
+        android:id="@+id/splash_revels_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/tt_text" />
+        android:src="@drawable/revels_icon_text" />
 
-</FrameLayout> -->
+</FrameLayout>
 </RelativeLayout>
