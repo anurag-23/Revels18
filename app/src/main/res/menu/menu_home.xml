@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_registrations"
-        android:title="@string/registrations"
+        android:title="@string/profile"
         android:icon="@drawable/ic_registrations_24dp"
         app:showAsAction="always"
         android:orderInCategory="3"/>

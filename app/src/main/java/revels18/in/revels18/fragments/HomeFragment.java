@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,7 +38,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,7 +54,7 @@ import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
-import revels18.in.revels18.activities.RegistrationsActivity;
+import revels18.in.revels18.activities.ProfileActivity;
 import revels18.in.revels18.adapters.HomeAdapter;
 import revels18.in.revels18.adapters.HomeCategoriesAdapter;
 import revels18.in.revels18.adapters.HomeEventsAdapter;
@@ -66,7 +62,6 @@ import revels18.in.revels18.adapters.HomeResultsAdapter;
 import revels18.in.revels18.models.categories.CategoryModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
-import revels18.in.revels18.models.instagram.Image.Image;
 import revels18.in.revels18.models.instagram.InstagramFeed;
 import revels18.in.revels18.models.results.EventResultModel;
 import revels18.in.revels18.models.results.ResultModel;
@@ -465,7 +460,7 @@ public class HomeFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), ProfileActivity.class));
                 else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

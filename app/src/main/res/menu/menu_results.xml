@@ -9,7 +9,7 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_registrations"
-        android:title="@string/registrations"
+        android:title="@string/profile"
         android:icon="@drawable/ic_registrations_24dp"
         app:showAsAction="never"
         android:orderInCategory="3"/>

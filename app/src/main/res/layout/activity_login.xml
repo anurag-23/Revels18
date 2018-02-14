@@ -29,11 +29,9 @@
             android:clipToPadding="false">
 
             <ImageView
-                android:layout_width="108dp"
-                android:layout_height="108dp"
-                android:src="@mipmap/ic_launcher"
-                android:elevation="4dp"
-                android:padding="12dp"/>
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/revels_text"/>
 
             <LinearLayout
                 android:id="@+id/login_child_linear_layout"
@@ -108,11 +106,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/login_as_guest"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typography_title"
                     android:background="@color/colorPrimaryDark"
+                    />
+
+                <Button
+                    android:id="@+id/sign_up_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/typography_title"
+                    android:background="@color/colorAccent"
                     />
 
             </LinearLayout>

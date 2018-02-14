@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -48,7 +49,7 @@ import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
-import revels18.in.revels18.activities.RegistrationsActivity;
+import revels18.in.revels18.activities.ProfileActivity;
 import revels18.in.revels18.adapters.EventsAdapter;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.models.events.ScheduleModel;
@@ -285,6 +286,7 @@ public class EventsFragment extends Fragment {
 
                 View view = View.inflate(getActivity(), R.layout.dialog_filter, null);
                 final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
                 dialog.setContentView(view);
 
@@ -489,7 +491,7 @@ public class EventsFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), ProfileActivity.class));
                 else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

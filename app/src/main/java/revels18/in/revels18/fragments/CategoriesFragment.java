@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,14 +24,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
-import revels18.in.revels18.activities.RegistrationsActivity;
+import revels18.in.revels18.activities.ProfileActivity;
 import revels18.in.revels18.adapters.CategoriesAdapter;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.models.categories.CategoryModel;
@@ -171,7 +169,7 @@ public class CategoriesFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), ProfileActivity.class));
                 else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

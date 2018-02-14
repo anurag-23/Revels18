@@ -5,7 +5,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
 
 public class LoginActivity extends AppCompatActivity {
+    private String redirectURL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = (Button)findViewById(R.id.login_button);
         Button guestLoginButton = (Button)findViewById(R.id.guest_login_button);
+        Button signUpButton = (Button)findViewById(R.id.sign_up_button);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         if (sp.getBoolean("loggedIn", false)){
             Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
             startActivity(intent);
@@ -79,8 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                                         error = 1;
                                         break;
                                 case 3: message = "Login successful! However, we recommend setting a new password before you continue.";
-                                        error = 2;
-                                        setLoggedIn();
+                                        error = 3;
+                                        redirectURL = response.body().getPayload().getUrl();
                                         break;
                                 case 4: message = "Login successful!";
                                         error = 2;
@@ -116,6 +122,17 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String URL = "https://mitportals.in/loginform.php";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(LoginActivity.this, Uri.parse(URL));
+            }
+        });
     }
 
     private void setLoggedIn() {
@@ -123,8 +140,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showAlert(String message, final int error){
-        String result[] = {"", "Error", "Success"};
-        int icon[] = {0, R.drawable.ic_error, R.drawable.ic_success};
+        String result[] = {"", "Error", "Success", "Success"};
+        int icon[] = {0, R.drawable.ic_error, R.drawable.ic_success, R.drawable.ic_success};
         new AlertDialog.Builder(LoginActivity.this).setTitle(result[error]).setMessage(message)
                 .setIcon(icon[error])
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -133,6 +150,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (error == 2){
                             Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
                             startActivity(intent);
+                        }else if (error == 3){
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            builder.setToolbarColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary));
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(LoginActivity.this, Uri.parse(redirectURL));
                         }
                     }
                 }).show();
