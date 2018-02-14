@@ -29,10 +29,12 @@ import java.util.List;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
+import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.receivers.NotificationReceiver;
 import revels18.in.revels18.adapters.FavouritesEventsAdapter;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.views.TabbedDialog;
 
 public class FavouritesActivity extends AppCompatActivity {
     String TAG = "FavouritesActivity";
@@ -249,101 +251,205 @@ public class FavouritesActivity extends AppCompatActivity {
         }
     }
     private void displayBottomSheet(final FavouritesModel event){
-        final View view = View.inflate(this, R.layout.activity_event_dialogue, null);
-        final Dialog dialog = new Dialog(this);
-        Log.i("TT17", "displayBottomSheet: NEW!");
+//        final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
+        final Dialog dialog = new Dialog(context);
+        TabbedDialog td = new TabbedDialog();
         final String eventID = event.getId();
         final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+        final ScheduleModel eventSchedule = realm.where(ScheduleModel.class).equalTo("eventID",eventID).equalTo("day", event.getDay()).findFirst();
+        TabbedDialog.EventFragment.DialogFavouriteClickListener fcl = new TabbedDialog.EventFragment.DialogFavouriteClickListener() {
+            @Override
+            public void onItemClick(boolean add) {
+                //TODO: App crashes when snackbar is displayed(Currently commented out).Fix crash
 
-        ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-        ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
+                if(add){
+                    addFavourite(event);
+                    //Snackbar.make(view, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
+                }else{
+                    removeFavourite(event);
+                    //Snackbar.make(view, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        };
+        td.setValues(eventSchedule, fcl, isFavourite(event), schedule);
+        td.show(getSupportFragmentManager(), "tag");
 
-        favIcon.setVisibility(View.GONE);
+//        final View view = View.inflate(this, R.layout.activity_event_dialogue, null);
+//        final Dialog dialog = new Dialog(this);
+//        Log.i("TT17", "displayBottomSheet: NEW!");
+//        final String eventID = event.getId();
+//        final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+//
+//        ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+//        ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
+
+//        favIcon.setVisibility(View.GONE);
 
         //IconCollection icons = new IconCollection();
         //eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
 
-        final TextView eventName = (TextView)view.findViewById(R.id.event_name);
-        eventName.setText(event.getEventName());
-
-        TextView eventRound = (TextView)view.findViewById(R.id.event_round);
-        eventRound.setText(event.getRound());
-
-        TextView eventDate = (TextView)view.findViewById(R.id.event_date);
-        eventDate.setText(event.getDate());
-
-        TextView eventTime = (TextView)view.findViewById(R.id.event_time);
-        if(!event.getEndTime().equals(""))
-            eventTime.setText(event.getStartTime());
-        else
-            eventTime.setText(event.getStartTime());
-
-        TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
-        eventVenue.setText(event.getVenue());
-
-        TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
-        eventTeamSize.setText(schedule.getMaxTeamSize());
-
-        TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
-        eventCategory.setText(event.getCatName());
-
-        TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-        eventContactName.setText(event.getContactName() + " : ");
-
-        TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-        eventContact.setText(  schedule.getContactNo());
-        eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-
-        eventContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
-                startActivity(intent);
-            }
-        });
-
-        TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
-        eventDescription.setText(schedule.getDescription());
-
-        ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
-        deleteIcon.setVisibility(View.VISIBLE);
-        deleteIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int day = Integer.parseInt(event.getDay());
-                switch (day){
-                    case 1: int pos1 = favouritesDay1.indexOf(event);
-                        favouritesDay1.remove(event);
-                        adapterDay1.notifyItemRemoved(pos1);
-                        displayEvents();
-                        break;
-                    case 2:  int pos2 = favouritesDay2.indexOf(event);
-                        favouritesDay2.remove(event);
-                        adapterDay2.notifyItemRemoved(pos2);
-                        displayEvents();
-                        break;
-                    case 3: int pos3 = favouritesDay3.indexOf(event);
-                        favouritesDay3.remove(event);
-                        adapterDay3.notifyItemRemoved(pos3);
-                        displayEvents();
-                        break;
-                    case 4:  int pos4 = favouritesDay4.indexOf(event);
-                        favouritesDay4.remove(event);
-                        adapterDay4.notifyItemRemoved(pos4);
-                        displayEvents();
-                        break;
-                }
-                Snackbar snackbar = Snackbar.make(view.getRootView().getRootView(),"Removed from Favourites:"+eventName,Snackbar.LENGTH_SHORT);
-                snackbar.show();
-                dialog.dismiss();
-                updateRealm();
-                removeNotification(event);
-            }
-        });
-        dialog.setContentView(view);
-        Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
-        dialog.show();
+//        final TextView eventName = (TextView)view.findViewById(R.id.event_name);
+//        eventName.setText(event.getEventName());
+//
+//        TextView eventRound = (TextView)view.findViewById(R.id.event_round);
+//        eventRound.setText(event.getRound());
+//
+//        TextView eventDate = (TextView)view.findViewById(R.id.event_date);
+//        eventDate.setText(event.getDate());
+//
+//        TextView eventTime = (TextView)view.findViewById(R.id.event_time);
+//        if(!event.getEndTime().equals(""))
+//            eventTime.setText(event.getStartTime());
+//        else
+//            eventTime.setText(event.getStartTime());
+//
+//        TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
+//        eventVenue.setText(event.getVenue());
+//
+//        TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
+//        eventTeamSize.setText(schedule.getMaxTeamSize());
+//
+//        TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
+//        eventCategory.setText(event.getCatName());
+//
+//        TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+//        eventContactName.setText(event.getContactName() + " : ");
+//
+//        TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+//        eventContact.setText(  schedule.getContactNo());
+//        eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+//
+//        eventContact.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
+//                startActivity(intent);
+//            }
+//        });
+//
+//        ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+//        deleteIcon.setVisibility(View.VISIBLE);
+//        deleteIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int day = Integer.parseInt(event.getDay());
+//                switch (day){
+//                    case 1: int pos1 = favouritesDay1.indexOf(event);
+//                        favouritesDay1.remove(event);
+//                        adapterDay1.notifyItemRemoved(pos1);
+//                        displayEvents();
+//                        break;
+//                    case 2:  int pos2 = favouritesDay2.indexOf(event);
+//                        favouritesDay2.remove(event);
+//                        adapterDay2.notifyItemRemoved(pos2);
+//                        displayEvents();
+//                        break;
+//                    case 3: int pos3 = favouritesDay3.indexOf(event);
+//                        favouritesDay3.remove(event);
+//                        adapterDay3.notifyItemRemoved(pos3);
+//                        displayEvents();
+//                        break;
+//                    case 4:  int pos4 = favouritesDay4.indexOf(event);
+//                        favouritesDay4.remove(event);
+//                        adapterDay4.notifyItemRemoved(pos4);
+//                        displayEvents();
+//                        break;
+//                }
+//                Snackbar snackbar = Snackbar.make(view.getRootView().getRootView(),"Removed from Favourites:"+eventName,Snackbar.LENGTH_SHORT);
+//                snackbar.show();
+//                dialog.dismiss();
+//                updateRealm();
+//                removeNotification(event);
+//            }
+//        });
+//        dialog.setContentView(view);
+//        Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
     }
+    private void addFavourite(FavouritesModel eventSchedule){
+        FavouritesModel favourite = new FavouritesModel();
+        Log.i(TAG, "addFavourite: "+eventSchedule.getId());
+        //Get Corresponding EventDetailsModel from Realm
+        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getId()).equalTo("day", eventSchedule.getDay()).findFirst();
+        //Create and Set Values for FavouritesModel
+        favourite.setId(eventSchedule.getId());
+        favourite.setCatID(eventSchedule.getCatID());
+        favourite.setEventName(eventSchedule.getEventName());
+        favourite.setRound(eventSchedule.getRound());
+        favourite.setVenue(eventSchedule.getVenue());
+        favourite.setDate(eventSchedule.getDate());
+        favourite.setDay(eventSchedule.getDay());
+        favourite.setStartTime(eventSchedule.getStartTime());
+        favourite.setEndTime(eventSchedule.getEndTime());
+        if(eventDetails!=null) {
+            favourite.setParticipants(eventDetails.getMaxTeamSize());
+            favourite.setContactName(eventDetails.getContactName());
+            favourite.setContactNumber(eventDetails.getContactNo());
+            favourite.setCatName(eventDetails.getCatName());
+            favourite.setDescription(eventDetails.getDescription());
+        }
+        //Commit to Realm
+        if(realm!=null){
+            realm.beginTransaction();
+            realm.copyToRealm(favourite);
+            realm.commitTransaction();
+        }
+    }
+    public void removeFavourite(FavouritesModel event){
+        realm.beginTransaction();
+        realm.where(FavouritesModel.class).equalTo("id",event.getId()).equalTo("day",event.getDay()).equalTo("round", event.getRound()).findAll().deleteAllFromRealm();
+        realm.commitTransaction();
+        removeNotification(event);
+        int day = getDay(event);
+        switch(day){
+            case 1:favouritesDay1.remove(event);
+                if(adapterDay1!=null){
+                    adapterDay1.notifyDataSetChanged();
+                }
+                break;
+            case 2:favouritesDay2.remove(event);
+                if(adapterDay2!=null){
+                    adapterDay2.notifyDataSetChanged();
+                }
+                break;
+            case 3:favouritesDay3.remove(event);
+                if(adapterDay3!=null){
+                    adapterDay3.notifyDataSetChanged();
+                }
+                break;
+            case 4:favouritesDay4.remove(event);
+                if(adapterDay4!=null){
+                    adapterDay4.notifyDataSetChanged();
+                }
+                break;
+            default:;
+
+        }
+
+
+    }
+    public int getDay(FavouritesModel favouritesModel){
+        String day = favouritesModel.getDay();
+        if(day.contains("1")){
+            return 1;
+        }else if(day.contains("2")){
+            return 2;
+        }else if(day.contains("3")){
+            return 3;
+        }else if(day.contains("4")){
+            return 4;
+        }else{
+            return -1;
+        }
+    }
+    public boolean isFavourite(FavouritesModel event){
+        FavouritesModel favourite = realm.where(FavouritesModel.class).equalTo("id", event.getId()).equalTo("day",event.getDay()).equalTo("round" ,event.getRound()).findFirst();
+        if(favourite!=null){
+            return true;
+        }
+
+        return false;
+    }
+
     private void updateRealm(){
         realm.beginTransaction();
         realm.where(FavouritesModel.class).findAll().deleteAllFromRealm();
