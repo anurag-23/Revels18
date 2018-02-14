@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "435937481455",
+    "firebase_url": "https://revels18-b31a6.firebaseio.com",
+    "project_id": "revels18-b31a6",
+    "storage_bucket": "revels18-b31a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435937481455:android:d5f834bbeb231b43",
+        "android_client_info": {
+          "package_name": "revels18.in.revels18"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435937481455-3l8618bkf6rlesjfri20117jhpbc2s75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "revels18.in.revels18",
+            "certificate_hash": "8476406740d955f18a4e89397318a37d020419d5"
+          }
+        },
+        {
+          "client_id": "435937481455-oug22oh53t7cj3co21fchjkicr7ou769.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "revels18.in.revels18",
+            "certificate_hash": "b2869d9cdfb93dcaf899a49aa688539a711480c4"
+          }
+        },
+        {
+          "client_id": "435937481455-h0dkc5h8g8gs1kbuvao695ofnn3d0842.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXjc9FkFcq1opIXZgjO7_z-VlqhLXkuU4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435937481455-h0dkc5h8g8gs1kbuvao695ofnn3d0842.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
