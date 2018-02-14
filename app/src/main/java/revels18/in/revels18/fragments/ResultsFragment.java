@@ -2,10 +2,12 @@ package revels18.in.revels18.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -35,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.ResultsAdapter;
@@ -189,7 +192,13 @@ public class ResultsFragment extends Fragment {
             }
 
             case R.id.menu_registrations:{
-                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                else{
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 return true;
             }
             case R.id.menu_favourites: {

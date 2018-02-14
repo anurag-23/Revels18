@@ -2,12 +2,14 @@ package revels18.in.revels18.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +56,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.HomeAdapter;
@@ -460,7 +464,13 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
-                startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                else{
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 return true;
             }
             case R.id.menu_favourites: {

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -31,8 +34,18 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText email = (EditText)findViewById(R.id.username_edit_text);
         final EditText password = (EditText)findViewById(R.id.password_edit_text);
+        LinearLayout loginLayout = (LinearLayout)findViewById(R.id.login_child_linear_layout);
 
         Button loginButton = (Button)findViewById(R.id.login_button);
+        Button guestLoginButton = (Button)findViewById(R.id.guest_login_button);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getBoolean("loggedIn", false)){
+            Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
+            startActivity(intent);
+        }else{
+            loginLayout.setVisibility(View.VISIBLE);
+        }
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,17 +91,29 @@ public class LoginActivity extends AppCompatActivity {
                                         break;
                             }
                             dialog.dismiss();
+                            if (error == 2){
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit();
+                                editor.putBoolean("loggedIn", true);
+                                editor.apply();
+                            }
                             showAlert(message, error);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Log.d("Failure", t.getMessage());
                         dialog.dismiss();
                         showAlert("Could not connect to server! Please check your internet connect or try again later.", 1);
                     }
                 });
+            }
+        });
+
+        guestLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -5,9 +5,11 @@ import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -44,6 +46,7 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.EventsAdapter;
@@ -485,7 +488,13 @@ public class EventsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
-                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                else{
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 return true;
             }
             case R.id.menu_favourites: {

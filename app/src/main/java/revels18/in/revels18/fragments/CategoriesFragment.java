@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +30,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
+import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.RegistrationsActivity;
 import revels18.in.revels18.adapters.CategoriesAdapter;
@@ -43,6 +47,8 @@ public class CategoriesFragment extends Fragment {
     private static final int UPDATE_CATEGORIES = 1;
     private MenuItem searchItem;
     private String TAG = "CategoriesFragment";
+    private RecyclerView categoriesRecyclerView;
+
     public CategoriesFragment() {
     }
 
@@ -71,7 +77,7 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_categories, container, false);
-        RecyclerView categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
+        categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
@@ -164,7 +170,13 @@ public class CategoriesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_registrations:{
-                startActivity(new Intent((MainActivity)getActivity(), RegistrationsActivity.class));
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), RegistrationsActivity.class));
+                else{
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 return true;
             }
             case R.id.menu_favourites: {

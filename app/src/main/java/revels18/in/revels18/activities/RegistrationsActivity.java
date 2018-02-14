@@ -2,7 +2,10 @@ package revels18.in.revels18.activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
-import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.models.registration.ProfileResponse;
 import revels18.in.revels18.network.RegistrationClient;
 
@@ -30,7 +33,8 @@ public class RegistrationsActivity extends AppCompatActivity {
     private TextView phone;
     private TextView email;
     private TextView college;
-    private CardView profileCard;
+    private LinearLayout profileCard;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +55,20 @@ public class RegistrationsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         name = (TextView)findViewById(R.id.name_text_view);
         delID = (TextView)findViewById(R.id.del_id_text_view);
         regNo = (TextView)findViewById(R.id.reg_no_text_view);
         phone = (TextView)findViewById(R.id.phone_text_view);
         email = (TextView)findViewById(R.id.email_text_view);
         college = (TextView)findViewById(R.id.college_text_view);
-        profileCard = (CardView)findViewById(R.id.profile_card);
+        profileCard = (LinearLayout)findViewById(R.id.profile_layout);
+        logoutButton = (Button)findViewById(R.id.logout_button);
 
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Loading Profile... please wait!");
+        dialog.setCancelable(false);
         dialog.show();
 
         Call<ProfileResponse> call = RegistrationClient.getLoginInterface(this).getProfileDetails();
@@ -85,8 +93,11 @@ public class RegistrationsActivity extends AppCompatActivity {
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                     }
-                                });
+                                }).show();
                     }
 
                 }
@@ -99,6 +110,28 @@ public class RegistrationsActivity extends AppCompatActivity {
             }
         });
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(RegistrationsActivity.this)
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(RegistrationsActivity.this).edit();
+                                editor.remove("loggedIn");
+                                editor.apply();
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }).show();
+            }
+        });
     }
 
     @Override

@@ -79,4 +79,7 @@
     <string name="college">College:</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="email2">Email</string>
+    <string name="login_as_guest">Login as Guest</string>
 </resources>
