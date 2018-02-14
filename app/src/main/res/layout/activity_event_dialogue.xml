@@ -380,59 +380,7 @@
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/event_card_two"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/padding_default"
-            android:paddingStart="@dimen/padding_default"
-            android:paddingRight="@dimen/padding_default"
-            android:paddingEnd="@dimen/padding_default"
-            android:paddingTop="@dimen/padding_default"
-            android:paddingBottom="2dp"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"
-            >
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:alpha="0.54"
-                android:layout_marginRight="@dimen/padding_2x"
-                android:layout_marginEnd="@dimen/padding_2x"
-                app:srcCompat="@drawable/ic_description" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event Description"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="@dimen/typography_body"
-                android:layout_marginRight="@dimen/padding_half"
-                android:layout_marginEnd="@dimen/padding_half"/>
-        </LinearLayout>
-            <TextView
-                android:id="@+id/event_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:paddingLeft="72dp"
-                android:paddingStart="72dp"
-                android:paddingRight="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="@dimen/padding_default"/>
-        </LinearLayout>
 
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
