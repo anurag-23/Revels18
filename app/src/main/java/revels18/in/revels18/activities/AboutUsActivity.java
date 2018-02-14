@@ -19,10 +19,10 @@ import revels18.in.revels18.R;
 public class AboutUsActivity extends AppCompatActivity {
     private String TAG = "AboutUsActivity";
     //TODO:Change URLs
-    String URL_SNAPCHAT  = "http://www.snapchat.com/add/techtatva";
-    String URL_TWITTER  = "http://www.twitter.com/MITtechtatva";
-    String URL_FB  = "http://www.facebook.com/MITtechtatva";
-    String URL_INSTA  = "http://www.instagram.com/MITtechtatva";
+    String URL_SNAPCHAT  = "https://www.snapchat.com/add/revelsmit";
+    String URL_TWITTER  = "http://www.twitter.com/revelsmit";
+    String URL_FB  = "http://www.facebook.com/mitrevels";
+    String URL_INSTA  = "http://www.instagram.com/revelsmit";
     ImageView instaIV, fbIV, snapchatIV, twitterIV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

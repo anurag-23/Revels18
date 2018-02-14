@@ -11,8 +11,9 @@
     <dimen name="typography_body">14sp</dimen>
     <dimen name="typography_small">12sp</dimen>
     <dimen name="typography_subheading">15sp</dimen>
-    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_quarter">4dp</dimen>
     <dimen name="padding_half">8dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
     <dimen name="padding_2x">32dp</dimen>
     <dimen name="padding_3x">48dp</dimen>
     <dimen name="padding_4x">64dp</dimen>

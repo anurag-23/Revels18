@@ -1,8 +1,15 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/categories_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    android:paddingLeft="@dimen/padding_quarter"
+    android:paddingStart="@dimen/padding_quarter"
+    android:paddingRight="@dimen/padding_quarter"
+    android:paddingEnd="@dimen/padding_quarter"
+    android:paddingTop="@dimen/padding_quarter"
+    android:clipToPadding="false"
+    android:clipChildren="false">
 
 </android.support.v7.widget.RecyclerView>
