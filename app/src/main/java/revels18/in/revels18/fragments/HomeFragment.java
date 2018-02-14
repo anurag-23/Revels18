@@ -200,9 +200,9 @@ public class HomeFragment extends Fragment {
 
         //Display Events of current day
         Calendar cal = Calendar.getInstance();
-        Calendar day2 = new GregorianCalendar(2017, 9, 5);
-        Calendar day3 = new GregorianCalendar(2017, 9, 6);
-        Calendar day4 = new GregorianCalendar(2017, 9, 7);
+        Calendar day2 = new GregorianCalendar(2018, 3, 8);
+        Calendar day3 = new GregorianCalendar(2018, 3, 9);
+        Calendar day4 = new GregorianCalendar(2018, 3, 10);
         Calendar curDay = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
         int dayOfEvent;
@@ -247,6 +247,8 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(EventsFragment.newInstance());
             }
         });
+        int x=eventsList.size();
+        Log.i(TAG, "onCreateView: eventsLists size"+x );
         if(eventsList.size()==0){
             view.findViewById(R.id.home_events_none_text_view).setVisibility(View.VISIBLE);
         }
