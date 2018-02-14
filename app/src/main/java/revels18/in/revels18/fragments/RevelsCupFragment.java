@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,13 +14,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.RegistrationsActivity;
+import revels18.in.revels18.adapters.EventsAdapter;
+import revels18.in.revels18.adapters.RevelsCupAdapter;
+import revels18.in.revels18.models.events.ScheduleModel;
 
 
 public class RevelsCupFragment extends Fragment{
+    RecyclerView revelsCupRV;
+    RevelsCupAdapter adapter;
+    List<ScheduleModel> eventScheduleList = new ArrayList<>();
     public RevelsCupFragment() {
         // Required empty public constructor
     }
@@ -48,7 +60,16 @@ public class RevelsCupFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_revels_cup, container, false);
+        View view = inflater.inflate(R.layout.fragment_revels_cup, container, false);
+        revelsCupRV = (RecyclerView)view.findViewById(R.id.rc_recycler_view);
+        ScheduleModel sm = new ScheduleModel();
+        eventScheduleList.add(sm);
+        adapter = new RevelsCupAdapter(eventScheduleList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        revelsCupRV.setLayoutManager(layoutManager);
+        revelsCupRV.setItemAnimator(new DefaultItemAnimator());
+        revelsCupRV.setAdapter(adapter);
+        return view;
     }
 
     @Override

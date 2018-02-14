@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.views.TabbedDialog;
 
 /**
  * Created by Saptarshi on 12/24/2017.
@@ -43,7 +45,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     private List<ScheduleModel> events;
     private final EventClickListener eventListener;
     private Context context;
-    Activity activity;
+    FragmentActivity activity;
     private Realm mDatabase = Realm.getDefaultInstance();
     private RealmResults<FavouritesModel> favouritesRealm = mDatabase.where(FavouritesModel.class).findAll();
     private List<FavouritesModel> favourites = mDatabase.copyFromRealm(favouritesRealm);
@@ -55,7 +57,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     public interface EventClickListener {
         void onItemClick(ScheduleModel event);
     }
-    public HomeEventsAdapter(List<ScheduleModel> events, EventClickListener eventListener, Activity activity) {
+    public HomeEventsAdapter(List<ScheduleModel> events, EventClickListener eventListener, FragmentActivity activity) {
         this.events = events;
         this.activity = activity;
         this.eventListener = eventListener;
@@ -118,84 +120,30 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
 
             return false;
         }
+
         private void displayEventDialog(final ScheduleModel event, Context context){
             final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
             final Dialog dialog = new Dialog(context);
-            dialog.setCanceledOnTouchOutside(true);
+            TabbedDialog td = new TabbedDialog();
             final String eventID = event.getEventID();
             final EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
-            ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-            IconCollection icons = new IconCollection();
-          eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
-            final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
-            favIcon.setOnClickListener(new View.OnClickListener() {
+            TabbedDialog.EventFragment.DialogFavouriteClickListener fcl = new TabbedDialog.EventFragment.DialogFavouriteClickListener() {
                 @Override
-                public void onClick(View v) {
-                    //FavIcon Clicked
-                    if(favIcon.getTag().equals("deselected")) {
-                        favIcon.setImageResource(R.drawable.ic_fav_selected);
-                        favIcon.setTag("selected");
+                public void onItemClick(boolean add) {
+                    //TODO: App crashes when snackbar is displayed(Currently commented out).Fix crash
+
+                    if(add){
                         addFavourite(event);
-                        Snackbar.make(v.getRootView(), event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
+                        //Snackbar.make(view, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
                     }else{
-                        favIcon.setImageResource(R.drawable.ic_fav_deselected);
-                        favIcon.setTag("deselected");
                         removeFavourite(event);
-                        Snackbar.make(v.getRootView(), event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                        //Snackbar.make(view, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                     }
                     notifyDataSetChanged();
                 }
-            });
-            if(isFavourite(event)){
-                favIcon.setImageResource(R.drawable.ic_fav_selected);
-                favIcon.setTag("selected");
-            }else{
-                favIcon.setImageResource(R.drawable.ic_fav_deselected);
-                favIcon.setTag("deselected");
-            }
-            final TextView eventName = (TextView)view.findViewById(R.id.event_name);
-            eventName.setText(event.getEventName());
-
-            TextView eventRound = (TextView)view.findViewById(R.id.event_round);
-            eventRound.setText(event.getRound());
-
-            TextView eventDate = (TextView)view.findViewById(R.id.event_date);
-            eventDate.setText(event.getDate());
-
-            TextView eventTime = (TextView)view.findViewById(R.id.event_time);
-            eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
-
-            TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
-            eventVenue.setText(event.getVenue());
-            if(schedule !=null){
-                TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
-                eventTeamSize.setText(schedule.getMaxTeamSize());
-
-                TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
-                eventDescription.setText(schedule.getDescription());
-
-                TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-                eventContactName.setText(schedule.getContactName() + " : ");
-
-                TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-                eventContact.setText(  schedule.getContactNo());
-                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                eventContact.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
-                        activity.startActivity(intent);
-                    }
-                });
-            }
-            TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
-            eventCategory.setText(event.getCatName());
-
-            ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
-            deleteIcon.setVisibility(View.GONE);
-            dialog.setContentView(view);
-            //Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
-            dialog.show();
+            };
+            td.setValues(event, fcl, isFavourite(event), schedule);
+            td.show(activity.getSupportFragmentManager(), "tag");
         }
         private void addFavourite(ScheduleModel eventSchedule){
             FavouritesModel favourite = new FavouritesModel();
