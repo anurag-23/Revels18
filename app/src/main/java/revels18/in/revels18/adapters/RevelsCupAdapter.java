@@ -14,6 +14,8 @@ import java.util.List;
 import revels18.in.revels18.R;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.models.events.EventModel;
+import revels18.in.revels18.models.events.RevelsCupEventModel;
+import revels18.in.revels18.models.events.RevelsCupEventsListModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 
 /**
@@ -21,8 +23,8 @@ import revels18.in.revels18.models.events.ScheduleModel;
  */
 
 public class RevelsCupAdapter extends RecyclerView.Adapter<RevelsCupAdapter.EventViewHolder> {
-    private List<ScheduleModel> eventScheduleList;
-    public RevelsCupAdapter(List<ScheduleModel> eventScheduleList){
+    private List<RevelsCupEventModel> eventScheduleList;
+    public RevelsCupAdapter(List<RevelsCupEventModel> eventScheduleList){
         this.eventScheduleList=eventScheduleList;
     }
     @Override
@@ -33,7 +35,7 @@ public class RevelsCupAdapter extends RecyclerView.Adapter<RevelsCupAdapter.Even
     }
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        ScheduleModel event = eventScheduleList.get(position);
+        RevelsCupEventModel event = eventScheduleList.get(position);
         holder.onBind(event);
     }
     @Override
@@ -52,13 +54,12 @@ public class RevelsCupAdapter extends RecyclerView.Adapter<RevelsCupAdapter.Even
             teamTwo = (TextView)view.findViewById(R.id.rc_team_2);
 
         }
-        public void onBind(final ScheduleModel event){
-            eventName.setText("Basketball");
-            eventVenue.setText("MIT Ground");
-            eventTime.setText("4:00PM");
-            teamOne.setText("Team 17");
-            teamTwo.setText("Team 32");
-
+        public void onBind(final RevelsCupEventModel event){
+            eventName.setText(event.getSportName());
+            eventVenue.setText(event.getVenue());
+            eventTime.setText(event.getTime());
+            teamOne.setText(event.getTeam1());
+            teamTwo.setText(event.getTeam2());
         }
     }
 }

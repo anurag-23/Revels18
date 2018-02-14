@@ -41,7 +41,7 @@
                 android:layout_marginBottom="4dp"
                 android:maxLines="2"
                 android:text="Event Name"
-                android:textSize="@dimen/typography_subheading"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-medium"/>
 
@@ -51,6 +51,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
+            android:gravity="bottom"
+            android:layout_marginBottom="5dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,8 +65,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Team 17 "
-                    android:textSize="@dimen/typography_large_title"/>
+                    android:textSize="@dimen/typography_subheading"/>
             </LinearLayout>
+            <TextView
+                android:paddingBottom="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/typography_large_title"
+                tools:text="VS"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Team 5 "
-                    android:textSize="@dimen/typography_large_title"/>
+                    android:textSize="@dimen/typography_subheading"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -86,16 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <TextView
-                android:paddingBottom="2dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/typography_large_title"
-                tools:text="VS"
-                android:layout_marginBottom="4dp"
-                />
+
 
         </LinearLayout>
         <LinearLayout
@@ -115,15 +117,31 @@
                 />
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/rc_time_text_view"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/padding_half"
-            android:paddingTop="4dp"
-            android:text="2:00PM - 5:00PM"
-            android:textSize="@dimen/typography_small" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/rc_date_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding_half"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:text="2018-02-10"
+                android:textSize="@dimen/typography_small" />
+            <TextView
+                android:id="@+id/rc_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding_half"
+                android:paddingTop="4dp"
+                android:text="2:00PM - 5:00PM"
+                android:textSize="@dimen/typography_small" />
+        </LinearLayout>
 
     </LinearLayout>
 
