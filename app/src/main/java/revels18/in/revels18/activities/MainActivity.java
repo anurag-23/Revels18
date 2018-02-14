@@ -26,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.models.events.RevelsCupEventsListModel;
 import revels18.in.revels18.utilities.BottomNavigationViewHelper;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
@@ -313,7 +314,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-
     private void loadCategoriesFromInternet() {
         Call<CategoriesListModel> categoriesCall = APIClient.getAPIInterface().getCategoriesList();
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
