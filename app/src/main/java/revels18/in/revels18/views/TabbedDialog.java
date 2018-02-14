@@ -1,5 +1,6 @@
 package revels18.in.revels18.views;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -38,9 +40,6 @@ public class TabbedDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_event_details, container);
-
-        getDialog().setTitle("Title");
-
         mTabHost = (FragmentTabHost) view.findViewById(R.id.tabs);
 
         mTabHost.setup(getActivity(), getChildFragmentManager());

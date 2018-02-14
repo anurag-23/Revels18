@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import revels18.in.revels18.models.registration.ChangePwdRequest;
 import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.models.registration.ProfileResponse;
 
@@ -41,6 +42,9 @@ public class RegistrationClient {
 
         @GET("getDetails.php")
         Call<ProfileResponse> getProfileDetails();
+
+        @POST("change_password.php")
+        Call<LoginResponse> changePassword(@Body ChangePwdRequest request);
     }
 
 }

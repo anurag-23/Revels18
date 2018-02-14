@@ -3,7 +3,7 @@
     <string name="drawer_home">Home</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_pro_show">ProShow Portal</string>
-    <string name="registrations">Registrations</string>
+    <string name="profile">Profile</string>
     <string name="refresh">Refresh</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_developers">Developers</string>
@@ -82,4 +82,10 @@
     <string name="logout">Logout</string>
     <string name="email2">Email</string>
     <string name="login_as_guest">Login as Guest</string>
+    <string name="sign_up">Sign up</string>
+    <string name="event_reg">Event Registration</string>
+    <string name="change_pwd">Change Password</string>
+    <string name="new_password">New Password:</string>
+    <string name="repeat_password">Repeat Password:</string>
+    <string name="change">Change</string>
 </resources>

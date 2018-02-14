@@ -9,7 +9,7 @@ import io.realm.RealmObject;
  * Created by skvrahul on 15/2/18.
  */
 
-public class RevelsCupEventModel extends RealmObject{
+public class RevelsCupEventModel{
     @SerializedName("sname")
     @Expose
     private String sportName;
