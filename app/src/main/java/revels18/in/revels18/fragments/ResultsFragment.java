@@ -41,6 +41,7 @@ import revels18.in.revels18.models.results.EventResultModel;
 import revels18.in.revels18.models.results.ResultModel;
 import revels18.in.revels18.models.results.ResultsListModel;
 import revels18.in.revels18.network.APIClient;
+import revels18.in.revels18.utilities.NetworkUtils;
 
 public class ResultsFragment extends Fragment {
     String TAG="ResultsFragment";
@@ -95,9 +96,7 @@ public class ResultsFragment extends Fragment {
         return view;
     }
     private void refreshData(View view){
-        ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
-        boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+        boolean isConnectedTemp = NetworkUtils.isInternetConnected(getContext());
         if(isConnectedTemp){updateData();}
         else{
             if (mDatabase == null){
@@ -142,6 +141,8 @@ public class ResultsFragment extends Fragment {
                     eventNamesList.add(eventName);
                 }
             }
+            resultsAvailable.setVisibility(View.VISIBLE);
+            noResultsLayout.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();
         }
         else{
