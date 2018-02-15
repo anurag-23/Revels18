@@ -380,6 +380,9 @@ public class HomeFragment extends Fragment {
                             Log.d(TAG, "onComplete: Default"+task.getException().toString());
                         }
                         BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
+                        if(imgURLs.size()!=linkURLs.size() || imgURLs.size() == 0 || linkURLs.size() == 0 ){
+                            return;
+                        }
                         for(int i=0;i<imgURLs.size();i++){
                             TextSliderView tsv = new TextSliderView(getContext());
                             final String hyperlink = linkURLs.get(i);
