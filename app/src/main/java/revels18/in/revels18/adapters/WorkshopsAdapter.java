@@ -83,12 +83,14 @@ public class WorkshopsAdapter extends RecyclerView.Adapter<WorkshopsAdapter.Even
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View workshop_view = inflater.inflate(R.layout.dialog_workshop, null, false);
+        TextView name =(TextView) workshop_view.findViewById(R.id.workshop_name);
         TextView date = (TextView) workshop_view.findViewById(R.id.workshop_date);
         TextView time = (TextView) workshop_view.findViewById(R.id.workshop_time);
         TextView venue = (TextView) workshop_view.findViewById(R.id.workshop_venue);
         TextView contact_name = (TextView) workshop_view.findViewById(R.id.workshop_contact_name);
         TextView contact_number = (TextView) workshop_view.findViewById(R.id.workshop_contact);
         TextView description = (TextView) workshop_view.findViewById(R.id.workshop_description);
+        name.setText(event.getName());
         contact_name.setText(event.getCatName());
         contact_number.setText(event.getCatNo());
         venue.setText(event.getVenue());

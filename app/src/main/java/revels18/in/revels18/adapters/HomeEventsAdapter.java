@@ -73,8 +73,8 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     public void onBindViewHolder(EventViewHolder holder, int position) {
         ScheduleModel event = events.get(position);
         holder.onBind(event);
-        //IconCollection icons = new IconCollection();
-        //holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
     @Override
     public int getItemCount() {
