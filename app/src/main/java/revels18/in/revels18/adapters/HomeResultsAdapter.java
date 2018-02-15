@@ -1,6 +1,7 @@
 package revels18.in.revels18.adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -66,12 +67,12 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
         public void onBind(final EventResultModel result) {
             if(resultsItem!=null) {
                 resultsName.setText(result.eventName);
-                resultsRound.setText("Round: "+result.eventRound);
+                resultsRound.setText("Round: ".concat(result.eventRound));
                     resultsItem.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Log.i(TAG, "onClick: Item Clicked!");
-                            displayBottomSheet(resultsList.get(getAdapterPosition()));
+                            displayDialog(resultsList.get(getAdapterPosition()));
                         }
                     });
             }
@@ -83,13 +84,10 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
             resultsItem = (FrameLayout) view.findViewById(R.id.home_results_frame);
             Log.i(TAG, "initializeViews:"+resultsItem);
         }
-        public void displayBottomSheet(EventResultModel result){
+        public void displayDialog(EventResultModel result){
             View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
-            final BottomSheetDialog dialog = new BottomSheetDialog(context);
+            final Dialog dialog = new Dialog(context);
             dialog.setContentView(bottomSheetView);
-
-            BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);
             eventName.setText(result.eventName);

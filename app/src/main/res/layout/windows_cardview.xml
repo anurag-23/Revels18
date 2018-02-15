@@ -4,7 +4,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="0dp"
+    android:layout_marginBottom="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -12,6 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_default"
+            android:paddingBottom="@dimen/padding_half">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Windows"
+                android:fontFamily="sans-serif-light"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:drawable/divider_horizontal_bright"
+                android:layout_marginTop="@dimen/padding_default"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:layout_marginRight="@dimen/padding_default"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +76,8 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_quarter">
 
             <LinearLayout
                 android:layout_width="wrap_content"

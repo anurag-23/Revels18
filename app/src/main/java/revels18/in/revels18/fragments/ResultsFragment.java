@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,13 +62,13 @@ public class ResultsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = Realm.getDefaultInstance();
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mDatabase = Realm.getDefaultInstance();
     }
 
     @Override
@@ -84,6 +85,7 @@ public class ResultsFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
         resultsRecyclerView.setLayoutManager(gridLayoutManager);
         displayData();
+        Log.d(TAG, "onCreateView: Results Fragment : DisplayData called");
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,16 +108,22 @@ public class ResultsFragment extends Fragment {
             swipeRefreshLayout.setRefreshing(false);}
     }
     private void displayData(){
-        if (mDatabase == null){
+        if (mDatabase != null){
+            Log.d(TAG, "displayData: Results Fragment  ");
+            resultsAvailable.setVisibility(View.VISIBLE);
+            noResultsLayout.setVisibility(View.GONE);
+            Log.d(TAG, "displayData: Results Fragment  resultsAvailable");
+        }
+        else{
             resultsAvailable.setVisibility(View.GONE);
             noResultsLayout.setVisibility(View.VISIBLE);
             return;
         }
 
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
-        List<ResultModel> resultsArrayList=new ArrayList<>();;
+        List<ResultModel> resultsArrayList=new ArrayList<>();
         resultsArrayList=mDatabase.copyFromRealm(results);
-        if (!results.isEmpty()){
+        if (!resultsArrayList.isEmpty()){
             resultsList.clear();
             List<String> eventNamesList = new ArrayList<>();
 
