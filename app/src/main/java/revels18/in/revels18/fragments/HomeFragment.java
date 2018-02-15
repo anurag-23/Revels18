@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -352,36 +353,49 @@ public class HomeFragment extends Fragment {
         }
     }
     private void getImageURLSfromFirebase(){
-        long cacheExpiration = 3600;
+        long cacheExpiration = 10;
         firebaseRemoteConfig.fetch(cacheExpiration)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(Task<Void> task) {
-                        List<String> urls  = new ArrayList<String>();
+                        List<String> imgURLs  = new ArrayList<>();
+                        final List<String> linkURLs = new ArrayList<>();
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Successful");
                             firebaseRemoteConfig.activateFetched();
                             int  n_banners = Integer.parseInt(firebaseRemoteConfig.getString("num_banners"));
                             Log.d(TAG, "n banners: "+n_banners);
                             for(int i=1;i<=n_banners;i++){
-                                String url = firebaseRemoteConfig.getString("banner_"+i);
-                                urls.add(url);
-                                Log.d(TAG, "onComplete: URL"+url);
+                                String imgURL = firebaseRemoteConfig.getString("banner_img_"+i);
+                                String linkURL = firebaseRemoteConfig.getString("banner_link_"+i);
+
+                                imgURLs.add(imgURL);
+                                linkURLs.add(linkURL);
+                                Log.d(TAG, "onComplete: img:"+imgURL+" \nLink:"+linkURL);
                             }
 
                         }else{
                             //Unable to fetch Config Values from Firebase.
                             //TODO: Add default values here
                             Log.d(TAG, "onComplete: Default"+task.getException().toString());
-                            urls.add("https://proshow.mitrevels.in/images/one.jpg");
-                            urls.add("https://proshow.mitrevels.in/images/three.jpg");
-                            urls.add("https://proshow.mitrevels.in/images/five.jpg");
+                            imgURLs.add("https://proshow.mitrevels.in/images/one.jpg");
+                            imgURLs.add("https://proshow.mitrevels.in/images/three.jpg");
+                            imgURLs.add("https://proshow.mitrevels.in/images/five.jpg");
 
                         }
                         BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
-                        for(int i=0;i<urls.size();i++){
+                        for(int i=0;i<imgURLs.size();i++){
                             TextSliderView tsv = new TextSliderView(getContext());
-                            tsv.image(urls.get(i));
+                            final String hyperlink = linkURLs.get(i);
+                            tsv.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                @Override
+                                public void onSliderClick(BaseSliderView slider) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(hyperlink));
+                                    startActivity(intent);
+                                }
+                            });
+                            tsv.image(imgURLs.get(i));
                             tsv.setScaleType(imgScaleType);
                             imageSlider.addSlider(tsv);
                         }
