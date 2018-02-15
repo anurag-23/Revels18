@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_height="120dp"
+    android:layout_width="80dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    android:background="@drawable/rounded_corner_grey">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/results_card"
+        android:background="?android:attr/selectableItemBackground">
+
+
+        <ImageView
+            android:layout_marginTop="4dp"
+            android:id="@+id/result_cat_logo_image_view"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/background_circle"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="4dp"
+            android:id="@+id/res_event_name_text_view"
+            android:textColor="@color/black"
+            android:layout_below="@+id/result_cat_logo_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:maxLines="2"
+            android:textSize="@dimen/typography_body"
+            tools:text="Event Name"
+            android:paddingRight="4dp" />
+        <LinearLayout
+            android:layout_below="@+id/res_event_name_text_view"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Round "
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:textSize="@dimen/typography_body"/>
+            <TextView
+                android:id="@+id/res_round_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Category"
+                android:textSize="@dimen/typography_body"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
+
