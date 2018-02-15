@@ -16,6 +16,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_default"
+            android:paddingBottom="@dimen/padding_half">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/IOS"
+                android:fontFamily="sans-serif-light"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:drawable/divider_horizontal_bright"
+                android:layout_marginTop="@dimen/padding_default"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:layout_marginRight="@dimen/padding_default"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             android:paddingTop="@dimen/padding_half">
@@ -24,7 +48,7 @@
                 android:id="@+id/imageViewAndroid"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/dev_icon_gautham"
+                android:src="@mipmap/ic_launcher"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="12dp" />
 
@@ -33,7 +57,7 @@
                 android:id="@+id/textViewAndroid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Gautham"
+                android:text="@string/Shreyas"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -52,7 +76,8 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_quarter">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -66,13 +91,13 @@
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"
-                    android:src="@drawable/dev_icon_anjali" />
+                    android:src="@mipmap/ic_launcher" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/Anjali"
+                    android:text="@string/Harsh"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:id="@+id/textView11" />

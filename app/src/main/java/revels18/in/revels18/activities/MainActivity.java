@@ -21,12 +21,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.models.events.RevelsCupEventsListModel;
+import revels18.in.revels18.models.sports.SportsListModel;
+import revels18.in.revels18.models.sports.SportsModel;
 import revels18.in.revels18.utilities.BottomNavigationViewHelper;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
@@ -273,6 +278,7 @@ public class MainActivity extends AppCompatActivity  {
         loadEventsFromInternet();
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();
+        loadRevelsCupResultsFromInternet();
     }
     private void loadEventsFromInternet() {
 
@@ -338,12 +344,14 @@ public class MainActivity extends AppCompatActivity  {
     private void loadResultsFromInternet(){
         Call<ResultsListModel> resultsCall = APIClient.getAPIInterface().getResultsList();
         resultsCall.enqueue(new Callback<ResultsListModel>() {
+            List<ResultModel> results = new ArrayList<ResultModel>();
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    results = response.body().getData();
                     mDatabase.beginTransaction();
                     mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
                     Log.d(TAG, "Results updated in the background");
                 }
@@ -351,6 +359,24 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
                 Log.d(TAG, "onFailure: Results not updated");
+            }
+        });
+    }
+    private void loadRevelsCupResultsFromInternet() {
+        Call<SportsListModel> call = APIClient.getAPIInterface().getSportsResults();
+        call.enqueue(new Callback<SportsListModel>() {
+            @Override
+            public void onResponse(Call<SportsListModel> call, Response<SportsListModel> response) {
+                if (response.body() != null && mDatabase != null){
+                    mDatabase.beginTransaction();
+                    mDatabase.where(SportsModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportsListModel> call, Throwable t) {
             }
         });
     }

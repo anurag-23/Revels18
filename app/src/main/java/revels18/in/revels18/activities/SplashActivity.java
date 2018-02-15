@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.google.gson.JsonSyntaxException;
+
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +34,8 @@ import revels18.in.revels18.models.events.ScheduleListModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.results.ResultModel;
 import revels18.in.revels18.models.results.ResultsListModel;
+import revels18.in.revels18.models.sports.SportsListModel;
+import revels18.in.revels18.models.sports.SportsModel;
 import revels18.in.revels18.network.APIClient;
 
 public class SplashActivity extends AppCompatActivity {
@@ -174,6 +178,7 @@ public class SplashActivity extends AppCompatActivity {
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();
         loadResultsFromInternet();
+        loadRevelsCupResultsFromInternet();
 
         test = new Runnable() {
             @Override
@@ -271,9 +276,7 @@ public class SplashActivity extends AppCompatActivity {
                     apiCallsRecieved++;
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
-                    //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
                     mDatabase.copyToRealm(response.body().getCategoriesList());
-                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
                     categoriesDataAvailableLocally=true;
                     Log.d(TAG,"Categories");
@@ -303,6 +306,25 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadRevelsCupResultsFromInternet() {
+        Call<SportsListModel> call = APIClient.getAPIInterface().getSportsResults();
+        call.enqueue(new Callback<SportsListModel>() {
+            @Override
+            public void onResponse(Call<SportsListModel> call, Response<SportsListModel> response) {
+                if (response.body() != null && mDatabase != null){
+                    mDatabase.beginTransaction();
+                    mDatabase.where(SportsModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportsListModel> call, Throwable t) {
+            }
+        });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
