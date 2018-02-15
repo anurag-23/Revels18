@@ -353,7 +353,7 @@ public class HomeFragment extends Fragment {
         }
     }
     private void getImageURLSfromFirebase(){
-        long cacheExpiration = 10;
+        long cacheExpiration = 3600;
         firebaseRemoteConfig.fetch(cacheExpiration)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -378,10 +378,6 @@ public class HomeFragment extends Fragment {
                             //Unable to fetch Config Values from Firebase.
                             //TODO: Add default values here
                             Log.d(TAG, "onComplete: Default"+task.getException().toString());
-                            imgURLs.add("https://proshow.mitrevels.in/images/one.jpg");
-                            imgURLs.add("https://proshow.mitrevels.in/images/three.jpg");
-                            imgURLs.add("https://proshow.mitrevels.in/images/five.jpg");
-
                         }
                         BaseSliderView.ScaleType imgScaleType = BaseSliderView.ScaleType.CenterCrop;
                         for(int i=0;i<imgURLs.size();i++){
