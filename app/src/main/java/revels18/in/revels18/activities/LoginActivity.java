@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -24,12 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.fragments.ChangePwdDialogFragment;
+import revels18.in.revels18.models.registration.ChangePwdRequest;
 import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
 
 public class LoginActivity extends AppCompatActivity {
-    private String redirectURL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                                         break;
                                 case 3: message = "Login successful! However, we recommend setting a new password before you continue.";
                                         error = 3;
-                                        redirectURL = response.body().getPayload().getUrl();
                                         break;
                                 case 4: message = "Login successful!";
                                         error = 2;
@@ -151,12 +155,17 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
                             startActivity(intent);
                         }else if (error == 3){
-                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                            builder.setToolbarColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary));
-                            CustomTabsIntent customTabsIntent = builder.build();
-                            customTabsIntent.launchUrl(LoginActivity.this, Uri.parse(redirectURL));
+                            showChangePwdDialog();
                         }
                     }
                 }).show();
     }
+
+    private void showChangePwdDialog() {
+        DialogFragment fragment = ChangePwdDialogFragment.createInstance(this);
+        fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        fragment.show(getSupportFragmentManager(), "changePwd");
+    }
+
+
 }

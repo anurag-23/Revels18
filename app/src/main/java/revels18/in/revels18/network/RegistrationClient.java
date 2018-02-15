@@ -43,8 +43,9 @@ public class RegistrationClient {
         @GET("getDetails.php")
         Call<ProfileResponse> getProfileDetails();
 
+        @Headers({"Content-Type: application/x-www-form-urlencoded"})
         @POST("change_password.php")
-        Call<LoginResponse> changePassword(@Body ChangePwdRequest request);
+        Call<LoginResponse> changePassword(@Body RequestBody body);
     }
 
 }

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -82,6 +83,7 @@ public class CategoryActivity extends AppCompatActivity {
             case R.id.about_category:
                 View view = View.inflate(this, R.layout.dialog_about_category, null);
                 final Dialog dialog = new Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(view);
                 catNameTextView = (TextView)view.findViewById(R.id.category_about_name);
                 catDescTextView = (TextView)view.findViewById(R.id.category_about_description);

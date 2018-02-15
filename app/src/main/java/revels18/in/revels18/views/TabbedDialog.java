@@ -46,6 +46,7 @@ public class TabbedDialog extends DialogFragment {
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Event"), Fragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Description"), Fragment.class, null);
 
+        setStyle(STYLE_NO_TITLE, 0);
 
         adapter = new PagerAdapter(getChildFragmentManager(), getArguments());
 

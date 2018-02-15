@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +19,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.fragments.ChangePwdDialogFragment;
+import revels18.in.revels18.models.registration.ChangePwdRequest;
+import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.models.registration.ProfileResponse;
 import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
@@ -44,13 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-                toolbar.setElevation(0);
                 setSupportActionBar(toolbar);
-                getSupportActionBar().setTitle(R.string.profile);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
-                appBarLayout.setElevation(0);
-                appBarLayout.setTargetElevation(0);
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setTitle(R.string.profile);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -97,6 +101,9 @@ public class ProfileActivity extends AppCompatActivity {
                                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
+                                            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this).edit();
+                                            editor.remove("loggedIn");
+                                            editor.apply();
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
@@ -142,17 +149,9 @@ public class ProfileActivity extends AppCompatActivity {
         changePwdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(ProfileActivity.this).setView(R.layout.dialog_change_password)
-                        .setPositiveButton(R.string.change, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                
-                            }
-                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
+                DialogFragment fragment = ChangePwdDialogFragment.createInstance(ProfileActivity.this);
+                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                fragment.show(getSupportFragmentManager(), "changePwd");
             }
         });
     }
