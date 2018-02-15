@@ -1,10 +1,15 @@
 package revels18.in.revels18.activities;
 
+import android.os.Build;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ public class WorkshopsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workshops);
+        setTitle(R.string.workshops);
         RealmResults<WorkshopModel> realmResults = realm.where(WorkshopModel.class).findAll().sort("date");
         workshopList = realm.copyFromRealm(realmResults);
         WorkshopsAdapter.EventClickListener eventClickListener = new WorkshopsAdapter.EventClickListener() {
@@ -40,5 +46,21 @@ public class WorkshopsActivity extends AppCompatActivity {
         rv.setLayoutManager(layoutManager);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(adapter);
+    }
+    // TODO: Back arrow doesn't come up ! Issue yet to be resolved.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

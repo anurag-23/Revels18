@@ -76,9 +76,45 @@ public class TabbedDialog extends DialogFragment {
                 viewPager.setCurrentItem(i);
             }
         });
-
+        descriptionViewSet(view);
         return view;
     }
+    public void descriptionViewSet(View view){
+        ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+        IconCollection icons = new IconCollection();
+        eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
+        final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
+        favIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //FavIcon Clicked
+                if(favIcon.getTag().equals("deselected")) {
+                    favIcon.setImageResource(R.drawable.ic_fav_selected);
+                    favIcon.setTag("selected");
+                    //Adding the favourite to the DB in EventsAdapter
+                    favClickListener.onItemClick(true);
+                }else{
+                    favIcon.setImageResource(R.drawable.ic_fav_deselected);
+                    favIcon.setTag("deselected");
+                    //Removing the favourite from the DB in EventsAdapter
+                    favClickListener.onItemClick(false);
+                }
+
+            }
+        });
+        if(favorite){
+            favIcon.setImageResource(R.drawable.ic_fav_selected);
+            favIcon.setTag("selected");
+        }else{
+            favIcon.setImageResource(R.drawable.ic_fav_deselected);
+            favIcon.setTag("deselected");
+        }
+        final TextView eventName = (TextView)view.findViewById(R.id.event_name);
+        eventName.setText(event.getEventName());
+        ImageView deleteIcon=(ImageView)view.findViewById(R.id.event_delete_icon);
+        deleteIcon.setVisibility(View.GONE);
+    }
+
     public void setValues(ScheduleModel event, EventFragment.DialogFavouriteClickListener f, boolean favorite, EventDetailsModel schedule)  {
         this.event = event;
         this.favClickListener = f;
@@ -157,7 +193,7 @@ public class TabbedDialog extends DialogFragment {
             super();
         }
         private void initViews(View view){
-            ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+            /*ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
             IconCollection icons = new IconCollection();
             eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
             final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
@@ -187,7 +223,7 @@ public class TabbedDialog extends DialogFragment {
                 favIcon.setTag("deselected");
             }
             final TextView eventName = (TextView)view.findViewById(R.id.event_name);
-            eventName.setText(event.getEventName());
+            eventName.setText(event.getEventName());*/
 
             TextView eventRound = (TextView)view.findViewById(R.id.event_round);
             eventRound.setText(event.getRound());
@@ -221,8 +257,8 @@ public class TabbedDialog extends DialogFragment {
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
 
-            ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
-            deleteIcon.setVisibility(View.GONE);
+            /*ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+            deleteIcon.setVisibility(View.GONE);*/
         }
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
