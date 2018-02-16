@@ -20,8 +20,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
-import revels18.in.revels18.activities.LoginActivity;
-import revels18.in.revels18.models.registration.ChangePwdRequest;
 import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.network.RegistrationClient;
 
@@ -90,7 +88,7 @@ public class ChangePwdDialogFragment extends DialogFragment {
         dialog.show();
 
         RequestBody body =  RequestBody.create(MediaType.parse("text/plain"), "newpass="+newPass+"&repeatnewpass="+repeatNewPass);
-        Call<LoginResponse> call = RegistrationClient.getLoginInterface(getActivity()).changePassword(body);
+        Call<LoginResponse> call = RegistrationClient.getRegistrationInterface(getActivity()).changePassword(body);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

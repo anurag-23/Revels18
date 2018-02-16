@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".application.Revels"
@@ -39,7 +40,8 @@
             android:name=".activities.ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activities.AboutUsActivity"
             android:configChanges="orientation|screenSize"
@@ -59,7 +61,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WorkshopsActivity"></activity>
+        <activity android:name=".activities.WorkshopsActivity" />
+        <activity android:name=".activities.EventRegistrationActivity"
+            android:parentActivityName=".activities.ProfileActivity"/>
+        <activity android:name=".activities.RegisterTeamActivity"></activity>
     </application>
 
 </manifest>

@@ -251,7 +251,7 @@ public class FavouritesActivity extends AppCompatActivity {
         }
     }
     private void displayBottomSheet(final FavouritesModel event){
-//        final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
+//        final View view = View.inflate(context, R.layout.event_dialog_info, null);
         final Dialog dialog = new Dialog(context);
         TabbedDialog td = new TabbedDialog();
         final String eventID = event.getId();
@@ -274,7 +274,7 @@ public class FavouritesActivity extends AppCompatActivity {
         td.setValues(eventSchedule, fcl, isFavourite(event), schedule);
         td.show(getSupportFragmentManager(), "tag");
 
-//        final View view = View.inflate(this, R.layout.activity_event_dialogue, null);
+//        final View view = View.inflate(this, R.layout.event_dialog_info, null);
 //        final Dialog dialog = new Dialog(this);
 //        Log.i("TT17", "displayBottomSheet: NEW!");
 //        final String eventID = event.getId();

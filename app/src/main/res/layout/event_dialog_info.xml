@@ -14,8 +14,7 @@
     <RelativeLayout
         android:id="@+id/event_dialogue_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
         <View
             android:id="@+id/event_divider"
             android:layout_width="match_parent"

@@ -3,7 +3,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_below="@id/event_card_two"
     android:layout_alignParentStart="true"
     android:layout_alignParentLeft="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -18,9 +17,7 @@
         android:paddingEnd="@dimen/padding_default"
         android:paddingTop="@dimen/padding_default"
         android:paddingBottom="2dp"
-        android:clickable="true"
-        android:background="?android:attr/selectableItemBackground"
-        >
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/imageView2"

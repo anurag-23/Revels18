@@ -1,6 +1,5 @@
 package revels18.in.revels18.views;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -46,7 +45,7 @@ public class TabbedDialog extends DialogFragment {
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Event"), Fragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Description"), Fragment.class, null);
 
-        setStyle(STYLE_NO_TITLE, 0);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         adapter = new PagerAdapter(getChildFragmentManager(), getArguments());
 
@@ -175,7 +174,7 @@ public class TabbedDialog extends DialogFragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = null;
-            view = inflater.inflate(R.layout.activity_event_dialogue, container, false);
+            view = inflater.inflate(R.layout.event_dialog_info, container, false);
             if(event==null){
                 return view;
             }

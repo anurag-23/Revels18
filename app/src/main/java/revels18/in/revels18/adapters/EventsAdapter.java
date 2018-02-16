@@ -1,16 +1,11 @@
 package revels18.in.revels18.adapters;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -209,7 +204,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     private void displayEventDialog(final ScheduleModel event, Context context){
 
 
-        final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
+        final View view = View.inflate(context, R.layout.event_dialog_info, null);
         final Dialog dialog = new Dialog(context);
         TabbedDialog td = new TabbedDialog();
         final String eventID = event.getEventID();

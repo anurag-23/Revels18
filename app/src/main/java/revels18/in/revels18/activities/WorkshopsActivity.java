@@ -32,6 +32,7 @@ public class WorkshopsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workshops);
         setTitle(R.string.workshops);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RealmResults<WorkshopModel> realmResults = realm.where(WorkshopModel.class).findAll().sort("date");
         workshopList = realm.copyFromRealm(realmResults);
         WorkshopsAdapter.EventClickListener eventClickListener = new WorkshopsAdapter.EventClickListener() {

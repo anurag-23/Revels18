@@ -211,7 +211,7 @@ public class FavouritesFragment extends Fragment {
         }
     }
     private void displayBottomSheet(final FavouritesModel event){
-        final View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
+        final View view = View.inflate(getContext(), R.layout.event_dialog_info, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         Log.i("TT17", "displayBottomSheet: NEW!");
         final String eventID = event.getId();

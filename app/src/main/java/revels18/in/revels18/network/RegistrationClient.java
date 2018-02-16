@@ -11,7 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import revels18.in.revels18.models.registration.ChangePwdRequest;
+import revels18.in.revels18.models.registration.EventRegResponse;
 import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.models.registration.ProfileResponse;
 
@@ -22,7 +22,7 @@ public class RegistrationClient {
     private static Retrofit retrofit = null;
     private static final String BASE_URL = "https://mitportals.in/includes/";
 
-    public static LoginInterface getLoginInterface(Context context){
+    public static RegistrationInterface getRegistrationInterface(Context context){
         if (retrofit == null){
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new CookieInterceptor(context))
@@ -32,10 +32,10 @@ public class RegistrationClient {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).client(client)
                     .addConverterFactory(GsonConverterFactory.create()).build();
         }
-        return retrofit.create(LoginInterface.class);
+        return retrofit.create(RegistrationInterface.class);
     }
 
-    public interface LoginInterface{
+    public interface RegistrationInterface {
         @Headers({"Content-Type: application/x-www-form-urlencoded"})
         @POST("login.php")
         Call<LoginResponse> attemptLogin(@Body RequestBody body);
@@ -46,6 +46,10 @@ public class RegistrationClient {
         @Headers({"Content-Type: application/x-www-form-urlencoded"})
         @POST("change_password.php")
         Call<LoginResponse> changePassword(@Body RequestBody body);
+
+        @Headers({"Content-Type: application/x-www-form-urlencoded"})
+        @POST("eventReg.php")
+        Call<EventRegResponse> eventReg(@Body RequestBody body);
     }
 
 }

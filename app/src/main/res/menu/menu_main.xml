@@ -2,26 +2,27 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_workshops"
+        android:title="@string/drawer_workshops"
+        app:showAsAction="never"
+        android:orderInCategory="5"/>
     <item
         android:id="@+id/menu_pro_show"
         android:title="@string/drawer_pro_show"
         app:showAsAction="never"
-        android:orderInCategory="5"/>
+        android:orderInCategory="6"/>
 
     <item
         android:id="@+id/menu_about_us"
         android:title="@string/drawer_about_us"
         app:showAsAction="never"
-        android:orderInCategory="6"/>
+        android:orderInCategory="7"/>
 
     <item
         android:id="@+id/menu_developers"
         android:title="@string/drawer_developers"
-        app:showAsAction="never"
-        android:orderInCategory="7"/>
-    <item
-        android:id="@+id/menu_workshops"
-        android:title="@string/drawer_workshops"
         app:showAsAction="never"
         android:orderInCategory="8"/>
 

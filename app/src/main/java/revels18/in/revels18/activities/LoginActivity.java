@@ -1,6 +1,5 @@
 package revels18.in.revels18.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,19 +7,15 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -29,7 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
 import revels18.in.revels18.fragments.ChangePwdDialogFragment;
-import revels18.in.revels18.models.registration.ChangePwdRequest;
 import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
@@ -75,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show();
 
                 RequestBody body =  RequestBody.create(MediaType.parse("text/plain"), "email="+email.getText().toString()+"&password="+password.getText().toString());
-                Call<LoginResponse> call = RegistrationClient.getLoginInterface(LoginActivity.this).attemptLogin(body);
+                Call<LoginResponse> call = RegistrationClient.getRegistrationInterface(LoginActivity.this).attemptLogin(body);
                 call.enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -107,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.apply();
                             }
                             showAlert(message, error);
+                        }else{
+                            showAlert("Could not connect to server! Please check your internet connect or try again later.", 1);
                         }
                     }
 

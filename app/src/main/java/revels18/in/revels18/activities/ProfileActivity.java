@@ -4,11 +4,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,17 +15,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import net.glxn.qrgen.android.QRCode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
-import revels18.in.revels18.fragments.ChangePwdDialogFragment;
-import revels18.in.revels18.models.registration.ChangePwdRequest;
-import revels18.in.revels18.models.registration.LoginResponse;
 import revels18.in.revels18.models.registration.ProfileResponse;
 import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
@@ -41,7 +38,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView college;
     private LinearLayout profileCard;
     private Button logoutButton;
-    private Button changePwdButton;
+    private Button eventRegButton;
+    ImageView qrCode;
+    //private Button changePwdButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
         college = (TextView)findViewById(R.id.college_text_view);
         profileCard = (LinearLayout)findViewById(R.id.profile_layout);
         logoutButton = (Button)findViewById(R.id.logout_button);
-        changePwdButton = (Button)findViewById(R.id.change_pwd_button);
+        qrCode = (ImageView)findViewById(R.id.qr_image_view);
+        eventRegButton = (Button)findViewById(R.id.event_reg_button);
+        //changePwdButton = (Button)findViewById(R.id.change_pwd_button);
 
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Loading Profile... please wait!");
@@ -79,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         }else{
             dialog.show();
 
-            Call<ProfileResponse> call = RegistrationClient.getLoginInterface(this).getProfileDetails();
+            Call<ProfileResponse> call = RegistrationClient.getRegistrationInterface(this).getProfileDetails();
             call.enqueue(new Callback<ProfileResponse>() {
                 @Override
                 public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
@@ -95,6 +96,8 @@ public class ProfileActivity extends AppCompatActivity {
                             phone.setText(profileResponse.getPhoneNo());
                             email.setText(profileResponse.getEmail());
                             college.setText(profileResponse.getCollege());
+                            Bitmap myBitmap = QRCode.from(profileResponse.getQr()).bitmap();
+                            qrCode.setImageBitmap(myBitmap);
                         }else{
                             new AlertDialog.Builder(ProfileActivity.this)
                                     .setMessage("Session expired. Login again to continue!")
@@ -110,7 +113,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         }
                                     }).show();
                         }
-
+                    }else{
+                        noConnectionAlert("Could not connect to server! Please check your internet connect or try again later.");
                     }
                 }
 
@@ -146,14 +150,21 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        changePwdButton.setOnClickListener(new View.OnClickListener() {
+        eventRegButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, EventRegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+        /*changePwdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment fragment = ChangePwdDialogFragment.createInstance(ProfileActivity.this);
                 fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 fragment.show(getSupportFragmentManager(), "changePwd");
             }
-        });
+        });*/
     }
 
     public void noConnectionAlert(String message){

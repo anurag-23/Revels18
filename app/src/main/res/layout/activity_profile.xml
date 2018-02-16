@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Name"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/typography_title"
                         android:textColor="@color/colorPrimary"
                         android:fontFamily="sans-serif-medium"
                         android:layout_marginBottom="8dp"/>
@@ -191,6 +191,44 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delegate_qr"
+                        android:textSize="@dimen/typography_title"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:drawable/divider_horizontal_bright"
+                        android:layout_marginBottom="8dp"/>
+
+                    <ImageView
+                        android:id="@+id/qr_image_view"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
             <Button
                 android:id="@+id/event_reg_button"
                 android:layout_width="match_parent"
@@ -204,7 +242,7 @@
                 android:background="@color/colorPrimary"
                 />
 
-            <Button
+            <!--<Button
                 android:id="@+id/change_pwd_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -215,7 +253,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/typography_title"
                 android:background="@color/colorPrimaryDark"
-                />
+                />-->
 
             <Button
                 android:id="@+id/logout_button"
