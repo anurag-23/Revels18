@@ -13,8 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
-import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/7/2017.
@@ -74,7 +74,7 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
         }
         public void onBind(final FavouritesModel event) {
             eventName.setText(event.getEventName());
-            eventRound.setText(event.getRound());
+            eventRound.setText("R".concat(event.getRound()));
             //eventTime.setText(event.getStartTime());
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override

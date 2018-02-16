@@ -11,6 +11,7 @@ import android.support.v7.app.NotificationCompat;
 
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.MainActivity;
+import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/6/2017.
@@ -31,13 +32,13 @@ public class NotificationReceiver extends BroadcastReceiver {
             String eventName = intent.getStringExtra("eventName");
             notificationText = eventName+" at "+intent.getStringExtra("startTime")+", "+intent.getStringExtra("eventVenue");
             String catName = intent.getStringExtra("catName");
-            /*IconCollection i = new IconCollection();
-            int catIcon  = i.getIconResource(context, catName);*/
+            IconCollection i = new IconCollection();
+            int catIcon  = i.getIconResource(context, catName);
             Notification notify = new NotificationCompat.Builder(context)
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
                     //TODO: Change Icon
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(catIcon)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setAutoCancel(true)

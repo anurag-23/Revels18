@@ -2,9 +2,6 @@ package revels18.in.revels18.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
-import revels18.in.revels18.fragments.RevelsCupResultsFragment;
 import revels18.in.revels18.models.sports.SportsResultModel;
 import revels18.in.revels18.utilities.IconCollection;
 

@@ -3,8 +3,6 @@ package revels18.in.revels18.adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,8 +16,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
-import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.results.EventResultModel;
+import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/24/2017.

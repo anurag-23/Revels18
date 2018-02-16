@@ -1,15 +1,11 @@
 package revels18.in.revels18.activities;
 
-import android.os.Build;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +16,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
-import revels18.in.revels18.adapters.EventsAdapter;
 import revels18.in.revels18.adapters.WorkshopsAdapter;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.workshops.WorkshopModel;

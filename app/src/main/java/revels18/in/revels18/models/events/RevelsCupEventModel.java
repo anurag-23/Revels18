@@ -3,8 +3,6 @@ package revels18.in.revels18.models.events;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-
 /**
  * Created by skvrahul on 15/2/18.
  */

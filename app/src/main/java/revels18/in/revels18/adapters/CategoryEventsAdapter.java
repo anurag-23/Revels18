@@ -1,14 +1,10 @@
 package revels18.in.revels18.adapters;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,11 +26,11 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import revels18.in.revels18.R;
 import revels18.in.revels18.models.events.EventDetailsModel;
-import revels18.in.revels18.receivers.NotificationReceiver;
-import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.receivers.NotificationReceiver;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.views.TabbedDialog;
 
 
@@ -45,6 +41,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
     private final int EVENT_MONTH = Calendar.OCTOBER;
     private PendingIntent pendingIntent1 = null;
     private PendingIntent pendingIntent2 = null;
+    boolean isRevels;
     private FragmentActivity activity;
     private Context context;
     EventModel event;
@@ -53,10 +50,11 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
     private List<FavouritesModel> favourites = realm.copyFromRealm(favouritesRealm);
 
 
-    public CategoryEventsAdapter(List<EventModel> eventsList, FragmentActivity activity, Context context) {
+    public CategoryEventsAdapter(List<EventModel> eventsList, FragmentActivity activity, Context context,boolean isRevels) {
         this.eventsList = eventsList;
         this.activity = activity;
         this.context = context;
+        this.isRevels=isRevels;
     }
 
     @Override
@@ -131,24 +129,46 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             TabbedDialog td = new TabbedDialog();
             final String eventID = event.getEventId();
             final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
-            ScheduleModel eventSchedule = realm.where(ScheduleModel.class).equalTo("eventID",eventID).equalTo("day",schedule.getDay()).findFirst();
-            TabbedDialog.EventFragment.DialogFavouriteClickListener fcl = new TabbedDialog.EventFragment.DialogFavouriteClickListener() {
-                @Override
-                public void onItemClick(boolean add) {
-                    //TODO: App crashes when snackbar is displayed(Currently commented out).Fix crash
+            if(isRevels) {
+                ScheduleModel eventSchedule = realm.where(ScheduleModel.class).equalTo("eventID", eventID).equalTo("day", schedule.getDay()).findFirst();
+                TabbedDialog.EventFragment.DialogFavouriteClickListener fcl = new TabbedDialog.EventFragment.DialogFavouriteClickListener() {
+                    @Override
+                    public void onItemClick(boolean add) {
+                        //TODO: App crashes when snackbar is displayed(Currently commented out).Fix crash
 
-                    if(add){
-                        addFavourite(event);
-                        //Snackbar.make(view, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
-                    }else{
-                        removeFavourite(event);
-                        //Snackbar.make(view, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                        if (add) {
+                            addFavourite(event);
+                            //Snackbar.make(view, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
+                        } else {
+                            removeFavourite(event);
+                            //Snackbar.make(view, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                        }
+                        notifyDataSetChanged();
                     }
-                    notifyDataSetChanged();
-                }
-            };
-            td.setValues(eventSchedule, fcl, isFavourite(event), schedule);
-            td.show(activity.getSupportFragmentManager(), "tag");
+                };
+                td.setValues(eventSchedule, fcl, isFavourite(event), schedule);
+                td.show(activity.getSupportFragmentManager(), "tag");
+            }
+            else{
+                ScheduleModel eventSchedule = realm.where(ScheduleModel.class).equalTo("eventID", eventID).findFirst();
+                TabbedDialog.EventFragment.DialogFavouriteClickListener fcl = new TabbedDialog.EventFragment.DialogFavouriteClickListener() {
+                    @Override
+                    public void onItemClick(boolean add) {
+                        //TODO: App crashes when snackbar is displayed(Currently commented out).Fix crash
+
+                        if (add) {
+                            addFavourite(event);
+                            //Snackbar.make(view, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
+                        } else {
+                            removeFavourite(event);
+                            //Snackbar.make(view, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                        }
+                        notifyDataSetChanged();
+                    }
+                };
+                td.setValues(eventSchedule, fcl, isFavourite(event), schedule);
+                td.show(activity.getSupportFragmentManager(), "tag");
+            }
 
         }
     }

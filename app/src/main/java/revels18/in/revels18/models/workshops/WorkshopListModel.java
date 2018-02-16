@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import revels18.in.revels18.models.sports.SportsModel;
-
 /**
  * Created by skvrahul on 16/2/18.
  */

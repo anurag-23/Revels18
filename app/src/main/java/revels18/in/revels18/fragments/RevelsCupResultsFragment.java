@@ -1,11 +1,7 @@
 package revels18.in.revels18.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -37,10 +33,7 @@ import revels18.in.revels18.activities.FavouritesActivity;
 import revels18.in.revels18.activities.LoginActivity;
 import revels18.in.revels18.activities.MainActivity;
 import revels18.in.revels18.activities.ProfileActivity;
-import revels18.in.revels18.adapters.ResultsAdapter;
 import revels18.in.revels18.adapters.RevelsCupResultsAdapter;
-import revels18.in.revels18.models.results.EventResultModel;
-import revels18.in.revels18.models.results.ResultModel;
 import revels18.in.revels18.models.sports.SportsListModel;
 import revels18.in.revels18.models.sports.SportsModel;
 import revels18.in.revels18.models.sports.SportsResultModel;

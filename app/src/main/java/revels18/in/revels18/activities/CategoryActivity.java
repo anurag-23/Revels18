@@ -1,14 +1,12 @@
 package revels18.in.revels18.activities;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,9 +40,11 @@ public class CategoryActivity extends AppCompatActivity {
     private TextView noEventsDay2;
     private TextView noEventsDay3;
     private TextView noEventsDay4;
+    private TextView noEventsPreRevels;
     private TextView catNameTextView;
     private TextView catDescTextView;
     private List<ScheduleModel> scheduleResults;
+    private String TAG="CategoryActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +98,13 @@ public class CategoryActivity extends AppCompatActivity {
     }
     public void displayEvents(){
 
+        List<EventModel> preRevelsList=new ArrayList<>();
         List<EventModel> day1List=new ArrayList<>();
         List<EventModel>day2List=new ArrayList<>();
         List<EventModel>day3List=new ArrayList<>();
         List<EventModel>day4List=new ArrayList<>();
 
+        noEventsPreRevels = (TextView)findViewById(R.id.cat_pre_revels_no_events);
         noEventsDay1 = (TextView)findViewById(R.id.cat_day_1_no_events);
         noEventsDay2 = (TextView)findViewById(R.id.cat_day_2_no_events);
         noEventsDay3 = (TextView)findViewById(R.id.cat_day_3_no_events);
@@ -114,25 +116,48 @@ public class CategoryActivity extends AppCompatActivity {
         RealmResults<ScheduleModel> scheduleResultsRealm = mDatabase.where(ScheduleModel.class).equalTo("catID", catID).findAllSorted("startTime");
         scheduleResults=mDatabase.copyFromRealm(scheduleResultsRealm);
 
-        for (ScheduleModel schedule : scheduleResults){
-            EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
-
-            EventModel event = new EventModel(eventDetails, schedule);
-            switch(event.getDay()){
-                case "1": day1List.add(event);
-                    break;
-                case "2": day2List.add(event);
-                    break;
-                case "3": day3List.add(event);
-                    break;
-                case "4": day4List.add(event);
-                    break;
+        for (ScheduleModel schedule : scheduleResults) {
+            if (schedule.getIsRevels().contains("0")) {
+                Log.d(TAG, "displayEvents: PreRevels");
+                EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
+                EventModel event = new EventModel(eventDetails, schedule);
+                preRevelsList.add(event);
+            } else {
+                Log.d(TAG, "displayEvents: Revels");
+                EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
+                EventModel event = new EventModel(eventDetails, schedule);
+                switch (event.getDay()) {
+                    case "1":
+                        day1List.add(event);
+                        break;
+                    case "2":
+                        day2List.add(event);
+                        break;
+                    case "3":
+                        day3List.add(event);
+                        break;
+                    case "4":
+                        day4List.add(event);
+                        break;
+                }
             }
         }
+        eventSort(preRevelsList);
         eventSort(day1List);
         eventSort(day2List);
         eventSort(day3List);
         eventSort(day4List);
+
+        RecyclerView recyclerViewDayPreRevels =(RecyclerView)findViewById(R.id.category_pre_revels_recycler_view);
+        if(preRevelsList.isEmpty()){
+            noEventsPreRevels.setVisibility(View.VISIBLE);
+            recyclerViewDayPreRevels.setVisibility(View.GONE);
+        }
+        else{
+            recyclerViewDayPreRevels.setAdapter(new CategoryEventsAdapter(preRevelsList,this,getBaseContext(),false));
+            recyclerViewDayPreRevels.setNestedScrollingEnabled(false);
+            recyclerViewDayPreRevels.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        }
 
         RecyclerView recyclerViewDay1 =(RecyclerView)findViewById(R.id.category_day_1_recycler_view);
         if(day1List.isEmpty()){
@@ -140,7 +165,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay1.setVisibility(View.GONE);
         }
         else{
-            recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this,getBaseContext()));
+            recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this,getBaseContext(),true));
             recyclerViewDay1.setNestedScrollingEnabled(false);
             recyclerViewDay1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -151,7 +176,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay2.setVisibility(View.GONE);
         }
         else{
-            recyclerViewDay2.setAdapter(new CategoryEventsAdapter(day2List,this,getBaseContext()));
+            recyclerViewDay2.setAdapter(new CategoryEventsAdapter(day2List,this,getBaseContext(),true));
             recyclerViewDay2.setNestedScrollingEnabled(false);
             recyclerViewDay2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -162,7 +187,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay3.setVisibility(View.GONE);
         }
         else {
-            recyclerViewDay3.setAdapter(new CategoryEventsAdapter(day3List, this,getBaseContext()));
+            recyclerViewDay3.setAdapter(new CategoryEventsAdapter(day3List, this,getBaseContext(),true));
             recyclerViewDay3.setNestedScrollingEnabled(false);
             recyclerViewDay3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -173,7 +198,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay4.setVisibility(View.GONE);
         }
         else {
-            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day4List, this,getBaseContext()));
+            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day4List, this,getBaseContext(),true));
             recyclerViewDay4.setNestedScrollingEnabled(false);
             recyclerViewDay4.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }

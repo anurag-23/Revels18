@@ -16,12 +16,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CategoryActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -32,28 +32,33 @@
 
         <activity
             android:name=".activities.SplashActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.FavouritesActivity" />
+        <activity
+            android:name=".activities.FavouritesActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ProfileActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"/>
         <activity
             android:name=".activities.AboutUsActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.DevelopersActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,10 +66,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WorkshopsActivity" />
+        <activity android:name=".activities.WorkshopsActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activities.EventRegistrationActivity"
             android:parentActivityName=".activities.ProfileActivity"/>
-        <activity android:name=".activities.RegisterTeamActivity"></activity>
+        <activity android:name=".activities.RegisterTeamActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

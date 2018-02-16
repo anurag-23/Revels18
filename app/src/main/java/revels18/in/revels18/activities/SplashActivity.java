@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,8 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.google.gson.JsonSyntaxException;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -134,10 +132,10 @@ public class SplashActivity extends AppCompatActivity {
                     final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
                     Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
                     noConnectionLayout.setVisibility(View.VISIBLE);
-                    /*iconLeft.setVisibility(View.GONE);
+                    iconLeft.setVisibility(View.GONE);
                     iconRight.setVisibility(View.GONE);
                     text.setVisibility(View.GONE);
-                    container.setVisibility(View.GONE);*/
+                    container.setVisibility(View.GONE);
                     retry.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -147,10 +145,10 @@ public class SplashActivity extends AppCompatActivity {
 
                             if (isConnectedTemp){
                                 noConnectionLayout.setVisibility(View.GONE);
-                                /*iconLeft.setVisibility(View.VISIBLE);
+                                iconLeft.setVisibility(View.VISIBLE);
                                 iconRight.setVisibility(View.VISIBLE);
                                 text.setVisibility(View.VISIBLE);
-                                container.setVisibility(View.VISIBLE);*/
+                                container.setVisibility(View.VISIBLE);
                                 Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
                                 loadAllFromInternet();
                             }

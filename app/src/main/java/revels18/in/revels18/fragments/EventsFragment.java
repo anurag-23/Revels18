@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
@@ -57,7 +56,6 @@ import revels18.in.revels18.views.SwipeScrollView;
 
 public class EventsFragment extends Fragment {
     TabLayout tabs;
-    TextView noEventsTV;
     View eventsLayout;
     View view;
     LinearLayout noData;
@@ -121,7 +119,7 @@ public class EventsFragment extends Fragment {
         events = realm.copyFromRealm(realm.where(ScheduleModel.class).findAll());
 
         if(events.size() ==0){
-            noEventsTV.setVisibility(View.VISIBLE);
+
         }else{
             EventsAdapter.FavouriteClickListener favClickListener = new EventsAdapter.FavouriteClickListener() {
                 @Override
@@ -526,7 +524,6 @@ public class EventsFragment extends Fragment {
         tabs = (TabLayout) view.findViewById(R.id.tabs);
         eventsLayout = view.findViewById(R.id.events_linear_layout);
         eventsRV = (RecyclerView)view.findViewById(R.id.events_recycler_view);
-        noEventsTV = (TextView)view.findViewById(R.id.events_no_events_text_view);
         noData =(LinearLayout)view.findViewById(R.id.no_events_data_layout);
         tabs.addTab(tabs.newTab().setText("Pre Revels"));
         for(int i=0;i<NUM_DAYS-1;i++){
