@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:paddingLeft="@dimen/padding_default"
-    android:paddingRight="@dimen/padding_default"
-    android:paddingBottom="100dp">
+    android:paddingRight="@dimen/padding_default">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/revels_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/no_results"
-        android:gravity="center"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/colorAccent"
-        android:layout_marginBottom="@dimen/padding_default"/>
-
-    <FrameLayout
-        android:layout_width="268dp"
-        android:layout_height="wrap_content"
-        android:padding="24dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:paddingLeft="0dp"
-            android:src="@drawable/revels_text"
-            android:scaleType="centerCrop"/>
-
-
-    </FrameLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_results_2"
+        android:text="@string/no_data"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/typography_title"
         android:layout_marginTop="@dimen/padding_default"

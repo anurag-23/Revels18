@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_workshops"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="revels18.in.revels18.activities.WorkshopsActivity">
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/layout_no_data"
+        android:visibility="gone"
+        android:id="@+id/no_workshop_data_layout"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/workshop_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/padding_default">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+</LinearLayout>

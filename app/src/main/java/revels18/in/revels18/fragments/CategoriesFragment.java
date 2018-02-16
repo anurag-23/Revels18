@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class CategoriesFragment extends Fragment {
     private MenuItem searchItem;
     private String TAG = "CategoriesFragment";
     private RecyclerView categoriesRecyclerView;
+    private LinearLayout noDataLayout;
 
     public CategoriesFragment() {
     }
@@ -76,6 +78,7 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_categories, container, false);
         categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
+        noDataLayout=(LinearLayout)view.findViewById(R.id.no_category_data_layout);
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
@@ -99,6 +102,22 @@ public class CategoriesFragment extends Fragment {
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
+                if(categoriesRecyclerView.getVisibility()==View.GONE){
+                    categoriesRecyclerView.setVisibility(View.VISIBLE);
+                    noDataLayout.setVisibility(View.GONE);
+                }
+            }
+            else{
+                if(categoriesRecyclerView.getVisibility()==View.VISIBLE){
+                    categoriesRecyclerView.setVisibility(View.GONE);
+                    noDataLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        else{
+            if(categoriesRecyclerView.getVisibility()==View.VISIBLE){
+                categoriesRecyclerView.setVisibility(View.GONE);
+                noDataLayout.setVisibility(View.VISIBLE);
             }
         }
     }

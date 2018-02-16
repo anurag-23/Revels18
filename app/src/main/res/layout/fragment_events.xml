@@ -48,6 +48,13 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="@dimen/padding_default" />
 
+                <include
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    layout="@layout/layout_no_data"
+                    android:visibility="gone"
+                    android:id="@+id/no_events_data_layout"/>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/events_recycler_view"
                     android:layout_width="match_parent"

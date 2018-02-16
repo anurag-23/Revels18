@@ -200,6 +200,7 @@ public class HomeFragment extends Fragment {
 
         //Display Events of current day
         Calendar cal = Calendar.getInstance();
+        Calendar day1 = new GregorianCalendar(2018, 3, 7);
         Calendar day2 = new GregorianCalendar(2018, 3, 8);
         Calendar day3 = new GregorianCalendar(2018, 3, 9);
         Calendar day4 = new GregorianCalendar(2018, 3, 10);
@@ -207,7 +208,9 @@ public class HomeFragment extends Fragment {
 
         int dayOfEvent;
 
-        if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
+        if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
+            dayOfEvent =0;
+        }else if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
             dayOfEvent = 1;
         }else if (curDay.getTimeInMillis() < day3.getTimeInMillis()){
             dayOfEvent = 2;
@@ -220,18 +223,30 @@ public class HomeFragment extends Fragment {
         String sortCriteria[] = {"day", "startTime", "eventName"};
         Sort sortOrder[] = {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING};
 
-        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).equalTo("day", dayOfEvent+"").findAllSorted(sortCriteria, sortOrder);
-
-        eventsList = mDatabase.copyFromRealm(eventsRealmResults);
-        for(int i=0;i<eventsList.size();i++){
-            ScheduleModel event = eventsList.get(i);
-            if(isFavourite(event)){
-                //Move to top if the event is a Favourite
-                eventsList.remove(event);
-                eventsList.add(0, event);
+        //PreRevels events
+        if(dayOfEvent == 0){
+            List<ScheduleModel> eventsRealmResults = mDatabase.copyFromRealm((mDatabase.where(ScheduleModel.class).findAll()));
+            for(int i=0;i<eventsRealmResults.size();i++){
+                Log.d(TAG, "dayFilter Value: "+eventsRealmResults.get(i).getIsRevels());
+                if(eventsRealmResults.get(i).getIsRevels().contains("0")){
+                    eventsList.add(eventsRealmResults.get(i));
+                }
             }
         }
-        if(eventsList.size()>10){
+        //Main Revels Events
+        else {
+            List<ScheduleModel> eventsRealmResults = mDatabase.copyFromRealm(mDatabase.where(ScheduleModel.class).equalTo("day", dayOfEvent + "").findAllSorted(sortCriteria, sortOrder));
+            eventsList = mDatabase.copyFromRealm(eventsRealmResults);
+            for (int i = 0; i < eventsList.size(); i++) {
+                ScheduleModel event = eventsList.get(i);
+                if (isFavourite(event)) {
+                    //Move to top if the event is a Favourite
+                    eventsList.remove(event);
+                    eventsList.add(0, event);
+                }
+            }
+        }
+        if (eventsList.size() > 10) {
             eventsList.subList(10, eventsList.size()).clear();
         }
         eventsAdapter = new HomeEventsAdapter(eventsList, null,getActivity());
@@ -247,8 +262,6 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(EventsFragment.newInstance());
             }
         });
-        int x=eventsList.size();
-        Log.i(TAG, "onCreateView: eventsLists size"+x );
         if(eventsList.size()==0){
             view.findViewById(R.id.home_events_none_text_view).setVisibility(View.VISIBLE);
         }

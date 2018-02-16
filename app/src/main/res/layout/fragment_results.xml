@@ -19,7 +19,7 @@
             <include
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                layout="@layout/layout_no_data"
+                layout="@layout/layout_no_data_results"
                 android:visibility="gone"
                 android:id="@+id/no_results_layout"/>
 
