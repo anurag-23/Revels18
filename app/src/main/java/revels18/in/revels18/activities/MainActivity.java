@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity  {
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
                     //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
-                    mDatabase.copyToRealm(response.body().getWorkshopsList());
+                    mDatabase.copyToRealmOrUpdate(response.body().getWorkshopsList());
                     //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
                     Log.d(TAG,"Workshops updated in background");

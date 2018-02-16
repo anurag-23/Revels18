@@ -147,7 +147,7 @@ public class EventsFragment extends Fragment {
             eventsRV.setItemAnimator(new DefaultItemAnimator());
             eventsRV.setAdapter(adapter);
             //Showing 'Day 1' tab by default
-            dayFilter(1);
+            dayFilter(PREREVELS_DAY);
 
 
         }
@@ -191,7 +191,11 @@ public class EventsFragment extends Fragment {
         Date endDate;
         //Adding all the events of the current day to the currentDayEvents List and filtering those
         //If this step is not done then the filtering is done on the list that has already been filtered
-        dayFilter(tabs.getSelectedTabPosition()+1);
+        if(tabs.getSelectedTabPosition() == 0){
+            dayFilter(-1);//PreRevels
+        }else{
+            dayFilter(tabs.getSelectedTabPosition()+1);
+        }
         List<ScheduleModel> tempList = new ArrayList<>();
         tempList.addAll(currentDayEvents);
 
@@ -539,8 +543,10 @@ public class EventsFragment extends Fragment {
     public void dayFilter(int day){
         currentDayEvents.clear();
         //Filtering PreRevels events
+        Log.d(TAG, "dayFilter 1: "+day);
         if(day == -1){
             for(int i=0;i<events.size();i++){
+                Log.d(TAG, "dayFilter Value: "+events.get(i).getIsRevels());
                 if(events.get(i).getIsRevels().contains("0")){
                     currentDayEvents.add(events.get(i));
                 }
@@ -551,7 +557,7 @@ public class EventsFragment extends Fragment {
         }
         //Filtering the remaining events
         for(int i=0;i<events.size();i++){
-            if(events.get(i).getDay().contains((day-1)+"")){
+            if(events.get(i).getDay().contains((day-1)+"") && events.get(i).getIsRevels().contains("1")){
                 currentDayEvents.add(events.get(i));
             }
         }
@@ -573,11 +579,12 @@ public class EventsFragment extends Fragment {
     class DayTabListener implements TabLayout.OnTabSelectedListener{
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
+            Log.d(TAG, "onTabSelected TabPos: "+tab.getPosition());
             int day = tab.getPosition() + 1;
-            Log.d(TAG, "onTabSelected: day = "+day);
             if(tab.getPosition() == 0){
                 day = PREREVELS_DAY;
             }
+            Log.d(TAG, "onTabSelected: day = "+day);
             dayFilter(day);
             applyFilters();
         }
