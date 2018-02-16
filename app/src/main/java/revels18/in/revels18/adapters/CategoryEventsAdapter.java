@@ -157,6 +157,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         //Get Corresponding EventDetailsModel from Realm
         //EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
         //Create and Set Values for FavouritesModel
+        ScheduleModel sm = realm.where(ScheduleModel.class).equalTo("eventID", event.getEventId()).equalTo("day",event.getDay()).equalTo("date", event.getDate()).findFirst();
         favourite.setId(event.getEventId());
         favourite.setCatID(event.getCatId());
         favourite.setEventName(event.getEventName());
@@ -171,6 +172,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         favourite.setContactNumber(event.getContactNumber());
         favourite.setCatName(event.getCatName());
         favourite.setDescription(event.getDescription());
+        favourite.setIsRevels(sm.getIsRevels());
         //Commit to Realm
         realm.beginTransaction();
         realm.copyToRealm(favourite);

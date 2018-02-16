@@ -2,6 +2,7 @@ package revels18.in.revels18.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
     private List<FavouritesModel> favourites;
     private final EventClickListener eventListener;
     Activity activity;
-
+    private String TAG = "FavouritesEventsAdapter";
     public interface EventClickListener {
         void onItemClick(FavouritesModel event);
     }
@@ -44,8 +45,13 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
         FavouritesModel event = favourites.get(position);
         holder.onBind(event);
         IconCollection icons = new IconCollection();
-        if(event.getCatName()!=null)
+        Log.d(TAG, "onBindViewHolder: "
+                +event.getCatName());
+        try{
             holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @Override
     public int getItemCount() {
