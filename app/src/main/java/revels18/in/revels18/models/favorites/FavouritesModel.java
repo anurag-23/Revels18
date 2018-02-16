@@ -18,6 +18,15 @@ public class FavouritesModel extends RealmObject {
     private String contactNumber;
     private String catName;
     private String description;
+    private String isRevels;
+
+    public String getIsRevels() {
+        return isRevels;
+    }
+
+    public void setIsRevels(String isRevels) {
+        this.isRevels = isRevels;
+    }
 
     public FavouritesModel() {
     }

@@ -108,6 +108,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         favourite.setDay(eventSchedule.getDay());
         favourite.setStartTime(eventSchedule.getStartTime());
         favourite.setEndTime(eventSchedule.getEndTime());
+        favourite.setIsRevels(eventSchedule.getIsRevels());
         if(eventDetails!=null) {
             favourite.setParticipants(eventDetails.getMaxTeamSize());
             favourite.setContactName(eventDetails.getContactName());

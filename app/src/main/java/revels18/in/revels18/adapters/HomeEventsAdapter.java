@@ -160,6 +160,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             favourite.setContactNumber(eventDetails.getContactNo());
             favourite.setCatName(eventDetails.getCatName());
             favourite.setDescription(eventDetails.getDescription());
+            favourite.setIsRevels(eventSchedule.getIsRevels());
             //Commit to Realm
             mDatabase.beginTransaction();
             mDatabase.copyToRealm(favourite);
