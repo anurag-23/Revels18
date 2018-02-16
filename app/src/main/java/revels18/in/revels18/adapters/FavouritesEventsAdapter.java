@@ -44,7 +44,8 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
         FavouritesModel event = favourites.get(position);
         holder.onBind(event);
         IconCollection icons = new IconCollection();
-        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
+        if(event.getCatName()!=null)
+            holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
     @Override
     public int getItemCount() {

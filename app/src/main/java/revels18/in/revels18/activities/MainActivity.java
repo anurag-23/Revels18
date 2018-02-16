@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity  {
                     mDatabase.copyToRealm(response.body().getCategoriesList());
                     //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
-                    Log.d(TAG,"Categories updated in background");
+                    Log.d(TAG,response.body().getCategoriesList().size()+"Categories updated in background");
                 }
             }
             @Override
@@ -395,12 +395,9 @@ public class MainActivity extends AppCompatActivity  {
             public void onResponse(Call<WorkshopListModel> call, Response<WorkshopListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
                     mDatabase.beginTransaction();
-                    mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
-                    //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
                     mDatabase.copyToRealmOrUpdate(response.body().getWorkshopsList());
-                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
-                    Log.d(TAG,"Workshops updated in background");
+                    Log.d(TAG,response.body().getWorkshopsList().size()+"Workshops updated in background");
                 }
             }
             @Override

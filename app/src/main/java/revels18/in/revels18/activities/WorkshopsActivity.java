@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ public class WorkshopsActivity extends AppCompatActivity {
     List<WorkshopModel> workshopList = new ArrayList<>();
     WorkshopsAdapter adapter = null;
     LinearLayout noData;
+    private String TAG = "WorkshopActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class WorkshopsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RealmResults<WorkshopModel> realmResults = realm.where(WorkshopModel.class).findAll().sort("date");
         workshopList = realm.copyFromRealm(realmResults);
+        Log.d(TAG, "onCreate: Length"+workshopList.size());
         WorkshopsAdapter.EventClickListener eventClickListener = new WorkshopsAdapter.EventClickListener() {
             @Override
             public void onItemClick(ScheduleModel event, View view) {
@@ -51,12 +54,14 @@ public class WorkshopsActivity extends AppCompatActivity {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(adapter);
         if(workshopList.isEmpty()){
+            Log.d(TAG, "onCreate: Empty Workshops list");
             rv.setVisibility(View.INVISIBLE);
             noData.setVisibility(View.VISIBLE);
         }
         else{
+            Log.d(TAG, "onCreate: Non-Empty Workshops list");
             rv.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
     }
