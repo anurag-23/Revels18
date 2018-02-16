@@ -384,6 +384,7 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public void onFailure(Call<SportsListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Revels Cup Results not updated");
             }
         });
     }

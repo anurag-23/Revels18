@@ -18,7 +18,7 @@ public class APIClient {
     private static Retrofit retrofit = null;
     private static Retrofit retrofitEgg = null;
 
-    private static final String BASE_URL = "http://api.mitportals.in/";
+    private static final String BASE_URL = "https://api.mitportals.in/";
     //private static final String EGGS_URL = "http://qnaxzrzrf.herokuapp.com/api/";
 
     public static APIInterface getAPIInterface(){
