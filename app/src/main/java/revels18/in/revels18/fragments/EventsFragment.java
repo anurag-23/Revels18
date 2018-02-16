@@ -541,7 +541,7 @@ public class EventsFragment extends Fragment {
         //Filtering PreRevels events
         if(day == -1){
             for(int i=0;i<events.size();i++){
-                if(events.get(i).getDay().contains("pre")){
+                if(events.get(i).getIsRevels().contains("0")){
                     currentDayEvents.add(events.get(i));
                 }
             }

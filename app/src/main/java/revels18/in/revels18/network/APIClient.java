@@ -11,6 +11,7 @@ import revels18.in.revels18.models.events.RevelsCupEventsListModel;
 import revels18.in.revels18.models.events.ScheduleListModel;
 import revels18.in.revels18.models.results.ResultsListModel;
 import revels18.in.revels18.models.sports.SportsListModel;
+import revels18.in.revels18.models.workshops.WorkshopListModel;
 
 public class APIClient {
 
@@ -60,6 +61,9 @@ public class APIClient {
 
         @GET("sports")
         Call<SportsListModel> getSportsResults();
+
+        @GET("workshops")
+        Call<WorkshopListModel> getWorkshopsList();
         //@GET("photos")
         //Call<EasterEggModel[]> getEggList();
 

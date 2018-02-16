@@ -32,6 +32,8 @@ import revels18.in.revels18.R;
 import revels18.in.revels18.models.events.RevelsCupEventsListModel;
 import revels18.in.revels18.models.sports.SportsListModel;
 import revels18.in.revels18.models.sports.SportsModel;
+import revels18.in.revels18.models.workshops.WorkshopListModel;
+import revels18.in.revels18.models.workshops.WorkshopModel;
 import revels18.in.revels18.utilities.BottomNavigationViewHelper;
 import revels18.in.revels18.application.Revels;
 import revels18.in.revels18.fragments.CategoriesFragment;
@@ -151,6 +153,10 @@ public class MainActivity extends AppCompatActivity  {
             }
             case R.id.menu_developers: {
                 startActivity(new Intent(MainActivity.this, DevelopersActivity.class));
+                return true;
+            }
+            case R.id.menu_workshops:{
+                startActivity(new Intent(MainActivity.this, WorkshopsActivity.class));
                 return true;
             }
         }
@@ -278,7 +284,8 @@ public class MainActivity extends AppCompatActivity  {
         loadEventsFromInternet();
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();
-        loadRevelsCupResultsFromInternet();
+        loadWorkshopsFromInternet();
+        //loadRevelsCupResultsFromInternet();
     }
     private void loadEventsFromInternet() {
 
@@ -377,6 +384,27 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public void onFailure(Call<SportsListModel> call, Throwable t) {
+            }
+        });
+    }
+    private void loadWorkshopsFromInternet(){
+        Call<WorkshopListModel> workshopsCall = APIClient.getAPIInterface().getWorkshopsList();
+        workshopsCall.enqueue(new Callback<WorkshopListModel>() {
+            @Override
+            public void onResponse(Call<WorkshopListModel> call, Response<WorkshopListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    mDatabase.beginTransaction();
+                    mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
+                    //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
+                    mDatabase.copyToRealm(response.body().getWorkshopsList());
+                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
+                    mDatabase.commitTransaction();
+                    Log.d(TAG,"Workshops updated in background");
+                }
+            }
+            @Override
+            public void onFailure(Call<WorkshopListModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: Workshops not updated");
             }
         });
     }
