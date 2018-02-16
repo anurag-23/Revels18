@@ -60,6 +60,7 @@ public class EventsFragment extends Fragment {
     TextView noEventsTV;
     View eventsLayout;
     View view;
+    LinearLayout noData;
     RecyclerView eventsRV;
     Realm realm = Realm.getDefaultInstance();
     List<ScheduleModel> events;
@@ -526,6 +527,7 @@ public class EventsFragment extends Fragment {
         eventsLayout = view.findViewById(R.id.events_linear_layout);
         eventsRV = (RecyclerView)view.findViewById(R.id.events_recycler_view);
         noEventsTV = (TextView)view.findViewById(R.id.events_no_events_text_view);
+        noData =(LinearLayout)view.findViewById(R.id.no_events_data_layout);
         tabs.addTab(tabs.newTab().setText("Pre Revels"));
         for(int i=0;i<NUM_DAYS-1;i++){
             tabs.addTab(tabs.newTab().setText("Day "+(i+1)));
@@ -551,8 +553,17 @@ public class EventsFragment extends Fragment {
                     currentDayEvents.add(events.get(i));
                 }
             }
-            if(adapter!=null)
+            if(adapter!=null) {
+                if(currentDayEvents.isEmpty()){
+                    eventsRV.setVisibility(View.GONE);
+                    noData.setVisibility(View.VISIBLE);
+                }
+                else{
+                    eventsRV.setVisibility(View.VISIBLE);
+                    noData.setVisibility(View.GONE);
+                }
                 adapter.updateList(currentDayEvents);
+            }
             return;
         }
         //Filtering the remaining events
@@ -561,8 +572,17 @@ public class EventsFragment extends Fragment {
                 currentDayEvents.add(events.get(i));
             }
         }
-        if(adapter!=null)
+        if(adapter!=null) {
+            if(currentDayEvents.isEmpty()){
+                eventsRV.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
+            else{
+                eventsRV.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+            }
             adapter.updateList(currentDayEvents);
+        }
     }
     //TODO(Low Priority) : Search query persistance across tabs
     public void queryFilter(String query){
