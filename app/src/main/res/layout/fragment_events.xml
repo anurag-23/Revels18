@@ -36,18 +36,6 @@
                 android:clipToPadding="false"
                 android:clipChildren="false">
 
-                <TextView
-                    android:id="@+id/events_no_events_text_view"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_events"
-                    android:paddingLeft="@dimen/padding_default"
-                    android:paddingRight="@dimen/padding_default"
-                    android:textSize="@dimen/typography_subheading"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="@dimen/padding_default" />
-
                 <include
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"

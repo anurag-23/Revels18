@@ -40,7 +40,6 @@
                             android:layout_weight="1"
                             android:text="@string/pre_revels"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                         <TextView
@@ -58,7 +57,7 @@
                     <android.support.v7.widget.CardView
                         android:id="@+id/favourites_pre_revels_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="125dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
@@ -72,13 +71,15 @@
                             android:text="@string/no_favourites"
                             android:fontFamily="sans-serif-medium"
                             android:visibility="gone"
-                            android:layout_margin="10dp"/>
+                            android:layout_margin="15dp"/>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/favourites_pre_revels_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal" />
+                            android:orientation="horizontal"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp"/>
 
 
                     </android.support.v7.widget.CardView>
@@ -108,7 +109,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_1"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                         <TextView
@@ -177,7 +177,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_2"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                         <TextView
@@ -246,8 +245,8 @@
                             android:layout_weight="1"
                             android:text="@string/day_3"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
-                            android:fontFamily="sans-serif-medium"/>
+                            android:fontFamily="sans-serif-medium"
+                            android:id="@+id/textView12" />
 
                         <TextView
                             android:id="@+id/favourites_events_clear_3"
@@ -315,7 +314,6 @@
                             android:layout_weight="1"
                             android:text="@string/day_4"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-medium"/>
 
                         <TextView

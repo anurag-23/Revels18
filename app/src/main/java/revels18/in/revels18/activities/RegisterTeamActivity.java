@@ -1,7 +1,7 @@
 package revels18.in.revels18.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import revels18.in.revels18.R;
 

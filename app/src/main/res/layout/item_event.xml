@@ -102,6 +102,21 @@
                 android:background="@drawable/rounded_corner_grey"/>
             <TextView
                 android:gravity="center"
+                android:id="@+id/event_date_text_view"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="R1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/typography_small"
+                android:background="@drawable/rounded_corner_grey" />
+            <TextView
+                android:gravity="center"
                 android:id="@+id/event_round_text_view"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"

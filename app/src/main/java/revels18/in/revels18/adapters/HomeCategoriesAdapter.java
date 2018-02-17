@@ -14,9 +14,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import revels18.in.revels18.R;
-import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.activities.CategoryActivity;
 import revels18.in.revels18.models.categories.CategoryModel;
+import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/24/2017.

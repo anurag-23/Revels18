@@ -6,7 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import revels18.in.revels18.models.categories.CategoriesListModel;
 import revels18.in.revels18.models.events.EventsListModel;
-import revels18.in.revels18.models.events.RevelsCupEventModel;
 import revels18.in.revels18.models.events.RevelsCupEventsListModel;
 import revels18.in.revels18.models.events.ScheduleListModel;
 import revels18.in.revels18.models.results.ResultsListModel;

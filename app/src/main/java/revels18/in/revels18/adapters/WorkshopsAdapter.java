@@ -1,13 +1,11 @@
 package revels18.in.revels18.adapters;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,22 +15,13 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import io.realm.Realm;
 import revels18.in.revels18.R;
-import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
-import revels18.in.revels18.models.favorites.FavouritesModel;
 import revels18.in.revels18.models.workshops.WorkshopModel;
-import revels18.in.revels18.receivers.NotificationReceiver;
 import revels18.in.revels18.utilities.IconCollection;
-import revels18.in.revels18.views.TabbedDialog;
 
 /**
  * Created by skvrahul on 9/12/17.
@@ -48,14 +37,13 @@ public class WorkshopsAdapter extends RecyclerView.Adapter<WorkshopsAdapter.Even
     private Activity activity;
     private List<WorkshopModel> eventScheduleList;
     private final EventClickListener eventListener;
-    Realm realm = Realm.getDefaultInstance();
     public interface EventClickListener {
         void onItemClick(ScheduleModel event, View view);
     }
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_event, parent, false);
+                .inflate(R.layout.item_workshops, parent, false);
         return new EventViewHolder(itemView);
     }
     public void updateList(List<WorkshopModel> workshopModelList){

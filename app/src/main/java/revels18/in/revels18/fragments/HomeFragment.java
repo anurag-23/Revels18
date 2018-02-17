@@ -69,6 +69,7 @@ import revels18.in.revels18.models.results.ResultModel;
 import revels18.in.revels18.models.results.ResultsListModel;
 import revels18.in.revels18.network.APIClient;
 import revels18.in.revels18.network.InstaFeedAPIClient;
+import revels18.in.revels18.utilities.NetworkUtils;
 
 public class HomeFragment extends Fragment {
     private InstagramFeed feed;
@@ -268,9 +269,7 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
-                boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+                boolean isConnectedTemp = NetworkUtils.isInternetConnected(getContext());;
                 if(isConnectedTemp){
                     displayInstaFeed();
                     fetchResults();

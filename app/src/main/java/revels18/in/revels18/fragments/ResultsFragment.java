@@ -1,10 +1,7 @@
 package revels18.in.revels18.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -104,7 +101,8 @@ public class ResultsFragment extends Fragment {
                 noResultsLayout.setVisibility(View.VISIBLE);
             }
             Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
-            swipeRefreshLayout.setRefreshing(false);}
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
     private void displayData(){
         if (mDatabase != null){

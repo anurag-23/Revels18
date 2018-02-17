@@ -1,38 +1,42 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="revels18.in.revels18.fragments.RevelsCupFragment"
-    android:clipToPadding="false"
-    android:clipChildren="false">
+    android:id="@+id/revelscup_results_swipe_refresh_layout">
 
-    <LinearLayout
+<LinearLayout
+    tools:context="revels18.in.revels18.fragments.RevelsCupFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:gravity="center">
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/layout_no_data"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:id="@+id/no_revels_cup_data_layout"/>
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/layout_no_connection"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:id="@+id/revels_cup_no_connection"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:nestedScrollingEnabled="false"
         android:clipToPadding="false"
-        android:clipChildren="false">
+        android:clipChildren="false" />
 
-        <TextView
-            android:id="@+id/rc_no_events_text_view"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/no_events"
-            android:paddingLeft="@dimen/padding_default"
-            android:paddingRight="@dimen/padding_default"
-            android:textSize="@dimen/typography_subheading"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="@dimen/padding_default" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rc_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            />
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

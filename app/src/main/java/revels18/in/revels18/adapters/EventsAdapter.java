@@ -23,11 +23,11 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import revels18.in.revels18.R;
-import revels18.in.revels18.receivers.NotificationReceiver;
-import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.models.events.EventDetailsModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
+import revels18.in.revels18.receivers.NotificationReceiver;
+import revels18.in.revels18.utilities.IconCollection;
 import revels18.in.revels18.views.TabbedDialog;
 
 /**
@@ -229,10 +229,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         td.show(activity.getSupportFragmentManager(), "tag");
     }
     public class EventViewHolder extends RecyclerView.ViewHolder{
-        public TextView eventName, eventVenue, eventTime, eventRound;
+        public TextView eventName, eventVenue, eventTime, eventRound, eventDate;
         public ImageView eventIcon, favIcon;
         public View container;
         public void onBind(final ScheduleModel event,final EventClickListener eventClickListener, final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
+            eventDate.setText(event.getDate());
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
             eventVenue.setText(event.getVenue());
@@ -278,6 +279,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventIcon = (ImageView)view.findViewById(R.id.event_logo_image_view);
             favIcon = (ImageView)view.findViewById(R.id.event_fav_ico);
             eventName = (TextView)view.findViewById(R.id.event_name_text_view);
+            eventDate = (TextView)view.findViewById(R.id.event_date_text_view);
             eventVenue = (TextView)view.findViewById(R.id.event_venue_text_view);
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
             eventRound = (TextView)view.findViewById(R.id.event_round_text_view);

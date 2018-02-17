@@ -4,19 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import revels18.in.revels18.R;
-import revels18.in.revels18.application.Revels;
-import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.RevelsCupEventModel;
-import revels18.in.revels18.models.events.RevelsCupEventsListModel;
-import revels18.in.revels18.models.events.ScheduleModel;
 
 /**
  * Created by skvrahul on 14/2/18.

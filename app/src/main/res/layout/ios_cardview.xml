@@ -48,7 +48,7 @@
                 android:id="@+id/imageViewAndroid"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/shreyas2x"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="12dp" />
 
@@ -91,7 +91,7 @@
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/harsh2x" />
 
                 <TextView
                     android:layout_width="wrap_content"

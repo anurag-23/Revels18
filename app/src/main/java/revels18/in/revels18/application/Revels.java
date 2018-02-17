@@ -2,7 +2,6 @@ package revels18.in.revels18.application;
 
 import android.app.Application;
 
-import io.realm.BuildConfig;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
