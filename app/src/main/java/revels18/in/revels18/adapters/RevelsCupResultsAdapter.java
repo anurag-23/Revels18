@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class RevelsCupResultsAdapter extends RecyclerView.Adapter<RevelsCupResul
             View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
             final Dialog dialog = new Dialog(context);
 
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(bottomSheetView);
 
             TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);

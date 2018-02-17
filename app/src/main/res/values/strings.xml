@@ -117,4 +117,12 @@
     <string name="toggle_flash">Toggle Flash</string>
     <string name="event_registration">Event Registration</string>
     <string name="register_team">Register Team</string>
+    <string name="event_registrations">Event Registrations</string>
+    <string name="event_name">Event Name</string>
+    <string name="one">1.</string>
+    <string name="add_team_member">Add Team Member</string>
+    <string name="create_team">Create Team</string>
+    <string name="max_team_size">Max Team Size:</string>
+    <string name="cur_team_size">Current Team Size:</string>
+    <string name="scan_qr_code_2">Scan Delegate QR</string>
 </resources>

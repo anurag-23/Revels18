@@ -3,10 +3,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="revels18.in.revels18.activities.RegisterTeamActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/user_card"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_half">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delegate_id"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/typography_title"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_marginEnd="@dimen/padding_default"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/user_del_id"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Del ID"
+                    android:textSize="@dimen/typography_title"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/max_team_size"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/typography_title"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_marginEnd="@dimen/padding_default"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/max_team_size_text_view"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Del ID"
+                    android:textSize="@dimen/typography_title"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cur_team_size"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/typography_title"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_marginEnd="@dimen/padding_default"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/cur_team_size_text_view"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Del ID"
+                    android:textSize="@dimen/typography_title"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/add_team_mate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/add_team_member"
+        android:textColor="@color/white"
+        android:textSize="@dimen/typography_title"
+        android:background="@color/colorPrimary"
+        />
 
 </RelativeLayout>

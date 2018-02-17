@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,7 +29,7 @@ import revels18.in.revels18.R;
 import revels18.in.revels18.models.registration.EventRegResponse;
 import revels18.in.revels18.network.RegistrationClient;
 
-public class EventRegistrationActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class AddTeamMemberActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 316;
     private ZXingScannerView scannerView;
 
@@ -36,8 +37,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_registration);
-        setTitle(R.string.event_registration);
-        if (getSupportActionBar() != null) getSupportActionBar().setSubtitle(R.string.scan_qr_code);
+        setTitle(R.string.add_team_member);
+        if (getSupportActionBar() != null) getSupportActionBar().setSubtitle(R.string.scan_qr_code_2);
 
         scannerView = (ZXingScannerView)findViewById(R.id.event_scanner);
 
@@ -55,12 +56,12 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
         if (result.getText().isEmpty()) return;
 
         final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading Event... please wait!");
+        dialog.setMessage("Adding member... please wait!");
         dialog.setCancelable(false);
         dialog.show();
 
         RequestBody body =  RequestBody.create(MediaType.parse("text/plain"), "qr="+result.getText());
-        Call<EventRegResponse> call = RegistrationClient.getRegistrationInterface(this).eventReg(body);
+        Call<EventRegResponse> call = RegistrationClient.getRegistrationInterface(this).addToTeam(body);
         call.enqueue(new Callback<EventRegResponse>() {
             @Override
             public void onResponse(Call<EventRegResponse> call, Response<EventRegResponse> response) {
@@ -78,48 +79,36 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
                 noConnectionAlert();
             }
         });
-
     }
 
     private void showAlert(final EventRegResponse response){
-        String message[] = {"Session expired. Login again to continue!", "Invalid QR code!",
-                "You can proceed to creating your team for "+response.getEventName()+"!", "Already registered for "+response.getEventName()+"! You can still add new team members.",
-        "Contact the infodesk to register for sports events!"};
+        String message[] = {"Invalid QR code!", response.getMessage(), response.getMessage(), "Database error!", "Team member successfully added!"};
         final int status = response.getStatus();
+        Log.d("Status", response.getStatus()+"");
+        Log.d("Message", response.getMessage());
 
-        new AlertDialog.Builder(this).setTitle(status<=1? "Error":"Success").setMessage(message[status])
-                .setIcon(status<=1 ? R.drawable.ic_error:R.drawable.ic_success)
+        new AlertDialog.Builder(this).setTitle(status<4? "Error":"Success").setMessage(message[status])
+                .setIcon(status<4 ? R.drawable.ic_error:R.drawable.ic_success)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (status == 0){
-                            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EventRegistrationActivity.this).edit();
-                            editor.remove("loggedIn");
-                            editor.apply();
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }else if (status == 1) {
                             scannerView.stopCamera();
                             scannerView.startCamera();
-                            scannerView.setResultHandler(EventRegistrationActivity.this);
-                        } else if (status == 5){
-                            finish();
-                        } else if (status > 1){
-                            Intent intent = new Intent(EventRegistrationActivity.this, RegisterTeamActivity.class);
-                            intent.putExtra("status", response.getStatus());
-                            intent.putExtra("eventName", response.getEventName());
-                            intent.putExtra("maxTeamSize", response.getMaxTeamSize());
-                            intent.putExtra("delID", getIntent().getStringExtra("delID"));
-                            if (response.getStatus() == 3){
-                                intent.putExtra("curTeamSize", response.getCurTeamSize());
-                                intent.putExtra("teamID", response.getTeamID());
-                            }
+                            scannerView.setResultHandler(AddTeamMemberActivity.this);
+                        } else if (status == 1){
+                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                        } else if (status >= 2){
+                            Intent intent = new Intent();
+                            if (status == 4) intent.putExtra("success", true);
+                            else intent.putExtra("success", false);
+                            setResult(RESULT_OK, intent);
                             finish();
                         }
                     }
-        }).setCancelable(false).show();
+                }).setCancelable(false).show();
     }
 
     public void noConnectionAlert(){

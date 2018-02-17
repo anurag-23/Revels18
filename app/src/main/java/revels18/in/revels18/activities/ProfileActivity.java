@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import revels18.in.revels18.R;
+import revels18.in.revels18.adapters.EventRegAdapter;
 import revels18.in.revels18.models.registration.ProfileResponse;
 import revels18.in.revels18.network.RegistrationClient;
 import revels18.in.revels18.utilities.NetworkUtils;
@@ -39,7 +42,11 @@ public class ProfileActivity extends AppCompatActivity {
     private LinearLayout profileCard;
     private Button logoutButton;
     private Button eventRegButton;
-    ImageView qrCode;
+    private ImageView qrCode;
+    private RecyclerView eventRegRecyclerView;
+    private TextView noEvents;
+    private LinearLayout eventRegHeader;
+
     //private Button changePwdButton;
 
     @Override
@@ -69,6 +76,9 @@ public class ProfileActivity extends AppCompatActivity {
         logoutButton = (Button)findViewById(R.id.logout_button);
         qrCode = (ImageView)findViewById(R.id.qr_image_view);
         eventRegButton = (Button)findViewById(R.id.event_reg_button);
+        eventRegRecyclerView = (RecyclerView)findViewById(R.id.event_reg_recycler_view);
+        noEvents = (TextView)findViewById(R.id.no_reg_events);
+        eventRegHeader = (LinearLayout)findViewById(R.id.event_reg_header);
         //changePwdButton = (Button)findViewById(R.id.change_pwd_button);
 
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -96,7 +106,18 @@ public class ProfileActivity extends AppCompatActivity {
                             phone.setText(profileResponse.getPhoneNo());
                             email.setText(profileResponse.getEmail());
                             college.setText(profileResponse.getCollege());
-                            Bitmap myBitmap = QRCode.from(profileResponse.getQr()).bitmap();
+
+                            if (profileResponse.getEventData().isEmpty()) {
+                                noEvents.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                EventRegAdapter adapter = new EventRegAdapter(profileResponse.getEventData(), ProfileActivity.this);
+                                eventRegRecyclerView.setAdapter(adapter);
+                                eventRegRecyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
+                                eventRegRecyclerView.setVisibility(View.VISIBLE);
+                                eventRegHeader.setVisibility(View.VISIBLE);
+                            }
+                            Bitmap myBitmap = QRCode.from(profileResponse.getQr()).withSize(1000, 1000).bitmap();
                             qrCode.setImageBitmap(myBitmap);
                         }else{
                             new AlertDialog.Builder(ProfileActivity.this)
@@ -111,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
                                         }
-                                    }).show();
+                                    }).setCancelable(false).show();
                         }
                     }else{
                         noConnectionAlert("Could not connect to server! Please check your internet connect or try again later.");
@@ -154,6 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, EventRegistrationActivity.class);
+                intent.putExtra("delID", delID.getText().toString());
                 startActivity(intent);
             }
         });

@@ -186,7 +186,7 @@ public class RevelsCupResultsFragment extends Fragment {
                 return true;
             }
 
-            case R.id.menu_registrations:{
+            case R.id.menu_profile:{
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), ProfileActivity.class));
                 else{

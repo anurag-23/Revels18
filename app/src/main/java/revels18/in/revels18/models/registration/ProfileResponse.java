@@ -3,6 +3,8 @@ package revels18.in.revels18.models.registration;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by anurag on 14/2/18.
  */
@@ -42,6 +44,10 @@ public class ProfileResponse {
     @Expose
     @SerializedName("message")
     private String message;
+
+    @Expose
+    @SerializedName("event_data")
+    private List<RegEvent> eventData;
 
     public String getName() {
         return name;
@@ -113,5 +119,13 @@ public class ProfileResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<RegEvent> getEventData() {
+        return eventData;
+    }
+
+    public void setEventData(List<RegEvent> eventData) {
+        this.eventData = eventData;
     }
 }

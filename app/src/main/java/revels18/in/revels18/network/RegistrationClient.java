@@ -50,6 +50,13 @@ public class RegistrationClient {
         @Headers({"Content-Type: application/x-www-form-urlencoded"})
         @POST("eventReg.php")
         Call<EventRegResponse> eventReg(@Body RequestBody body);
+
+        @GET("create-team.php")
+        Call<EventRegResponse> createTeam();
+
+        @Headers({"Content-Type: application/x-www-form-urlencoded"})
+        @POST("add-to-team.php")
+        Call<EventRegResponse> addToTeam(@Body RequestBody body);
     }
 
 }

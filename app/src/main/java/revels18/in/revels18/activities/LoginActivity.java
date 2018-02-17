@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                             showChangePwdDialog();
                         }
                     }
-                }).show();
+                }).setCancelable(false).show();
     }
 
     private void showChangePwdDialog() {
