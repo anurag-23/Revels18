@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/fav_event_item"
-    android:layout_width="98dp"
+    android:layout_width="80dp"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding_half"
+    android:layout_marginBottom="@dimen/padding_half"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground"
@@ -17,8 +19,8 @@
 
         <ImageView
             android:id="@+id/fav_event_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
             android:background="@drawable/background_circle"
             android:src="@mipmap/ic_launcher" />
 
@@ -31,7 +33,7 @@
         android:background="@drawable/circular_bg_primary_dark"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/padding_quarter"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:visibility="visible"
@@ -58,21 +60,11 @@
             android:id="@+id/fav_event_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="34dp"
-            tools:text="Event Name"
+            android:text="Event Name"
             android:gravity="center"
             android:textSize="@dimen/typography_body"
             android:ellipsize="end"
             android:maxLines="2"/>
-
-        <TextView
-            android:id="@+id/fav_event_time_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Event Time"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 </RelativeLayout>

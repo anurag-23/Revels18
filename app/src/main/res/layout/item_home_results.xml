@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground"
-    android:paddingBottom="8dp">
+    android:paddingBottom="@dimen/padding_half">
 
     <FrameLayout
         android:id="@+id/home_results_frame"
@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/home_results_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
             android:background="@drawable/background_circle"
             android:src="@mipmap/ic_launcher"/>
 

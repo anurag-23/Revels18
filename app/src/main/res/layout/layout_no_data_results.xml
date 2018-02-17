@@ -13,7 +13,6 @@
         android:text="@string/no_results"
         android:gravity="center"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/colorAccent"
         android:layout_marginBottom="@dimen/padding_default"/>
 
         <ImageView
@@ -27,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_results_2"
-        android:textColor="@color/colorAccent"
         android:textSize="@dimen/typography_title"
         android:layout_marginTop="@dimen/padding_default"
         android:gravity="center"

@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    android:padding="8dp">
+    android:padding="@dimen/padding_half">
 
     <LinearLayout
         android:id="@+id/rc_linear_layout"
@@ -37,9 +37,9 @@
                 android:id="@+id/rc_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="@dimen/padding_half"
+                android:layout_marginRight="@dimen/padding_half"
+                android:layout_marginBottom="@dimen/padding_quarter"
                 android:maxLines="2"
                 android:text="Event Name"
                 android:textSize="16sp"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="1"
-                android:layout_margin="4dp">
+                android:layout_margin="@dimen/padding_quarter">
                 <TextView
                     android:id="@+id/rc_team_1"
                     android:layout_width="wrap_content"
@@ -70,8 +70,8 @@
             </LinearLayout>
             <TextView
                 android:paddingBottom="2dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:layout_marginEnd="@dimen/padding_quarter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/typography_large_title"
@@ -83,7 +83,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:layout_margin="4dp"
+                android:layout_margin="@dimen/padding_quarter"
                 >
                 <TextView
                     android:id="@+id/rc_team_2"
@@ -109,8 +109,8 @@
             <TextView
                 android:id="@+id/rc_venue_text_view"
                 android:paddingBottom="2dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:layout_marginEnd="@dimen/padding_quarter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="NLH 404"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/padding_half"
-                android:paddingTop="4dp"
+                android:paddingTop="@dimen/padding_quarter"
                 android:paddingRight="10dp"
                 android:text="2018-02-10"
                 android:textSize="@dimen/typography_small" />
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/padding_half"
-                android:paddingTop="4dp"
+                android:paddingTop="@dimen/padding_quarter"
                 android:text="2:00PM - 5:00PM"
                 android:textSize="@dimen/typography_small" />
         </LinearLayout>

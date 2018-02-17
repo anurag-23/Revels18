@@ -19,19 +19,19 @@
         android:layout_alignParentTop="true"
         android:gravity="start"
         android:orientation="horizontal"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp">
+        android:paddingLeft="@dimen/padding_half"
+        android:paddingRight="@dimen/padding_half"
+        android:paddingTop="@dimen/padding_half">
 
 
         <ImageView
             android:id="@+id/event_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
 
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/padding_half"
             android:background="@drawable/background_circle"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/padding_half"
             android:contentDescription="Event Logo"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,10 +51,10 @@
             android:ellipsize="end"
             android:maxLength="20"
             android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:paddingStart="16dp"
-            android:paddingRight="16dp"
-            android:paddingEnd="16dp"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingEnd="@dimen/padding_default"
             android:text="Event Name"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/typography_title"
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/event_constraint"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/padding_half"
             android:background="@android:drawable/divider_horizontal_bright" />
 
 </RelativeLayout>

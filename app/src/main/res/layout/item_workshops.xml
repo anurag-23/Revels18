@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:padding="@dimen/padding_half">
         <ImageView
             android:id="@+id/event_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
             android:background="@drawable/background_circle"
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
@@ -45,8 +45,8 @@
                     android:id="@+id/event_name_text_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="@dimen/padding_half"
+                    android:layout_marginRight="@dimen/padding_half"
                     android:layout_weight="1"
                     android:maxLines="2"
                     android:text="Event Name"
@@ -62,7 +62,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="end"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/padding_quarter"
                     android:clickable="true"
                     android:contentDescription="Favourite Icon"
                     android:tag="deselected"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:layout_marginBottom="@dimen/padding_half"
-                android:paddingTop="4dp"
+                android:paddingTop="@dimen/padding_quarter"
                 android:text="2:00PM - 5:00PM"
                 android:textSize="@dimen/typography_small" />
             <LinearLayout
@@ -87,12 +87,12 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/event_venue_text_view"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="@dimen/padding_quarter"
+                    android:paddingRight="@dimen/padding_quarter"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="@dimen/padding_quarter"
+                    android:layout_marginEnd="@dimen/padding_quarter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="NLH 404"
@@ -103,8 +103,8 @@
                 <TextView
                     android:gravity="center"
                     android:id="@+id/event_round_text_view"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="@dimen/padding_quarter"
+                    android:paddingRight="@dimen/padding_quarter"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_width="wrap_content"

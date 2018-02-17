@@ -26,19 +26,19 @@
             android:layout_alignParentTop="true"
             android:gravity="start"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="8dp">
+            android:paddingLeft="@dimen/padding_half"
+            android:paddingRight="@dimen/padding_half"
+            android:paddingTop="@dimen/padding_half">
 
 
             <ImageView
                 android:id="@+id/workshop_logo_image_view"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/padding_3x"
+                android:layout_height="@dimen/padding_3x"
 
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/padding_half"
                 android:background="@drawable/background_circle"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/padding_half"
                 android:contentDescription="workshop Logo"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,10 +56,10 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingStart="16dp"
-                android:paddingRight="16dp"
-                android:paddingEnd="16dp"
+                android:paddingLeft="@dimen/padding_default"
+                android:paddingStart="@dimen/padding_default"
+                android:paddingRight="@dimen/padding_default"
+                android:paddingEnd="@dimen/padding_default"
                 android:text="Workshop Name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/typography_title"
@@ -76,8 +76,8 @@
             android:layout_height="1dp"
             android:layout_below="@+id/workshop_constraint"
 
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/padding_half"
+            android:layout_marginBottom="@dimen/padding_half"
             android:background="@android:drawable/divider_horizontal_bright" />
 
         <FrameLayout
@@ -109,11 +109,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_default">
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
+                    android:paddingBottom="0dp">
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -133,19 +143,33 @@
                         android:textSize="@dimen/typography_body"
                         android:paddingRight="37dp"
                         android:paddingEnd="37dp"/>
-
-                    <TextView
-                        android:id="@+id/workshop_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
                     </LinearLayout>
+
+                <TextView
+                    android:id="@+id/workshop_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="72dp"
+                    android:paddingStart="72dp"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:text="TextView" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_default">
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
+                    android:paddingBottom="0dp">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -165,12 +189,17 @@
                     android:paddingRight="34dp"
                     android:paddingEnd="34dp"/>
 
-                <TextView
-                    android:id="@+id/workshop_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
                 </LinearLayout>
+                    <TextView
+                        android:id="@+id/workshop_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="72dp"
+                        android:paddingStart="72dp"
+                        android:paddingRight="@dimen/padding_default"
+                        android:paddingEnd="@dimen/padding_default"
+                        android:text="TextView" />
+                    </LinearLayout>
             </LinearLayout>
         </FrameLayout>
 
@@ -189,8 +218,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="@dimen/padding_default">
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
+                    android:paddingBottom="0dp">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -212,22 +251,33 @@
                         android:paddingRight="26dp"
                         android:paddingEnd="26dp"/>
 
+                </LinearLayout>
+
                     <TextView
                         android:id="@+id/workshop_venue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="72dp"
+                        android:paddingStart="72dp"
+                        android:paddingRight="@dimen/padding_default"
+                        android:paddingEnd="@dimen/padding_default"
                         android:text="TextView" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_default">
+                    android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
+                    android:paddingBottom="0dp">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -247,25 +297,28 @@
                         android:paddingRight="17dp"
                         android:paddingEnd="17dp"
                         />
-
-                    <TextView
-                    android:id="@+id/workshop_contact_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:layout_marginRight="4dp"
-                        android:layout_marginEnd="4dp" />
                 </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/workshop_contact_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:paddingLeft="72dp"
+                        android:paddingStart="72dp"
+                        android:paddingRight="@dimen/padding_quarter"
+                        android:paddingEnd="@dimen/padding_quarter"
+                        />
                     <TextView
                         android:id="@+id/workshop_contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="130dp"
-                        android:layout_marginStart="130dp"
-                        android:paddingRight="16dp"
-                        android:paddingEnd="16dp"
                         android:textColor="@color/colorAccent"
                         android:text="TextView"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
@@ -277,6 +330,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             xmlns:android="http://schemas.android.com/apk/res/android">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -312,6 +366,7 @@
                     android:layout_marginRight="@dimen/padding_half"
                     android:layout_marginEnd="@dimen/padding_half"/>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/workshop_description"
                 android:layout_width="wrap_content"
@@ -319,8 +374,8 @@
                 android:text="TextView"
                 android:paddingLeft="72dp"
                 android:paddingStart="72dp"
-                android:paddingRight="16dp"
-                android:paddingEnd="16dp"
+                android:paddingRight="@dimen/padding_default"
+                android:paddingEnd="@dimen/padding_default"
                 android:paddingBottom="@dimen/padding_default"/>
         </LinearLayout>
 

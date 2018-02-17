@@ -23,10 +23,10 @@
             android:elevation="3dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="8dp">
+            android:paddingBottom="@dimen/padding_half"
+            android:paddingLeft="@dimen/padding_half"
+            android:paddingRight="@dimen/padding_half"
+            android:paddingTop="@dimen/padding_half">
 
             <ImageView
                 android:id="@+id/insta_feed_dp_image_view"
@@ -38,8 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="@dimen/padding_half"
+                android:layout_marginStart="@dimen/padding_half"
                 android:textSize="16sp"
                 android:textColor="@color/insta_text_grey"
                 android:textStyle="bold"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:clickable="true"
-            android:padding="8dp"
+            android:padding="@dimen/padding_half"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -66,7 +66,7 @@
                 android:id="@+id/insta_feed_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/padding_half"
                 android:textColor="@color/insta_text_grey"
                 android:textSize="14sp"
                 tools:text="username Description" />
@@ -74,7 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/padding_half"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -88,8 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
                     android:textColor="@color/insta_text_grey"
                     android:textSize="14sp"
                     tools:text="0 likes" />
@@ -112,8 +112,8 @@
                     android:textColor="@color/insta_text_grey"
                     android:textSize="14sp"
                     tools:text="0 comments"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
                     android:layout_gravity="center"/>
             </LinearLayout>
 

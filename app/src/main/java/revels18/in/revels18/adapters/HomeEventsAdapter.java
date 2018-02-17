@@ -47,9 +47,11 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     private List<FavouritesModel> favourites = mDatabase.copyFromRealm(favouritesRealm);
     private PendingIntent pendingIntent1 = null;
     private PendingIntent pendingIntent2 = null;
-    //TODO: Change EVENT_DAY_ZERO and EVENT_MONTH
-    private final int EVENT_DAY_ZERO = 03;
-    private final int EVENT_MONTH = Calendar.OCTOBER;
+    private final int PRE_REVELS_DAY_ZERO = 18;
+    private final int EVENT_DAY_ZERO = 6;
+    private final int PRE_REVELS_EVENT_MONTH = Calendar.FEBRUARY;
+    private final int EVENT_MONTH = Calendar.MARCH;
+    private String TAG="HomeEvntsAdp";
     public interface EventClickListener {
         void onItemClick(ScheduleModel event);
     }
@@ -165,7 +167,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             mDatabase.beginTransaction();
             mDatabase.copyToRealm(favourite);
             mDatabase.commitTransaction();
-            addNotification(eventSchedule);
+            addNotification(eventSchedule,eventSchedule.getIsRevels());
             favourites.add(favourite);
         }
         private void removeFavourite(ScheduleModel eventSchedule){
@@ -191,18 +193,18 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             }
             return false;
         }
-        private void addNotification(ScheduleModel event){
+        private void addNotification(ScheduleModel event, String isRevelsSTR) {
             Intent intent = new Intent(activity, NotificationReceiver.class);
             intent.putExtra("eventName", event.getEventName());
             intent.putExtra("startTime", event.getStartTime());
             intent.putExtra("eventVenue", event.getVenue());
             intent.putExtra("eventID", event.getEventID());
             intent.putExtra("catName", event.getCatName());
-            Log.i("HomeEventsAdapter", "addNotification: "+event.getStartTime());
-            AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+            Log.i("CategoryEventsAdapter", "addNotification: " + event.getStartTime());
+            AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
             //Request Codes
-            int RC1 = Integer.parseInt(event.getCatID()+event.getEventID()+"0");
-            int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
+            int RC1 = Integer.parseInt(event.getCatID() + event.getEventID() + "0");
+            int RC2 = Integer.parseInt(event.getCatID() + event.getEventID() + "1");
             pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
@@ -213,37 +215,72 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                 e.printStackTrace();
                 return;
             }
-            int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 04th October
-            Calendar calendar1 = Calendar.getInstance();
-            calendar1.setTime(d);
-            calendar1.set(Calendar.MONTH,EVENT_MONTH);
-            calendar1.set(Calendar.YEAR, 2017);
-            calendar1.set(Calendar.DATE, eventDate);
-            calendar1.set(Calendar.SECOND, 0);
-            long eventTimeInMillis = calendar1.getTimeInMillis();
-            calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY)-1);
+            if (isRevelsSTR.contains("1")) {
+                int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 07th March
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTime(d);
+                calendar1.set(Calendar.MONTH, EVENT_MONTH);
+                calendar1.set(Calendar.YEAR, 2018);
+                calendar1.set(Calendar.DATE, eventDate);
+                calendar1.set(Calendar.SECOND, 0);
+                long eventTimeInMillis = calendar1.getTimeInMillis();
+                calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY) - 1);
 
-            Calendar calendar2 = Calendar.getInstance();
-            Log.d("Calendar 1", calendar1.getTimeInMillis()+"");
-            Log.d("Calendar 2", calendar2.getTimeInMillis()+"");
+                Calendar calendar2 = Calendar.getInstance();
+                Log.d("Calendar 1", calendar1.getTimeInMillis() + "");
+                Log.d("Calendar 2", calendar2.getTimeInMillis() + "");
 
-            if(calendar2.getTimeInMillis() <= eventTimeInMillis)
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
+                if (calendar2.getTimeInMillis() <= eventTimeInMillis)
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
 
-            Calendar calendar3 = Calendar.getInstance();
-            calendar3.set(Calendar.SECOND, 0);
-            calendar3.set(Calendar.MINUTE, 30);
-            calendar3.set(Calendar.HOUR, 8);
-            calendar3.set(Calendar.AM_PM, Calendar.AM);
-            calendar3.set(Calendar.MONTH, Calendar.SEPTEMBER);
-            calendar3.set(Calendar.YEAR, 2017);
-            calendar3.set(Calendar.DATE, eventDate);
-            Log.d("Calendar 3", calendar3.getTimeInMillis()+"");
-            if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()){
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
+                Calendar calendar3 = Calendar.getInstance();
+                calendar3.set(Calendar.SECOND, 0);
+                calendar3.set(Calendar.MINUTE, 30);
+                calendar3.set(Calendar.HOUR, 8);
+                calendar3.set(Calendar.AM_PM, Calendar.AM);
+                calendar3.set(Calendar.MONTH, Calendar.MARCH);
+                calendar3.set(Calendar.YEAR, 2018);
+                calendar3.set(Calendar.DATE, eventDate);
+                Log.d("Calendar 3", calendar3.getTimeInMillis() + "");
+                if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()) {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
 
-                Log.d("Alarm", "set for "+calendar3.toString());
-                Log.d("Alarm set","Set");
+                    Log.d("Alarm", "set for " + calendar3.toString());
+                }
+            }
+            else{
+                Log.d(TAG, "addNotification: pre Revels");
+                int eventDate = PRE_REVELS_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 19th February
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTime(d);
+                calendar1.set(Calendar.MONTH, PRE_REVELS_EVENT_MONTH);
+                calendar1.set(Calendar.YEAR, 2018);
+                calendar1.set(Calendar.DATE, eventDate);
+                calendar1.set(Calendar.SECOND, 0);
+                long eventTimeInMillis = calendar1.getTimeInMillis();
+                calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY) - 1);
+
+                Calendar calendar2 = Calendar.getInstance();
+                Log.d("Calendar 1", calendar1.getTimeInMillis() + "");
+                Log.d("Calendar 2", calendar2.getTimeInMillis() + "");
+
+                if (calendar2.getTimeInMillis() <= eventTimeInMillis)
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
+
+                Calendar calendar3 = Calendar.getInstance();
+                calendar3.set(Calendar.SECOND, 0);
+                calendar3.set(Calendar.MINUTE, 30);
+                calendar3.set(Calendar.HOUR, 8);
+                calendar3.set(Calendar.AM_PM, Calendar.AM);
+                calendar3.set(Calendar.MONTH, Calendar.FEBRUARY);
+                calendar3.set(Calendar.YEAR, 2018);
+                calendar3.set(Calendar.DATE, eventDate);
+                Log.d("Calendar 3", calendar3.getTimeInMillis() + "");
+                if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()) {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
+
+                    Log.d("Alarm", "set for " + calendar3.toString());
+                }
             }
         }
         private void removeNotification(ScheduleModel event){

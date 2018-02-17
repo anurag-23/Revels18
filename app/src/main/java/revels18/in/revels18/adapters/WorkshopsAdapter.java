@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -80,12 +81,13 @@ public class WorkshopsAdapter extends RecyclerView.Adapter<WorkshopsAdapter.Even
         TextView description = (TextView) workshop_view.findViewById(R.id.workshop_description);
         name.setText(event.getName());
         contact_name.setText(event.getCatName());
-        contact_number.setText(event.getCatNo());
+        contact_number.setText( "(".concat(event.getCatNo()).concat(")"));
         venue.setText(event.getVenue());
         time.setText(event.getStartTime()+" - "+event.getEndTime());
         date.setText(event.getDate());
         description.setText(event.getDesc());
         dialog.setContentView(workshop_view);
+        contact_number.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         contact_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

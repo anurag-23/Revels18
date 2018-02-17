@@ -192,37 +192,6 @@ public class TabbedDialog extends DialogFragment {
             super();
         }
         private void initViews(View view){
-            /*ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-            IconCollection icons = new IconCollection();
-            eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
-            final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
-            favIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //FavIcon Clicked
-                    if(favIcon.getTag().equals("deselected")) {
-                        favIcon.setImageResource(R.drawable.ic_fav_selected);
-                        favIcon.setTag("selected");
-                        //Adding the favourite to the DB in EventsAdapter
-                        favClickListener.onItemClick(true);
-                    }else{
-                        favIcon.setImageResource(R.drawable.ic_fav_deselected);
-                        favIcon.setTag("deselected");
-                        //Removing the favourite from the DB in EventsAdapter
-                        favClickListener.onItemClick(false);
-                    }
-
-                }
-            });
-            if(favorite){
-                favIcon.setImageResource(R.drawable.ic_fav_selected);
-                favIcon.setTag("selected");
-            }else{
-                favIcon.setImageResource(R.drawable.ic_fav_deselected);
-                favIcon.setTag("deselected");
-            }
-            final TextView eventName = (TextView)view.findViewById(R.id.event_name);
-            eventName.setText(event.getEventName());*/
 
             TextView eventRound = (TextView)view.findViewById(R.id.event_round);
             eventRound.setText(event.getRound());
@@ -240,10 +209,10 @@ public class TabbedDialog extends DialogFragment {
                 eventTeamSize.setText(schedule.getMaxTeamSize());
 
                 TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-                eventContactName.setText(schedule.getContactName() + " : ");
+                eventContactName.setText(schedule.getContactName().concat(" : "));
 
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-                eventContact.setText(  schedule.getContactNo());
+                eventContact.setText( "(".concat(schedule.getContactNo()).concat(")"));
                 eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                 eventContact.setOnClickListener(new View.OnClickListener() {
                     @Override

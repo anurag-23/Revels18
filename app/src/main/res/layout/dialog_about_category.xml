@@ -21,8 +21,8 @@
         android:orientation="horizontal"
         android:paddingLeft="11dp"
         android:paddingStart="11dp"
-        android:paddingEnd="8dp"
-        android:paddingRight="8dp"
+        android:paddingEnd="@dimen/padding_half"
+        android:paddingRight="@dimen/padding_half"
         android:paddingTop="@dimen/padding_half"
         android:paddingBottom="@dimen/padding_half">
 
@@ -45,15 +45,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/padding_half"
+        android:layout_marginBottom="@dimen/padding_half"
         android:background="@android:drawable/divider_horizontal_bright"/>
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+            android:layout_marginLeft="@dimen/padding_half"
+            android:layout_marginRight="@dimen/padding_half">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -74,8 +74,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginRight="@dimen/padding_half"
+                android:layout_marginEnd="@dimen/padding_half"
                 android:visibility="gone"
                 app:srcCompat="@drawable/ic_description" />
 

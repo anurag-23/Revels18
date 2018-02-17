@@ -155,13 +155,19 @@ public class RevelsCupFragment extends Fragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_others, menu);
+        inflater.inflate(R.menu.menu_results, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
+            case R.id.menu_refresh:{
+                swipeRefreshLayout.setRefreshing(true);
+                reload();
+                return true;
+            }
+
             case R.id.menu_profile:{
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 if (sp.getBoolean("loggedIn", false)) startActivity(new Intent(getActivity(), ProfileActivity.class));
