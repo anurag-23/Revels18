@@ -8,11 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 
 import revels18.in.revels18.R;
 import revels18.in.revels18.activities.MainActivity;
-import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/6/2017.

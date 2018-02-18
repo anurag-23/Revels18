@@ -413,6 +413,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //mDatabase.close();
+
     }
 }
