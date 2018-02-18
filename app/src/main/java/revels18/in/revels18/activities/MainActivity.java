@@ -21,6 +21,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +53,7 @@ import revels18.in.revels18.models.sports.SportsModel;
 import revels18.in.revels18.models.workshops.WorkshopListModel;
 import revels18.in.revels18.network.APIClient;
 import revels18.in.revels18.utilities.BottomNavigationViewHelper;
+import revels18.in.revels18.utilities.NetworkUtils;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -56,27 +62,13 @@ public class MainActivity extends AppCompatActivity  {
     private FragmentManager fm;
     Fragment selectedFragment;
     private Realm mDatabase;
-    ///private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
     Boolean isConnected;
     private Context context = this;
-    //String CCT_LAUNCH_URL = "https://www.techtatva.in";
-    //private FirebaseRemoteConfig firebaseRemoteConfig;
-
-    /*@Override
-    protected void onPostResume() {
-        super.onPostResume();
-        if(selectedFragment.getClass()==OnlineEventsFragment.class) {
-            //drawerView.setCheckedItem(R.id.drawer_home);
-            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-            navigation.setVisibility(VISIBLE);
-            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-            appBarLayout.setVisibility(VISIBLE);
-            navigation.setSelectedItemId(R.id.bottom_nav_home);
-        }
-    }*/
+    String CCT_LAUNCH_URL ="https://proshow.mitrevels.in";
+    private FirebaseRemoteConfig firebaseRemoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +87,6 @@ public class MainActivity extends AppCompatActivity  {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();*/
-
-        /*drawerView = (NavigationView) findViewById(R.id.nav_view);
-        drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
-        drawerView.setCheckedItem(R.id.drawer_home);
-        drawerView.setSelected(true);*/
 
         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         BottomNavigationViewHelper.removeShiftMode(navigation);
@@ -112,13 +95,17 @@ public class MainActivity extends AppCompatActivity  {
         navigation.setSelected(true);
 
         fm = getSupportFragmentManager();
-        /*firebaseRemoteConfig=FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .build();
-        firebaseRemoteConfig.setConfigSettings(configSettings);*/
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        try {
+            firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+            FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                    .build();
+            firebaseRemoteConfig.setConfigSettings(configSettings);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        isConnected = NetworkUtils.isInternetConnected(context);
         if(isConnected){
             loadAllFromInternet();
             Log.i(TAG, "onCreate: Connected and background updated");
@@ -137,12 +124,13 @@ public class MainActivity extends AppCompatActivity  {
         switch (item.getItemId()){
             case R.id.menu_pro_show: {
                 //Launch CCT taking the user to the ProShow page
-                //TODO: Change the URL Below
-                String URL = "https://www.google.com/";
+                /*String URL = "https://www.google.com/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(this, Uri.parse(URL));
+                return true;*/
+                launchCCT();
                 return true;
             }
             case R.id.menu_about_us: {
@@ -237,7 +225,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
     private void launchCCT(){
-        /*firebaseRemoteConfig.fetch()
+        firebaseRemoteConfig.fetch()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(Task<Void> task) {
@@ -250,16 +238,16 @@ public class MainActivity extends AppCompatActivity  {
 
                         Uri uri = Uri.parse(CCT_LAUNCH_URL);
                         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-                        intentBuilder.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
-                        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
+                        intentBuilder.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
+                        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
                         intentBuilder.setStartAnimations(MainActivity.this, R.anim.slide_in_right, R.anim.slide_out_left);
                         intentBuilder.setExitAnimations(MainActivity.this, android.R.anim.slide_in_left,
-                                android.R.anim.slide_out_right);
+                        android.R.anim.slide_out_right);
                         CustomTabsIntent customTabsIntent = intentBuilder.build();
                         Log.i("MainActivity:", "Launching Chrome Custom Tab.....");
                         customTabsIntent.launchUrl(MainActivity.this, uri);
                     }
-                });*/
+                });
     }
     public void changeFragment(Fragment fragment){
         if(fragment.getClass() == ResultsTabsFragment.class){
@@ -283,7 +271,7 @@ public class MainActivity extends AppCompatActivity  {
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();
         loadWorkshopsFromInternet();
-        //loadRevelsCupResultsFromInternet();
+        loadRevelsCupResultsFromInternet();
     }
     private void loadEventsFromInternet() {
 

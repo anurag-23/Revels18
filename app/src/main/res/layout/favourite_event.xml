@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/fav_event_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
             android:background="@drawable/background_circle"
             android:src="@mipmap/ic_launcher" />
 

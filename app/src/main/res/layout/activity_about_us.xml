@@ -12,11 +12,12 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
+        android:elevation="@dimen/padding_quarter">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/padding_3x"
+                android:elevation="@dimen/padding_quarter"
                 android:theme="@style/AppBarTheme"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -35,8 +36,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:gravity="center"
-                android:elevation="8dp">
+                android:gravity="center">
                 <ImageView
                     android:id="@+id/tt16_image"
                     android:src="@drawable/revels_banner"
@@ -52,8 +52,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/padding_default"
+                android:layout_marginTop="@dimen/padding_default"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView

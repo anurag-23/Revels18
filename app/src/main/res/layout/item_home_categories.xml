@@ -47,8 +47,8 @@
         <ImageView
             android:background="@drawable/background_circle"
             android:id="@+id/home_category_logo_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/padding_3x"
+            android:layout_height="@dimen/padding_3x"
             android:src="@mipmap/ic_launcher"/>
     </FrameLayout>
 </RelativeLayout>

@@ -28,10 +28,10 @@
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/padding_half"
+                android:layout_marginLeft="@dimen/padding_half"
+                android:layout_marginRight="@dimen/padding_half"
+                android:layout_marginBottom="@dimen/padding_half"
                 tools:context="in.tt.tt17.fragments.RevelsCupResultsFragment">
 
                 <android.support.v7.widget.RecyclerView

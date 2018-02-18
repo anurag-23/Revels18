@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_height="120dp"
-    android:layout_width="80dp"
+    android:layout_width="@dimen/padding_5x"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/padding_quarter"
     android:background="@drawable/rounded_corner_grey">
 
 
@@ -18,7 +18,7 @@
 
 
         <ImageView
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/padding_quarter"
             android:id="@+id/result_cat_logo_image_view"
             android:layout_centerHorizontal="true"
             android:foregroundGravity="center"
@@ -28,9 +28,9 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="4dp"
+            android:layout_marginTop="@dimen/padding_quarter"
+            android:layout_marginBottom="@dimen/padding_quarter"
+            android:paddingLeft="@dimen/padding_quarter"
             android:id="@+id/res_event_name_text_view"
             android:textColor="@color/black"
             android:layout_below="@+id/result_cat_logo_image_view"
@@ -42,7 +42,7 @@
             android:maxLines="2"
             android:textSize="@dimen/typography_body"
             tools:text="Event Name"
-            android:paddingRight="4dp" />
+            android:paddingRight="@dimen/padding_quarter" />
         <LinearLayout
             android:layout_below="@+id/res_event_name_text_view"
             android:layout_alignParentBottom="true"
@@ -55,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Round "
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:layout_marginEnd="@dimen/padding_quarter"
                 android:textSize="@dimen/typography_body"/>
             <TextView
                 android:id="@+id/res_round_text_view"

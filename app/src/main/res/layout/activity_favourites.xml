@@ -7,7 +7,6 @@
     android:fitsSystemWindows="true">
 
     <android.support.v4.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
@@ -30,9 +29,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingTop="8dp">
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_half">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -58,11 +57,12 @@
                         android:id="@+id/favourites_pre_revels_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp">
+                        android:layout_marginTop="@dimen/padding_half"
+                        android:layout_marginLeft="@dimen/padding_half"
+                        android:layout_marginRight="@dimen/padding_half"
+                        android:layout_marginBottom="@dimen/padding_half"
+                        android:paddingTop="@dimen/padding_half"
+                        android:paddingBottom="@dimen/padding_half">
 
                         <TextView
                             android:id="@+id/fav_pre_revels_no_events"
@@ -76,10 +76,8 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/favourites_pre_revels_recycler_view"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingTop="6dp"
-                            android:paddingBottom="6dp"/>
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
 
 
                     </android.support.v7.widget.CardView>
@@ -99,9 +97,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingTop="8dp">
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_half">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -127,11 +125,12 @@
                         android:id="@+id/favourites_day_1_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp">
+                        android:layout_marginTop="@dimen/padding_half"
+                        android:layout_marginLeft="@dimen/padding_half"
+                        android:layout_marginRight="@dimen/padding_half"
+                        android:layout_marginBottom="@dimen/padding_half"
+                        android:paddingTop="@dimen/padding_half"
+                        android:paddingBottom="@dimen/padding_half">
 
                         <TextView
                             android:id="@+id/fav_day_1_no_events"
@@ -146,9 +145,7 @@
                             android:id="@+id/favourites_day_1_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="12dp"
                             android:orientation="horizontal" />
-
 
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -167,9 +164,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingTop="8dp">
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_half">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -195,11 +192,12 @@
                         android:id="@+id/favourites_day_2_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp">
+                        android:layout_marginTop="@dimen/padding_half"
+                        android:layout_marginLeft="@dimen/padding_half"
+                        android:layout_marginRight="@dimen/padding_half"
+                        android:layout_marginBottom="@dimen/padding_half"
+                        android:paddingTop="@dimen/padding_half"
+                        android:paddingBottom="@dimen/padding_half">
 
                         <TextView
                             android:id="@+id/fav_day_2_no_events"
@@ -214,9 +212,7 @@
                             android:id="@+id/favourites_day_2_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="12dp"
                             android:orientation="horizontal" />
-
 
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -235,9 +231,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingTop="8dp">
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_half">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -264,11 +260,12 @@
                         android:id="@+id/favourites_day_3_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp">
+                        android:layout_marginTop="@dimen/padding_half"
+                        android:layout_marginLeft="@dimen/padding_half"
+                        android:layout_marginRight="@dimen/padding_half"
+                        android:layout_marginBottom="@dimen/padding_half"
+                        android:paddingTop="@dimen/padding_half"
+                        android:paddingBottom="@dimen/padding_half">
 
                         <TextView
                             android:id="@+id/fav_day_3_no_events"
@@ -283,7 +280,6 @@
                             android:id="@+id/favourites_day_3_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="12dp"
                             android:orientation="horizontal" />
 
 
@@ -304,9 +300,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingTop="8dp">
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_half">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -332,11 +328,12 @@
                         android:id="@+id/favourites_day_4_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp">
+                        android:layout_marginTop="@dimen/padding_half"
+                        android:layout_marginLeft="@dimen/padding_half"
+                        android:layout_marginRight="@dimen/padding_half"
+                        android:layout_marginBottom="@dimen/padding_half"
+                        android:paddingTop="@dimen/padding_half"
+                        android:paddingBottom="@dimen/padding_half">
 
                         <TextView
                             android:id="@+id/fav_day_4_no_events"
@@ -351,7 +348,6 @@
                             android:id="@+id/favourites_day_4_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="12dp"
                             android:orientation="horizontal" />
 
 

@@ -28,13 +28,13 @@ public class AboutUsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_us);
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                AppBarLayout appBar=(AppBarLayout)findViewById(R.id.app_bar);
+                appBar.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
                 Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-                toolbar.setElevation(0);
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setTitle(R.string.drawer_about_us);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
-                appBarLayout.setElevation(0);
+                getSupportActionBar().setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

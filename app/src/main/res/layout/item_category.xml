@@ -5,7 +5,7 @@
     android:layout_height="96dp"
     android:layout_width="80dp"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/padding_quarter"
     android:background="@drawable/rounded_corner_grey">
 
 
@@ -15,19 +15,19 @@
 
 
             <ImageView
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/padding_quarter"
                 android:id="@+id/cat_event_logo_image_view"
                 android:layout_centerHorizontal="true"
                 android:foregroundGravity="center"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/padding_3x"
+                android:layout_height="@dimen/padding_3x"
                 android:background="@drawable/background_circle"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:paddingLeft="4dp"
+                android:layout_marginTop="@dimen/padding_quarter"
+                android:layout_marginBottom="@dimen/padding_quarter"
+                android:paddingLeft="@dimen/padding_quarter"
                 android:id="@+id/cat_event_name_text_view"
                 android:textColor="@color/black"
                 android:layout_below="@+id/cat_event_logo_image_view"
@@ -39,7 +39,7 @@
                 android:maxLines="2"
                 android:textSize="@dimen/typography_body"
                 tools:text="Event Name"
-                android:paddingRight="4dp" />
+                android:paddingRight="@dimen/padding_quarter" />
 
     </RelativeLayout>
 

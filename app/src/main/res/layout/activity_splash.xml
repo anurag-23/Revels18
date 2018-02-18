@@ -12,10 +12,10 @@ android:layout_height="match_parent"
     layout="@layout/layout_no_connection"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginBottom="@dimen/padding_half"
+    android:layout_marginLeft="@dimen/padding_half"
+    android:layout_marginRight="@dimen/padding_half"
+    android:layout_marginTop="@dimen/padding_half"
     android:visibility="gone"
     android:layout_centerInParent="true"/>
 
@@ -24,8 +24,8 @@ android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp">
+    android:paddingLeft="@dimen/padding_2x"
+    android:paddingRight="@dimen/padding_2x">
 
     <ImageView
         android:id="@+id/splash_left_revels_icon"

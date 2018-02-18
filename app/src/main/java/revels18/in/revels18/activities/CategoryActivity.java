@@ -1,7 +1,9 @@
 package revels18.in.revels18.activities;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,12 +59,20 @@ public class CategoryActivity extends AppCompatActivity {
         if (catID == null) catID = "";
         if (catDesc == null) catDesc = "";
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(catName);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                AppBarLayout appBar=(AppBarLayout)findViewById(R.id.app_bar);
+                appBar.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                Toolbar toolbar = (Toolbar)findViewById(R.id.category_toolbar);
+                setSupportActionBar(toolbar);
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setTitle(catName);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
 
         mDatabase = Realm.getDefaultInstance();

@@ -44,6 +44,8 @@ public class SplashActivity extends AppCompatActivity {
     private RelativeLayout rootLayout;
     private Realm mDatabase;
     boolean dataAvailableLocally;
+    boolean animationEnded=false;
+    boolean animationStarted=false;
     int i = 0;
     private int counter = 0;
     private int apiCallsRecieved = 0;
@@ -80,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
                 iconRight.setVisibility(View.VISIBLE);
                 iconRight.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first));
             }
-        }, 750);
+        }, 500);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -88,17 +90,20 @@ public class SplashActivity extends AppCompatActivity {
                 text.setVisibility(View.VISIBLE);
                 text.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first));
             }
-        }, 1500);
+        }, 1000);
 
         Animation animation = AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_first);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                Log.d(TAG, "Splash:  onAnimationEnd: Splash animation Started");
+                animationStarted=true;
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                Log.d(TAG, "Splash:  onAnimationEnd: Splash animation Ended");
+                animationEnded=true;
             if (dataAvailableLocally){
                 Log.d(TAG,"Data avail local");
 
@@ -112,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
                             //loadAllFromInternet();
                             moveForward();
                         }
-                    }, 2000);
+                    }, 1500);
                 }
 
                 else{Log.d(TAG,"not connected");
@@ -121,7 +126,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void run() {
                             moveForward();
                         }
-                    }, 2000);
+                    }, 1500);
                 }
 
             }
@@ -171,6 +176,88 @@ public class SplashActivity extends AppCompatActivity {
         });
         text.startAnimation(animation);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResumeSplash:  Called");
+        if(animationStarted && !animationEnded )
+        {
+            Log.d(TAG, "onResumeSplash: freeze Helper called");
+            freezeSplashHelper();
+        }
+    }
+
+    private void freezeSplashHelper(){
+        final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_revels_icon);
+        final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_revels_icon);
+        final ImageView text = (ImageView) findViewById(R.id.splash_revels_text);
+        final FrameLayout container = (FrameLayout)findViewById(R.id.frameLayout4);
+        if (dataAvailableLocally){
+            Log.d(TAG,"Data avail local");
+
+            if(isConnected){
+                Log.d(TAG,"Is connected");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Snackbar.make(rootLayout, "Updating data", Snackbar.LENGTH_SHORT).show();
+
+                        //loadAllFromInternet();
+                        moveForward();
+                    }
+                }, 1500);
+            }
+
+            else{Log.d(TAG,"not connected");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        moveForward();
+                    }
+                }, 1500);
+            }
+
+        }
+        else{
+            Log.d("Splash","Data not avail local");
+            if (!isConnected){
+                Log.d(TAG,"not connected");
+                final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
+                Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
+                noConnectionLayout.setVisibility(View.VISIBLE);
+                iconLeft.setVisibility(View.GONE);
+                iconRight.setVisibility(View.GONE);
+                text.setVisibility(View.GONE);
+                container.setVisibility(View.GONE);
+                retry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ConnectivityManager cmTemp = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
+                        boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+
+                        if (isConnectedTemp){
+                            noConnectionLayout.setVisibility(View.GONE);
+                            iconLeft.setVisibility(View.VISIBLE);
+                            iconRight.setVisibility(View.VISIBLE);
+                            text.setVisibility(View.VISIBLE);
+                            container.setVisibility(View.VISIBLE);
+                            Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
+                            loadAllFromInternet();
+                        }
+                        else{
+                            Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+            else{Log.d(TAG," connected");
+                Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
+                loadAllFromInternet();
+            }
+        }
+    }
     private void loadAllFromInternet(){
         loadEventsFromInternet();
         loadSchedulesFromInternet();
@@ -208,11 +295,11 @@ public class SplashActivity extends AppCompatActivity {
                             Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
-                    mHandler.postDelayed(test,2000);
+                    mHandler.postDelayed(test,1500);
                 }
             }
         };
-        mHandler.postDelayed(test,2000);
+        mHandler.postDelayed(test,1500);
     }
 
     private void moveForward(){
