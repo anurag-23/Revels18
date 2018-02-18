@@ -21,8 +21,4 @@ public class Revels extends Application {
         // TODO: Move below method call to the splash screen once made
 
     }
-    private void loadData(){
-
-    }
-
 }

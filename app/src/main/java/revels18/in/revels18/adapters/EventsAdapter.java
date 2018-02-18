@@ -24,7 +24,6 @@ import java.util.Locale;
 import io.realm.Realm;
 import revels18.in.revels18.R;
 import revels18.in.revels18.models.events.EventDetailsModel;
-import revels18.in.revels18.models.events.EventModel;
 import revels18.in.revels18.models.events.ScheduleModel;
 import revels18.in.revels18.models.favorites.FavouritesModel;
 import revels18.in.revels18.receivers.NotificationReceiver;

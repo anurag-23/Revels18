@@ -1,23 +1,16 @@
 package revels18.in.revels18.adapters;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import revels18.in.revels18.R;
 import revels18.in.revels18.models.registration.RegEvent;
-import revels18.in.revels18.models.results.EventResultModel;
-import revels18.in.revels18.utilities.IconCollection;
 
 /**
  * Created by Saptarshi on 12/6/2017.

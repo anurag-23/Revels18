@@ -2,8 +2,6 @@ package revels18.in.revels18.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,13 +121,7 @@ public class MainActivity extends AppCompatActivity  {
 
         switch (item.getItemId()){
             case R.id.menu_pro_show: {
-                //Launch CCT taking the user to the ProShow page
-                /*String URL = "https://www.google.com/";
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(this, Uri.parse(URL));
-                return true;*/
+                //Launch chrome custom tab
                 launchCCT();
                 return true;
             }
