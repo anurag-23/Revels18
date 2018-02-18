@@ -6,7 +6,7 @@
     android:id="@+id/revelscup_results_swipe_refresh_layout">
 
 <LinearLayout
-    tools:context="revels18.in.revels18.fragments.RevelsCupFragment"
+    tools:context="mitrev.in.mitrev18.fragments.RevelsCupFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"

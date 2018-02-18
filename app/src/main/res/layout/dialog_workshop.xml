@@ -341,10 +341,7 @@
                 android:paddingRight="@dimen/padding_default"
                 android:paddingEnd="@dimen/padding_default"
                 android:paddingTop="@dimen/padding_default"
-                android:paddingBottom="2dp"
-                android:clickable="true"
-                android:background="?android:attr/selectableItemBackground"
-                >
+                android:paddingBottom="2dp">
 
                 <ImageView
                     android:id="@+id/imageView2"

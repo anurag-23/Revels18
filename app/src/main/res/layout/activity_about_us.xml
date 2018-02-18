@@ -5,7 +5,7 @@
     android:id="@+id/activity_about_us"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="revels18.in.revels18.activities.AboutUsActivity"
+    tools:context="mitrev.in.mitrev18.activities.AboutUsActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout

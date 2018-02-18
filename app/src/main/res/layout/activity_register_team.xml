@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="revels18.in.revels18.activities.RegisterTeamActivity">
+    tools:context="mitrev.in.mitrev18.activities.RegisterTeamActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/user_card"
