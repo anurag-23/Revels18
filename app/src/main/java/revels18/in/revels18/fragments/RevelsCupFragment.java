@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -47,6 +48,7 @@ public class RevelsCupFragment extends Fragment{
     private SwipeRefreshLayout swipeRefreshLayout;
     RevelsCupAdapter adapter;
     View view;
+    AppBarLayout appBarLayout;
     List<RevelsCupEventModel> eventScheduleList = new ArrayList<>();
     Realm realm = Realm.getDefaultInstance();
     private String TAG = "RevelsCupFragment";
@@ -69,6 +71,8 @@ public class RevelsCupFragment extends Fragment{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
                 getActivity().findViewById(R.id.app_bar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                appBarLayout=(AppBarLayout)getActivity().findViewById(R.id.app_bar);
+                appBarLayout.setExpanded(true,true);
             }
         }catch(NullPointerException e){
             e.printStackTrace();

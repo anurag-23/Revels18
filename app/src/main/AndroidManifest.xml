@@ -34,7 +34,6 @@
         <activity android:name=".activities.FavouritesActivity" />
         <activity
             android:name=".activities.ProfileActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AboutUsActivity"
