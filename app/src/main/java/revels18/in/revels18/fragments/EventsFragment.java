@@ -101,6 +101,7 @@ public class EventsFragment extends Fragment {
                 getActivity().findViewById(R.id.toolbar).setElevation(0);
                 AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.app_bar);
                 appBarLayout.setElevation(0);
+                appBarLayout.setExpanded(true,true);
                 appBarLayout.setTargetElevation(0);
             }
         }catch(NullPointerException e){

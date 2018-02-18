@@ -152,7 +152,7 @@ public class CategoryActivity extends AppCompatActivity {
                 }
             }
         }
-        eventSort(preRevelsList);
+        preRevelsEventSort(preRevelsList);
         eventSort(day1List);
         eventSort(day2List);
         eventSort(day3List);
@@ -213,6 +213,63 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay4.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
     }
+    private void preRevelsEventSort(List<EventModel> eventsList){
+
+        Collections.sort(eventsList, new Comparator<EventModel>() {
+            @Override
+            public int compare(EventModel o1, EventModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
+
+                try {
+
+                    Date d1 = sdf.parse(o1.getDay());
+                    Date d2 = sdf.parse(o2.getDay());
+
+                    Calendar c1 = Calendar.getInstance();
+                    c1.setTime(d1);
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(d2);
+
+                    long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+                    if(diff>0) return 1;
+                    else if (diff<0) return -1;
+                    else{
+
+                        Date d3 = sdf.parse(o1.getStartTime());
+                        Date d4 = sdf.parse(o2.getStartTime());
+
+                        Calendar c3 = Calendar.getInstance();
+                        c1.setTime(d3);
+                        Calendar c4 = Calendar.getInstance();
+                        c2.setTime(d4);
+
+                        long diff2 = c3.getTimeInMillis() - c4.getTimeInMillis();
+
+                        if (diff2>0) return 1;
+                        else if (diff2<0) return -1;
+                        else{
+                            int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                            if (catDiff>0) return 1;
+                            else if (catDiff<0) return -1;
+                            else {
+                                int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                                if (eventDiff>0) return 1;
+                                else if (eventDiff<0) return -1;
+                                else return 0;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+    }
+
     private void eventSort(List<EventModel> eventsList){
         Collections.sort(eventsList, new Comparator<EventModel>() {
             @Override

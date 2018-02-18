@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,7 @@ public class CategoriesFragment extends Fragment {
     private MenuItem searchItem;
     private String TAG = "CategoriesFragment";
     private RecyclerView categoriesRecyclerView;
+    AppBarLayout appBarLayout;
     private LinearLayout noDataLayout;
 
     public CategoriesFragment() {
@@ -66,6 +68,8 @@ public class CategoriesFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
                 getActivity().findViewById(R.id.app_bar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                appBarLayout=(AppBarLayout)getActivity().findViewById(R.id.app_bar);
+                appBarLayout.setExpanded(true,true);
             }
         }catch(NullPointerException e){
             e.printStackTrace();

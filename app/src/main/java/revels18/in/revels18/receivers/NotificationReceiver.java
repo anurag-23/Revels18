@@ -33,18 +33,14 @@ public class NotificationReceiver extends BroadcastReceiver {
             String eventName = intent.getStringExtra("eventName");
             notificationText = eventName+" at "+intent.getStringExtra("startTime")+", "+intent.getStringExtra("eventVenue");
             String catName = intent.getStringExtra("catName");
-            Log.i("Notification", "onReceive: "+catName);
-            IconCollection i = new IconCollection();
-            int catIcon  = i.getIconResource(context, catName);
             Notification notify = new NotificationCompat.Builder(context)
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
-                    .setSmallIcon(catIcon)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setAutoCancel(true)
-                    //TODO: Change Color
-                    .setColor(ContextCompat.getColor(context, R.color.colorAccent))
+                    .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                     .addAction(new android.support.v4.app.NotificationCompat.Action(0, LAUNCH_APPLICATION, pendingIntent))
                     .build();
 

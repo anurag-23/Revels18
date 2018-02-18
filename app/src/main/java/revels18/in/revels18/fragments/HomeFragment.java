@@ -118,6 +118,8 @@ public class HomeFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
                 getActivity().findViewById(R.id.app_bar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                appBarLayout=(AppBarLayout)getActivity().findViewById(R.id.app_bar);
+                appBarLayout.setExpanded(true,true);
             }
         }catch(NullPointerException e){
             e.printStackTrace();
