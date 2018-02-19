@@ -59,6 +59,10 @@
     <string name="action_delete_all">Delete All</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
+    <string name="cnt_wksp_1">Rishabh</string>
+    <string name="cnt_wksp_2">Srishti</string>
+    <string name="cntno_wksp_1">+919008146634</string>
+    <string name="cntno_wksp_2">+919560702479</string>
 
     <string name="head">Head</string>
     <string name="developer">Developer</string>

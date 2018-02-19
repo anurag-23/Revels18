@@ -20,6 +20,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 layout="@layout/layout_no_data_results"
+                android:layout_gravity="center"
                 android:visibility="gone"
                 android:id="@+id/revels_cup_no_results_layout"/>
 

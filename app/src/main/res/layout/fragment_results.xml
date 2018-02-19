@@ -1,27 +1,26 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/results_swipe_refresh_layout">
+
+<LinearLayout
     android:id="@+id/results_root_layout"
     android:orientation="vertical"
+    android:gravity="center"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/results_swipe_refresh_layout">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <include
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 layout="@layout/layout_no_data_results"
                 android:visibility="gone"
-                android:id="@+id/no_results_layout"/>
+                android:layout_gravity="center"
+                android:id="@+id/no_results_layout" />
 
             <FrameLayout
                 android:id="@+id/results_available"
@@ -32,7 +31,7 @@
                 android:layout_marginLeft="@dimen/padding_half"
                 android:layout_marginRight="@dimen/padding_half"
                 android:layout_marginBottom="@dimen/padding_half"
-                tools:context="in.tt.tt17.fragments.ResultsFragment">
+                tools:context=".fragments.ResultsFragment">
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -41,8 +40,6 @@
                     tools:context=".fragments.ResultsFragment" />
 
             </FrameLayout>
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
 
 </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -71,36 +71,45 @@ public class WorkshopsAdapter extends RecyclerView.Adapter<WorkshopsAdapter.Even
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View workshop_view = inflater.inflate(R.layout.dialog_workshop, null, false);
+        final View workshop_view = inflater.inflate(R.layout.dialog_workshop, null, false);
         TextView name =(TextView) workshop_view.findViewById(R.id.workshop_name);
         TextView date = (TextView) workshop_view.findViewById(R.id.workshop_date);
         TextView time = (TextView) workshop_view.findViewById(R.id.workshop_time);
         TextView venue = (TextView) workshop_view.findViewById(R.id.workshop_venue);
-        TextView contact_name = (TextView) workshop_view.findViewById(R.id.workshop_contact_name);
-        TextView contact_number = (TextView) workshop_view.findViewById(R.id.workshop_contact);
+        TextView contact_name1 = (TextView) workshop_view.findViewById(R.id.workshop_contact_name);
+        TextView contact_number1 = (TextView) workshop_view.findViewById(R.id.workshop_contact);
+        TextView contact_name2 = (TextView) workshop_view.findViewById(R.id.workshop_contact_name2);
+        TextView contact_number2 = (TextView) workshop_view.findViewById(R.id.workshop_contact2);
         TextView description = (TextView) workshop_view.findViewById(R.id.workshop_description);
         name.setText(event.getName());
 
-        if(!event.getCatName().equals(" ")) {
-            contact_name.setText(event.getCatName());
-            contact_number.setText("(".concat(event.getCatNo()).concat(")"));
-            contact_number.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-        }
-        else{
-            contact_name.setText(R.string.NA);
-            contact_number.setVisibility(View.GONE);
-        }
+        contact_name1.setText(R.string.cnt_wksp_1);
+        contact_number1.setText("(".concat(workshop_view.getResources().getString(R.string.cntno_wksp_1)).concat(")"));
+        contact_number1.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        contact_name2.setText(R.string.cnt_wksp_2);
+        contact_number2.setText("(".concat(workshop_view.getResources().getString(R.string.cntno_wksp_2)).concat(")"));
+        contact_number2.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         venue.setText(event.getVenue());
         time.setText(event.getStartTime()+" - "+event.getEndTime());
         date.setText(event.getDate());
         description.setText(event.getDesc());
         dialog.setContentView(workshop_view);
-        contact_number.setOnClickListener(new View.OnClickListener() {
+        contact_number1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(event.getCatNo()==null || event.getCatNo().equals(""))
                     return;
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getCatNo()));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + workshop_view.getResources().getString(R.string.cntno_wksp_1) ));
+                activity.startActivity(intent);
+            }
+        });
+        contact_number2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(event.getCatNo()==null || event.getCatNo().equals(""))
+                    return;
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + workshop_view.getResources().getString(R.string.cntno_wksp_2) ));
                 activity.startActivity(intent);
             }
         });

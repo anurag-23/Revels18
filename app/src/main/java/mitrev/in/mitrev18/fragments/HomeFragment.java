@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -86,7 +87,7 @@ public class HomeFragment extends Fragment {
     private TextView categoriesMore;
     private TextView eventsMore;
     private TextView resultsNone;
-    private CardView homeResultsItem;
+    private FrameLayout homeResultsItem;
     private ProgressBar progressBar;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
@@ -466,7 +467,7 @@ public class HomeFragment extends Fragment {
         categoriesMore = (TextView) view.findViewById(R.id.home_categories_more_text_view);
         eventsMore = (TextView) view.findViewById(R.id.home_events_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
-        homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
+        homeResultsItem=(FrameLayout) view.findViewById(R.id.home_results_frame);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swipe_refresh_layout);
         imageSlider = (SliderLayout) view.findViewById(R.id.home_image_slider);
