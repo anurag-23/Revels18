@@ -35,6 +35,8 @@ public class IconCollection {
     }
 
     public int getIconResource(Context context, String catName){
+        if (catName == null) return R.mipmap.ic_launcher;
+
         switch(catName.toLowerCase()){
             case "crescendo": return crescendo;
             case "eq iq": return eq_iq;

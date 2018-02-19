@@ -27,16 +27,15 @@
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/padding_half"
-                android:layout_marginLeft="@dimen/padding_half"
-                android:layout_marginRight="@dimen/padding_half"
-                android:layout_marginBottom="@dimen/padding_half"
                 tools:context=".fragments.ResultsFragment">
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/results_recycler_view"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:padding="@dimen/padding_quarter"
                     tools:context=".fragments.ResultsFragment" />
 
             </FrameLayout>

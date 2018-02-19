@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import mitrev.in.mitrev18.adapters.ResultPagerAdapter;
 import mitrev.in.mitrev18.R;
+import mitrev.in.mitrev18.adapters.ResultPagerAdapter;
 
 public class ResultsTabsFragment extends Fragment {
 

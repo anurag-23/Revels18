@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="@dimen/padding_half"
     android:layout_marginLeft="@dimen/padding_half"
     android:layout_marginRight="@dimen/padding_half"
     android:layout_marginBottom="@dimen/padding_half">
@@ -21,9 +21,6 @@
         android:id="@+id/rc_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/event_logo_image_view"
-        android:layout_toRightOf="@+id/event_logo_image_view"
         android:orientation="vertical"
         android:gravity="center"
         android:paddingBottom="2dp">
@@ -31,20 +28,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/rc_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_half"
-                android:layout_marginRight="@dimen/padding_half"
-                android:layout_marginBottom="@dimen/padding_quarter"
+                android:layout_marginBottom="@dimen/padding_half"
                 android:maxLines="2"
-                android:text="Event Name"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-medium"/>
+                tools:text="Event Name"
+                android:textSize="@dimen/typography_subheading"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorPrimary"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/padding_half"
+                android:background="@android:drawable/divider_horizontal_bright"/>
 
         </LinearLayout>
         <LinearLayout
@@ -53,43 +55,46 @@
             android:orientation="horizontal"
             android:weightSum="2"
             android:gravity="bottom"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/padding_half"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="1"
-                android:layout_margin="@dimen/padding_quarter">
+                android:layout_marginEnd="@dimen/padding_quarter"
+                android:layout_marginRight="@dimen/padding_quarter">
                 <TextView
                     android:id="@+id/rc_team_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Team 17 "
+                    tools:text="Team 17 "
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/typography_subheading"/>
             </LinearLayout>
             <TextView
-                android:paddingBottom="2dp"
-                android:layout_marginRight="@dimen/padding_quarter"
-                android:layout_marginEnd="@dimen/padding_quarter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/typography_large_title"
-                android:text="VS"
+                android:textSize="@dimen/typography_body"
+                android:text="@string/vs"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="1"
-                android:gravity="right"
-                android:layout_margin="@dimen/padding_quarter"
+                android:gravity="end|right"
+                android:layout_marginLeft="@dimen/padding_quarter"
+                android:layout_marginStart="@dimen/padding_quarter"
                 >
                 <TextView
                     android:id="@+id/rc_team_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Team 5 "
+                    tools:text="Team 5 "
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/typography_subheading"/>
             </LinearLayout>
         </LinearLayout>
@@ -106,15 +111,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_event_venue"
+                android:layout_marginEnd="@dimen/padding_quarter"
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/typography_body"
+                />
+
             <TextView
                 android:id="@+id/rc_venue_text_view"
-                android:paddingBottom="2dp"
-                android:layout_marginRight="@dimen/padding_quarter"
-                android:layout_marginEnd="@dimen/padding_quarter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="NLH 404"
-                android:textSize="@dimen/typography_small"
+                android:textSize="@dimen/typography_body"
                 />
 
         </LinearLayout>
@@ -128,20 +141,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/padding_half"
-                android:paddingTop="@dimen/padding_quarter"
-                android:paddingRight="10dp"
-                android:text="2018-02-10"
-                android:textSize="@dimen/typography_small" />
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:layout_marginEnd="@dimen/padding_quarter"
+                tools:text="2018-02-10"
+                android:textSize="@dimen/typography_body" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interpunct"
+                android:textSize="@dimen/typography_title"
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/padding_quarter"
+                android:layout_marginEnd="@dimen/padding_quarter"/>
             <TextView
                 android:id="@+id/rc_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/padding_half"
-                android:paddingTop="@dimen/padding_quarter"
-                android:text="2:00PM - 5:00PM"
-                android:textSize="@dimen/typography_small" />
+                tools:text="2:00PM - 5:00PM"
+                android:textSize="@dimen/typography_body" />
         </LinearLayout>
 
     </LinearLayout>

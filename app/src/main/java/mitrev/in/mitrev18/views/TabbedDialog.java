@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.utilities.IconCollection;
-import mitrev.in.mitrev18.R;
 
 /**
  * Created by skvrahul on 13/2/18.
@@ -209,7 +209,7 @@ public class TabbedDialog extends DialogFragment {
                 eventTeamSize.setText(schedule.getMaxTeamSize());
 
                 TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-                eventContactName.setText(schedule.getContactName().concat(" : "));
+                eventContactName.setText(schedule.getContactName());
 
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
                 eventContact.setText( "(".concat(schedule.getContactNo()).concat(")"));

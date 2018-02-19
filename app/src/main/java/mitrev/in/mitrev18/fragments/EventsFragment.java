@@ -44,6 +44,7 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.activities.FavouritesActivity;
 import mitrev.in.mitrev18.activities.LoginActivity;
 import mitrev.in.mitrev18.activities.MainActivity;
@@ -52,7 +53,6 @@ import mitrev.in.mitrev18.adapters.EventsAdapter;
 import mitrev.in.mitrev18.application.Revels;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.views.SwipeScrollView;
-import mitrev.in.mitrev18.R;
 
 public class EventsFragment extends Fragment {
     TabLayout tabs;

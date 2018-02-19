@@ -14,12 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.registration.EventRegResponse;
 import mitrev.in.mitrev18.network.RegistrationClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 public class RegisterTeamActivity extends AppCompatActivity {
     private static final int ADD_TEAM_MEMBER = 0;

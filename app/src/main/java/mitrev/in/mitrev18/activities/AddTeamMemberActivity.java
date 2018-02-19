@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.registration.EventRegResponse;
 import mitrev.in.mitrev18.network.RegistrationClient;
 import okhttp3.MediaType;
@@ -25,7 +26,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 public class AddTeamMemberActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 316;

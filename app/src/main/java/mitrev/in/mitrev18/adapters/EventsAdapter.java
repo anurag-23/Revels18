@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.models.favorites.FavouritesModel;
 import mitrev.in.mitrev18.receivers.NotificationReceiver;
 import mitrev.in.mitrev18.utilities.IconCollection;
 import mitrev.in.mitrev18.views.TabbedDialog;
-import mitrev.in.mitrev18.R;
 
 /**
  * Created by skvrahul on 9/12/17.

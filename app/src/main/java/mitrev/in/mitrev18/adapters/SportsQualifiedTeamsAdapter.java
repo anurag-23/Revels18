@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import mitrev.in.mitrev18.models.sports.SportsModel;
 import mitrev.in.mitrev18.R;
+import mitrev.in.mitrev18.models.sports.SportsModel;
 
 /**
  * Created by Saptarshi on 2/15/2018.

@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.activities.CategoryActivity;
 import mitrev.in.mitrev18.models.categories.CategoryModel;
 import mitrev.in.mitrev18.utilities.IconCollection;
-import mitrev.in.mitrev18.R;
 
 /**
  * Created by Saptarshi on 12/24/2017.

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import mitrev.in.mitrev18.models.results.ResultModel;
 import mitrev.in.mitrev18.R;
+import mitrev.in.mitrev18.models.results.ResultModel;
 
 /**
  * Created by Saptarshi on 12/6/2017.

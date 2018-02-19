@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import net.glxn.qrgen.android.QRCode;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.adapters.EventRegAdapter;
 import mitrev.in.mitrev18.models.registration.ProfileResponse;
 import mitrev.in.mitrev18.network.RegistrationClient;
@@ -30,7 +31,6 @@ import mitrev.in.mitrev18.utilities.NetworkUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView name;
@@ -46,8 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView eventRegRecyclerView;
     private TextView noEvents;
     private LinearLayout eventRegHeader;
-
-    //private Button changePwdButton;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +78,44 @@ public class ProfileActivity extends AppCompatActivity {
         eventRegRecyclerView = (RecyclerView)findViewById(R.id.event_reg_recycler_view);
         noEvents = (TextView)findViewById(R.id.no_reg_events);
         eventRegHeader = (LinearLayout)findViewById(R.id.event_reg_header);
-        //changePwdButton = (Button)findViewById(R.id.change_pwd_button);
 
-        final ProgressDialog dialog = new ProgressDialog(this);
+        loadProfile();
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(ProfileActivity.this)
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this).edit();
+                                editor.remove("loggedIn");
+                                editor.apply();
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }).show();
+            }
+        });
+
+        eventRegButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, EventRegistrationActivity.class);
+                intent.putExtra("delID", delID.getText().toString());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void loadProfile() {
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Loading Profile... please wait!");
         dialog.setCancelable(false);
 
@@ -147,46 +181,6 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         }
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(ProfileActivity.this)
-                        .setMessage("Are you sure you want to logout?")
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this).edit();
-                                editor.remove("loggedIn");
-                                editor.apply();
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
-                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                }).show();
-            }
-        });
-
-        eventRegButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, EventRegistrationActivity.class);
-                intent.putExtra("delID", delID.getText().toString());
-                startActivity(intent);
-            }
-        });
-        /*changePwdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment fragment = ChangePwdDialogFragment.createInstance(ProfileActivity.this);
-                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-                fragment.show(getSupportFragmentManager(), "changePwd");
-            }
-        });*/
     }
 
     public void noConnectionAlert(String message){
@@ -216,5 +210,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (dialog != null && !dialog.isShowing())
+            loadProfile();
     }
 }

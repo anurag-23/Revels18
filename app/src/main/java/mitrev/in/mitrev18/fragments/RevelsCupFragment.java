@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.activities.FavouritesActivity;
 import mitrev.in.mitrev18.activities.LoginActivity;
 import mitrev.in.mitrev18.activities.MainActivity;
@@ -39,7 +40,6 @@ import mitrev.in.mitrev18.utilities.NetworkUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 
 public class RevelsCupFragment extends Fragment{

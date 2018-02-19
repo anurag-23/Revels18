@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import mitrev.in.mitrev18.models.registration.RegEvent;
 import mitrev.in.mitrev18.R;
+import mitrev.in.mitrev18.models.registration.RegEvent;
 
 /**
  * Created by Saptarshi on 12/6/2017.

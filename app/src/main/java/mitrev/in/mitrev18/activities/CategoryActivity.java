@@ -26,11 +26,11 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.adapters.CategoryEventsAdapter;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
 import mitrev.in.mitrev18.models.events.EventModel;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
-import mitrev.in.mitrev18.R;
 
 public class CategoryActivity extends AppCompatActivity {
 

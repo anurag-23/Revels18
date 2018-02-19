@@ -28,6 +28,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.activities.FavouritesActivity;
 import mitrev.in.mitrev18.activities.LoginActivity;
 import mitrev.in.mitrev18.activities.MainActivity;
@@ -35,7 +36,6 @@ import mitrev.in.mitrev18.activities.ProfileActivity;
 import mitrev.in.mitrev18.adapters.CategoriesAdapter;
 import mitrev.in.mitrev18.application.Revels;
 import mitrev.in.mitrev18.models.categories.CategoryModel;
-import mitrev.in.mitrev18.R;
 
 public class CategoriesFragment extends Fragment {
 

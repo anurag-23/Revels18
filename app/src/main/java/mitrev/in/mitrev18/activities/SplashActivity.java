@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import io.realm.Realm;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.categories.CategoriesListModel;
 import mitrev.in.mitrev18.models.categories.CategoryModel;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
@@ -34,7 +35,6 @@ import mitrev.in.mitrev18.network.APIClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 public class SplashActivity extends AppCompatActivity {
 

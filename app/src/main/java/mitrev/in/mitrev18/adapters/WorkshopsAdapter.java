@@ -19,10 +19,10 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.models.workshops.WorkshopModel;
 import mitrev.in.mitrev18.utilities.IconCollection;
-import mitrev.in.mitrev18.R;
 
 /**
  * Created by skvrahul on 9/12/17.

@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 
-import mitrev.in.mitrev18.activities.MainActivity;
 import mitrev.in.mitrev18.R;
+import mitrev.in.mitrev18.activities.MainActivity;
 
 /**
  * Created by Saptarshi on 12/6/2017.

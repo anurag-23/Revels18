@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.adapters.FavouritesEventsAdapter;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.models.favorites.FavouritesModel;
 import mitrev.in.mitrev18.receivers.NotificationReceiver;
 import mitrev.in.mitrev18.views.TabbedDialog;
-import mitrev.in.mitrev18.R;
 
 public class FavouritesActivity extends AppCompatActivity {
     String TAG = "FavouritesActivity";

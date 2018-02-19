@@ -131,4 +131,6 @@ The Revels\'18 logo brings these two concepts together. Moreover, the colours si
     <string name="max_team_size">Max Team Size:</string>
     <string name="cur_team_size">Current Team Size:</string>
     <string name="scan_qr_code_2">Scan Delegate QR</string>
+    <string name="vs">vs</string>
+    <string name="interpunct">·</string>
 </resources>

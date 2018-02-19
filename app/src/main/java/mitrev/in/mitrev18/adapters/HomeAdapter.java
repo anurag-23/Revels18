@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.instagram.InstaFeedModel;
 import mitrev.in.mitrev18.models.instagram.InstagramFeed;
-import mitrev.in.mitrev18.R;
 
 /**
  * Created by Saptarshi on 12/25/2017.

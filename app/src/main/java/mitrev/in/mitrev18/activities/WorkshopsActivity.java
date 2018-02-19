@@ -15,10 +15,10 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.adapters.WorkshopsAdapter;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.models.workshops.WorkshopModel;
-import mitrev.in.mitrev18.R;
 
 public class WorkshopsActivity extends AppCompatActivity {
     Realm realm = Realm.getDefaultInstance();

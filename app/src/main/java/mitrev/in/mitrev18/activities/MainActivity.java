@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.application.Revels;
 import mitrev.in.mitrev18.fragments.CategoriesFragment;
 import mitrev.in.mitrev18.fragments.EventsFragment;
@@ -51,7 +52,6 @@ import mitrev.in.mitrev18.utilities.NetworkUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

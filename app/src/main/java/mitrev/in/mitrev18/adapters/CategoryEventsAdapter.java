@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.models.events.EventDetailsModel;
 import mitrev.in.mitrev18.models.events.EventModel;
 import mitrev.in.mitrev18.models.events.ScheduleModel;
@@ -31,7 +32,6 @@ import mitrev.in.mitrev18.models.favorites.FavouritesModel;
 import mitrev.in.mitrev18.receivers.NotificationReceiver;
 import mitrev.in.mitrev18.utilities.IconCollection;
 import mitrev.in.mitrev18.views.TabbedDialog;
-import mitrev.in.mitrev18.R;
 
 
 public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAdapter.CategoryEventsViewHolder> {

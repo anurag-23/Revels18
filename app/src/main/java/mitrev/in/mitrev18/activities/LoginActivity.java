@@ -17,8 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.crashlytics.android.Crashlytics;
-
+import mitrev.in.mitrev18.R;
 import mitrev.in.mitrev18.fragments.ChangePwdDialogFragment;
 import mitrev.in.mitrev18.models.registration.LoginResponse;
 import mitrev.in.mitrev18.network.RegistrationClient;
@@ -28,7 +27,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import mitrev.in.mitrev18.R;
 
 public class LoginActivity extends AppCompatActivity {
 
