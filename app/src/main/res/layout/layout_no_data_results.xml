@@ -3,8 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:paddingRight="@dimen/padding_default"
     android:paddingLeft="@dimen/padding_default"
-    android:paddingRight="@dimen/padding_default">
+    android:paddingBottom="@dimen/padding_3x">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,9 +17,8 @@
         android:layout_marginBottom="@dimen/padding_default"/>
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:paddingLeft="0dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:src="@drawable/revels_text"
             android:scaleType="centerCrop"/>
 

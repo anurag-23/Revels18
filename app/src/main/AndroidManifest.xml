@@ -10,18 +10,20 @@
     <application
         android:name="mitrev.in.mitrev18.application.Revels"
         android:allowBackup="true"
-        android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name="mitrev.in.mitrev18.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.CategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name="mitrev.in.mitrev18.receivers.NotificationReceiver"
@@ -30,36 +32,56 @@
 
         <activity
             android:name="mitrev.in.mitrev18.activities.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="mitrev.in.mitrev18.activities.FavouritesActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name="mitrev.in.mitrev18.activities.FavouritesActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.AboutUsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.DevelopersActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="mitrev.in.mitrev18.activities.WorkshopsActivity" />
+        <activity android:name="mitrev.in.mitrev18.activities.WorkshopsActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.EventRegistrationActivity"
-            android:parentActivityName="mitrev.in.mitrev18.activities.ProfileActivity" />
+            android:parentActivityName="mitrev.in.mitrev18.activities.ProfileActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="mitrev.in.mitrev18.activities.RegisterTeamActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="mitrev.in.mitrev18.activities.EventRegistrationActivity" />
+            android:parentActivityName="mitrev.in.mitrev18.activities.EventRegistrationActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity android:name="mitrev.in.mitrev18.activities.AddTeamMemberActivity"
-            android:parentActivityName="mitrev.in.mitrev18.activities.RegisterTeamActivity"></activity>
+            android:parentActivityName="mitrev.in.mitrev18.activities.RegisterTeamActivity"
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

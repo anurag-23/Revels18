@@ -17,7 +17,7 @@
     <include
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        layout="@layout/layout_no_data"
+        layout="@layout/layout_no_data_revelscup"
         android:visibility="gone"
         android:layout_gravity="center"
         android:id="@+id/no_revels_cup_data_layout"/>

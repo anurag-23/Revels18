@@ -1,5 +1,6 @@
 package mitrev.in.mitrev18.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -48,6 +49,7 @@ public class RevelsCupFragment extends Fragment{
     private SwipeRefreshLayout swipeRefreshLayout;
     RevelsCupAdapter adapter;
     View view;
+    Context context;
     AppBarLayout appBarLayout;
     List<RevelsCupEventModel> eventScheduleList = new ArrayList<>();
     Realm realm = Realm.getDefaultInstance();
@@ -89,6 +91,7 @@ public class RevelsCupFragment extends Fragment{
         noConnection=(LinearLayout)view.findViewById(R.id.revels_cup_no_connection);
         swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.revelscup_results_swipe_refresh_layout);
         adapter = new RevelsCupAdapter(eventScheduleList);
+        context=getContext();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         revelsCupRV.setLayoutManager(layoutManager);
         revelsCupRV.setItemAnimator(new DefaultItemAnimator());
@@ -120,9 +123,9 @@ public class RevelsCupFragment extends Fragment{
                     }
                     else{
                         noConnection.setVisibility(View.GONE);
+                        noData.setVisibility(View.GONE);
                         revelsCupRV.setVisibility(View.VISIBLE);
                         Log.d(TAG, "onResponse: RevelsCup set visible");
-                        noData.setVisibility(View.GONE);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -131,7 +134,8 @@ public class RevelsCupFragment extends Fragment{
             public void onFailure(Call<RevelsCupEventsListModel> call, Throwable t) {
                 Log.d(TAG, "onFailure: RevelsCup Events not updated");
                 swipeRefreshLayout.setRefreshing(false);
-                if(! NetworkUtils.isInternetConnected(getContext())){
+                if(! NetworkUtils.isInternetConnected(context)){
+                    noData.setVisibility(View.GONE);
                     revelsCupRV.setVisibility(View.GONE);
                     noConnection.setVisibility(View.VISIBLE);
                     Button retry=(Button)view.findViewById(R.id.retry);
@@ -143,14 +147,30 @@ public class RevelsCupFragment extends Fragment{
                         }
                     });
                 }
+                else {
+                    noConnection.setVisibility(View.GONE);
+                    revelsCupRV.setVisibility(View.GONE);
+                    noData.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
 
     private void reload(){
-        if(! NetworkUtils.isInternetConnected(getContext())){
+        if(! NetworkUtils.isInternetConnected(context)){
             Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
+            noData.setVisibility(View.GONE);
+            revelsCupRV.setVisibility(View.GONE);
+            noConnection.setVisibility(View.VISIBLE);
+            Button retry=(Button)view.findViewById(R.id.retry);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    reload();
+                }
+            });
         }
         else {
             loadRevelsCupEventsFromInternet();
