@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:435937481455:android:d5f834bbeb231b43",
+        "mobilesdk_app_id": "1:435937481455:android:663c39cda97be5da",
         "android_client_info": {
-          "package_name": "revels18.in.revels18"
+          "package_name": "mitrev.in.mitrev18"
         }
       },
       "oauth_client": [
         {
-          "client_id": "435937481455-3l8618bkf6rlesjfri20117jhpbc2s75.apps.googleusercontent.com",
+          "client_id": "435937481455-fgf5u2rrmqbu6v2037pn14ts7b3suo7i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "revels18.in.revels18",
-            "certificate_hash": "8476406740d955f18a4e89397318a37d020419d5"
-          }
-        },
-        {
-          "client_id": "435937481455-oug22oh53t7cj3co21fchjkicr7ou769.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "revels18.in.revels18",
-            "certificate_hash": "b2869d9cdfb93dcaf899a49aa688539a711480c4"
+            "package_name": "mitrev.in.mitrev18",
+            "certificate_hash": "967f8028add8e3029868c66c4f2a86bed84ad79b"
           }
         },
         {

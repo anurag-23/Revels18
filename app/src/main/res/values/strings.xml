@@ -51,6 +51,7 @@
     <string name="no_connection_text">Please connect to the internet and retry</string>
     <string name="no_results">Whoa Amigo!</string>
     <string name="no_results_2">The Results are not out yet.</string>
+    <string name="NA">Not Available</string>
     <string name="no_data">No data available</string>
     <string name="results">Results</string>
     <string name="team_position">0</string>
