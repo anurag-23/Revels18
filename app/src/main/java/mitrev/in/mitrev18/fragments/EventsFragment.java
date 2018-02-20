@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,6 +80,7 @@ public class EventsFragment extends Fragment {
     private String filterVenue = "All";
     private String filterEventType = "All";
     private View rootView;
+    int tabNumber;
     private List<String> categoriesList = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
     private List<String> eventTypeList = new ArrayList<>();
@@ -107,7 +109,6 @@ public class EventsFragment extends Fragment {
         }catch(NullPointerException e){
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -146,14 +147,49 @@ public class EventsFragment extends Fragment {
             eventsRV.setLayoutManager(layoutManager);
             eventsRV.setItemAnimator(new DefaultItemAnimator());
             eventsRV.setAdapter(adapter);
-            //Showing 'Day 1' tab by default
-            dayFilter(PREREVELS_DAY);
-
-
+            //Setting current day
+            setCurrentDay();
         }
         return view;
     }
 
+    private void setCurrentDay(){
+        Calendar cal = Calendar.getInstance();
+        Calendar day1 = new GregorianCalendar(2018, 2, 7);
+        Calendar day2 = new GregorianCalendar(2018, 2, 8);
+        Calendar day3 = new GregorianCalendar(2018, 2, 9);
+        Calendar day4 = new GregorianCalendar(2018, 2, 10);
+        Calendar curDay = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
+            tabNumber =0;
+        }else if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
+            tabNumber = 1;
+        }else if (curDay.getTimeInMillis() < day3.getTimeInMillis()){
+            tabNumber = 2;
+        }else if (curDay.getTimeInMillis() < day4.getTimeInMillis()){
+            tabNumber = 3;
+        }else {
+            tabNumber = 4;
+        }
+        try {
+            TabLayout.Tab tabz = tabs.getTabAt(tabNumber);
+            if (tabNumber==0)
+            {
+                dayFilter(PREREVELS_DAY);
+                applyFilters();
+            }
+            else
+            {
+                dayFilter(tabNumber+1);
+                applyFilters();
+            }
+            tabz.select();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     private void getAllCategories(){
         RealmResults<ScheduleModel> scheduleResult = realm.where(ScheduleModel.class).findAllSorted(sortCriteria, sortOrder);
         List<ScheduleModel> scheduleResultList = realm.copyFromRealm(scheduleResult);
@@ -595,6 +631,8 @@ public class EventsFragment extends Fragment {
         adapter.updateList(temp);
     }
     class DayTabListener implements TabLayout.OnTabSelectedListener{
+
+
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             Log.d(TAG, "onTabSelected TabPos: "+tab.getPosition());

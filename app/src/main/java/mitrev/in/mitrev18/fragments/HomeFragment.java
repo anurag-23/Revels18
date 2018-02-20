@@ -203,10 +203,10 @@ public class HomeFragment extends Fragment {
 
         //Display Events of current day
         Calendar cal = Calendar.getInstance();
-        Calendar day1 = new GregorianCalendar(2018, 3, 7);
-        Calendar day2 = new GregorianCalendar(2018, 3, 8);
-        Calendar day3 = new GregorianCalendar(2018, 3, 9);
-        Calendar day4 = new GregorianCalendar(2018, 3, 10);
+        Calendar day1 = new GregorianCalendar(2018, 2, 7);
+        Calendar day2 = new GregorianCalendar(2018, 2, 8);
+        Calendar day3 = new GregorianCalendar(2018, 2, 9);
+        Calendar day4 = new GregorianCalendar(2018, 2, 10);
         Calendar curDay = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
         int dayOfEvent;
@@ -233,13 +233,17 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "dayFilter Value: "+eventsRealmResults.get(i).getIsRevels());
                 if(eventsRealmResults.get(i).getIsRevels().contains("0")){
                     eventsList.add(eventsRealmResults.get(i));
+                    if(isFavourite(eventsRealmResults.get(i))){
+                        eventsList.remove(eventsRealmResults.get(i));
+                        eventsList.add(0,eventsRealmResults.get(i));
+                    }
                 }
             }
         }
         //Main Revels Events
         else {
-            List<ScheduleModel> eventsRealmResults = mDatabase.copyFromRealm(mDatabase.where(ScheduleModel.class).equalTo("day", dayOfEvent + "").findAllSorted(sortCriteria, sortOrder));
-            eventsList = mDatabase.copyFromRealm(eventsRealmResults);
+            eventsList.clear();
+            eventsList = mDatabase.copyFromRealm(mDatabase.where(ScheduleModel.class).equalTo("isRevels","1").equalTo("day", dayOfEvent + "").findAllSorted(sortCriteria, sortOrder));
             for (int i = 0; i < eventsList.size(); i++) {
                 ScheduleModel event = eventsList.get(i);
                 if (isFavourite(event)) {
@@ -377,7 +381,12 @@ public class HomeFragment extends Fragment {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Successful");
                             firebaseRemoteConfig.activateFetched();
-                            int  n_banners = Integer.parseInt(firebaseRemoteConfig.getString("num_banners"));
+                            int n_banners;
+                            try {
+                                n_banners = Integer.parseInt(firebaseRemoteConfig.getString("num_banners"));
+                            }catch (Exception e){
+                                n_banners=1;
+                            }
                             Log.d(TAG, "n banners: "+n_banners);
                             for(int i=1;i<=n_banners;i++){
                                 String imgURL = firebaseRemoteConfig.getString("banner_img_"+i);
