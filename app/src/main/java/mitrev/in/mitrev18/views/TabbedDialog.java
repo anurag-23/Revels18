@@ -81,7 +81,11 @@ public class TabbedDialog extends DialogFragment {
     public void descriptionViewSet(View view){
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
         IconCollection icons = new IconCollection();
-        eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
+        try {
+            eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         final ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
         favIcon.setOnClickListener(new View.OnClickListener() {
             @Override

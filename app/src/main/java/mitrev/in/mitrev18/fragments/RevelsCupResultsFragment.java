@@ -205,6 +205,14 @@ public class RevelsCupResultsFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        swipeRefreshLayout.setRefreshing(false);
+        resultsAvailable.setVisibility(View.GONE);
+        noResultsLayout.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
