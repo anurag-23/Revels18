@@ -76,6 +76,7 @@ public class HomeFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     private HomeAdapter instaAdapter;
     private HomeResultsAdapter resultsAdapter;
+    View v;
     private HomeCategoriesAdapter categoriesAdapter;
     private HomeEventsAdapter eventsAdapter;
     private RecyclerView homeRV;
@@ -134,9 +135,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = initViews(inflater, container);
-
-        progressBar = (ProgressBar)view.findViewById(R.id.insta_progress);
-        instaTextView = (TextView)view.findViewById(R.id.insta_text_view);
+        v=view;
+        progressBar = (ProgressBar) view.findViewById(R.id.insta_progress);
+        instaTextView = (TextView) view.findViewById(R.id.insta_text_view);
         displayInstaFeed();
 
         //Setting up Firebase
@@ -145,25 +146,19 @@ public class HomeFragment extends Fragment {
             FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                     .build();
             firebaseRemoteConfig.setConfigSettings(configSettings);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         //Checking User's Network Status
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        //Updating the SliderLayout with images
+        if (imageSlider == null)
+            Log.d(TAG, "onCreateView: NullCheck called");
+            imageSlider = (SliderLayout)view.findViewById(R.id.home_image_slider);
         getImageURLSfromFirebase();
-
-        //Animation type
-        imageSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        //Setting the Transition time and Interpolator for the Animation
-        imageSlider.setSliderTransformDuration(200,new AccelerateDecelerateInterpolator());
-        imageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        imageSlider.setCustomAnimation(new DescriptionAnimation());
-        //Setting the time after which it moves to the next image
-        imageSlider.setDuration(400);
-        imageSlider.setVisibility(View.GONE);
+        sliderInit();
 
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
@@ -294,6 +289,18 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+    private void sliderInit(){   //Updating the SliderLayout with images
+        //Animation type
+        imageSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        //Setting the Transition time and Interpolator for the Animation
+        imageSlider.setSliderTransformDuration(200, new AccelerateDecelerateInterpolator());
+        imageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        imageSlider.setCustomAnimation(new DescriptionAnimation());
+        //Setting the time after which it moves to the next image
+        imageSlider.setDuration(400);
+        imageSlider.setVisibility(View.GONE);
+    }
+
     public void displayInstaFeed(){
         if (initialLoad) progressBar.setVisibility(View.VISIBLE);
         homeRV.setVisibility(View.GONE);
@@ -419,6 +426,12 @@ public class HomeFragment extends Fragment {
                             });
                             tsv.image(imgURLs.get(i));
                             tsv.setScaleType(imgScaleType);
+                            if(imageSlider==null)
+                                if (imageSlider == null) {
+                                    Log.d(TAG, "onComplete: NullCheck Called");
+                                    imageSlider = (SliderLayout) v.findViewById(R.id.home_image_slider);
+                                    sliderInit();
+                                }
                             imageSlider.addSlider(tsv);
                         }
                         imageSlider.setVisibility(View.VISIBLE);
@@ -510,6 +523,16 @@ public class HomeFragment extends Fragment {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStop() {
+        if(imageSlider!=null){
+            imageSlider.removeAllSliders();
+            imageSlider.stopAutoCycle();
+            imageSlider=null;
+        }
+        super.onStop();
     }
 
 }
