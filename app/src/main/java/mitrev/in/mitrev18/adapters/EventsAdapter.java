@@ -98,7 +98,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         FavouritesModel favourite = new FavouritesModel();
         Log.i(TAG, "addFavourite: "+eventSchedule.getEventID());
         //Get Corresponding EventDetailsModel from Realm
-        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
+        EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).equalTo("day", eventSchedule.getDay()).findFirst();
         //Create and Set Values for FavouritesModel
         favourite.setId(eventSchedule.getEventID());
         favourite.setCatID(eventSchedule.getCatID());

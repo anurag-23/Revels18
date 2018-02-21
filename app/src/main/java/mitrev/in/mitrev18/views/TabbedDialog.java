@@ -80,9 +80,14 @@ public class TabbedDialog extends DialogFragment {
     }
     public void descriptionViewSet(View view){
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+        final TextView eventName = (TextView)view.findViewById(R.id.event_name);
+        ImageView deleteIcon=(ImageView)view.findViewById(R.id.event_delete_icon);
+        deleteIcon.setVisibility(View.GONE);
+
         IconCollection icons = new IconCollection();
         try {
             eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
+            eventName.setText(event.getEventName());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -112,10 +117,6 @@ public class TabbedDialog extends DialogFragment {
             favIcon.setImageResource(R.drawable.ic_fav_deselected);
             favIcon.setTag("deselected");
         }
-        final TextView eventName = (TextView)view.findViewById(R.id.event_name);
-        eventName.setText(event.getEventName());
-        ImageView deleteIcon=(ImageView)view.findViewById(R.id.event_delete_icon);
-        deleteIcon.setVisibility(View.GONE);
     }
 
     public void setValues(ScheduleModel event, EventFragment.DialogFavouriteClickListener f, boolean favorite, EventDetailsModel schedule)  {
@@ -258,5 +259,11 @@ public class TabbedDialog extends DialogFragment {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismiss();
     }
 }
