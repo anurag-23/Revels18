@@ -112,6 +112,7 @@ public class AddTeamMemberActivity extends AppCompatActivity implements ZXingSca
     public void noConnectionAlert(){
         new AlertDialog.Builder(this)
                 .setTitle("Error")
+                .setIcon(R.drawable.ic_error)
                 .setMessage("Could not connect to server! Please check your internet connect or try again later.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

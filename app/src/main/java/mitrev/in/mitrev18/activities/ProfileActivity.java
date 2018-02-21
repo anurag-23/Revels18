@@ -91,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this).edit();
                                 editor.remove("loggedIn");
+                                editor.remove("COOKIE");
                                 editor.apply();
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -161,6 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this).edit();
                                             editor.remove("loggedIn");
+                                            editor.remove("COOKIE");
                                             editor.apply();
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -186,6 +188,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void noConnectionAlert(String message){
         new AlertDialog.Builder(ProfileActivity.this)
                 .setTitle("Error")
+                .setIcon(R.drawable.ic_error)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

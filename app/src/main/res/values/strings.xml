@@ -133,4 +133,5 @@ The Revels\'18 logo brings these two concepts together. Moreover, the colours si
     <string name="scan_qr_code_2">Scan Delegate QR</string>
     <string name="vs">vs</string>
     <string name="interpunct">·</string>
+    <string name="team_id2">Team ID:</string>
 </resources>

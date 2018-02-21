@@ -33,7 +33,6 @@ public class CookieInterceptor implements Interceptor {
                     editor.remove("COOKIE");
                     editor.putString("COOKIE", cookie);
                     Log.d("Cookie", cookie);
-                    break;
                 }
             }
             editor.apply();

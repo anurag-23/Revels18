@@ -83,48 +83,60 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
 
     private void showAlert(final EventRegResponse response){
         String message[] = {"Session expired. Login again to continue!", "Invalid QR code!",
-                "You can proceed to creating your team for "+response.getEventName()+"!", "Already registered for "+response.getEventName()+"! You can still add new team members.",
-        "Contact the infodesk to register for sports events!"};
+                "You can proceed to creating your team for "+response.getEventName()+"!", "Already registered for "+response.getEventName()+"! You may still add new team members."};
         final int status = response.getStatus();
 
-        new AlertDialog.Builder(this).setTitle(status<=1? "Error":"Success").setMessage(message[status])
-                .setIcon(status<=1 ? R.drawable.ic_error:R.drawable.ic_success)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (status == 0){
-                            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EventRegistrationActivity.this).edit();
-                            editor.remove("loggedIn");
-                            editor.apply();
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }else if (status == 1) {
-                            scannerView.stopCamera();
-                            scannerView.startCamera();
-                            scannerView.setResultHandler(EventRegistrationActivity.this);
-                        } else if (status == 5){
-                            finish();
-                        } else if (status > 1){
-                            Intent intent = new Intent(EventRegistrationActivity.this, RegisterTeamActivity.class);
-                            intent.putExtra("status", response.getStatus());
-                            intent.putExtra("eventName", response.getEventName());
-                            intent.putExtra("maxTeamSize", response.getMaxTeamSize());
-                            intent.putExtra("delID", getIntent().getStringExtra("delID"));
-                            if (response.getStatus() == 3){
-                                intent.putExtra("curTeamSize", response.getCurTeamSize());
-                                intent.putExtra("teamID", response.getTeamID());
+        if (status <= 1){
+            new AlertDialog.Builder(this).setTitle("Error").setMessage(message[status])
+                    .setIcon(R.drawable.ic_error)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (status == 0){
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EventRegistrationActivity.this).edit();
+                                editor.remove("loggedIn");
+                                editor.remove("COOKIE");
+                                editor.apply();
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }else {
+                                scannerView.stopCamera();
+                                scannerView.startCamera();
+                                scannerView.setResultHandler(EventRegistrationActivity.this);
                             }
-                            startActivity(intent);
-                            finish();
                         }
-                    }
-        }).setCancelable(false).show();
+                    }).setCancelable(false).show();
+        }else{
+            new AlertDialog.Builder(this).setTitle("Success").setMessage(message[status])
+                    .setIcon(R.drawable.ic_success)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(EventRegistrationActivity.this, RegisterTeamActivity.class);
+                                intent.putExtra("status", response.getStatus());
+                                intent.putExtra("eventName", response.getEventName());
+                                intent.putExtra("maxTeamSize", response.getMaxTeamSize());
+                                if (response.getStatus() == 3){
+                                    intent.putExtra("curTeamSize", response.getCurTeamSize());
+                                    intent.putExtra("teamID", response.getTeamID());
+                                }
+                                startActivity(intent);
+                                finish();
+                        }
+                    }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                }
+            }).setCancelable(false).show();
+        }
     }
 
     public void noConnectionAlert(){
         new AlertDialog.Builder(this)
                 .setTitle("Error")
+                .setIcon(R.drawable.ic_error)
                 .setMessage("Could not connect to server! Please check your internet connect or try again later.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
