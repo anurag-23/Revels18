@@ -209,4 +209,13 @@ public class RevelsCupFragment extends Fragment{
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        swipeRefreshLayout.setRefreshing(false);
+        revelsCupRV.setVisibility(View.GONE);
+        noData.setVisibility(View.GONE);
+        noConnection.setVisibility(View.GONE);
+    }
 }

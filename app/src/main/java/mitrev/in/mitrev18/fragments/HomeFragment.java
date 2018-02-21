@@ -155,7 +155,6 @@ public class HomeFragment extends Fragment {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         if (imageSlider == null)
-            Log.d(TAG, "onCreateView: NullCheck called");
             imageSlider = (SliderLayout)view.findViewById(R.id.home_image_slider);
         getImageURLSfromFirebase();
         sliderInit();
@@ -426,8 +425,7 @@ public class HomeFragment extends Fragment {
                             });
                             tsv.image(imgURLs.get(i));
                             tsv.setScaleType(imgScaleType);
-                            if(imageSlider==null)
-                                if (imageSlider == null) {
+                            if(imageSlider==null){
                                     Log.d(TAG, "onComplete: NullCheck Called");
                                     imageSlider = (SliderLayout) v.findViewById(R.id.home_image_slider);
                                     sliderInit();
@@ -525,8 +523,21 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (imageSlider == null) {
+            Log.d(TAG, "onResume: called");
+            imageSlider = (SliderLayout) v.findViewById(R.id.home_image_slider);
+            getImageURLSfromFirebase();
+            sliderInit();
+        }
+    }
+
     @Override
     public void onStop() {
+        Log.d(TAG, "onStop: called");
         if(imageSlider!=null){
             imageSlider.removeAllSliders();
             imageSlider.stopAutoCycle();
