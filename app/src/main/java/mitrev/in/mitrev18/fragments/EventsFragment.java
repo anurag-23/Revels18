@@ -61,7 +61,7 @@ public class EventsFragment extends Fragment {
     View view;
     LinearLayout noData;
     RecyclerView eventsRV;
-    Realm realm = Realm.getDefaultInstance();
+    private Realm realm;
     List<ScheduleModel> events;
     List<ScheduleModel> currentDayEvents = new ArrayList<>();
     List<ScheduleModel> filteredEvents = new ArrayList<>();
@@ -98,6 +98,7 @@ public class EventsFragment extends Fragment {
         eventTypeList.add("All");
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.bottom_nav_events);
+        realm = Realm.getDefaultInstance();
         try{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation(0);
@@ -630,6 +631,13 @@ public class EventsFragment extends Fragment {
         }
         adapter.updateList(temp);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
+
     class DayTabListener implements TabLayout.OnTabSelectedListener{
 
 

@@ -34,7 +34,7 @@ import mitrev.in.mitrev18.views.TabbedDialog;
 
 public class FavouritesActivity extends AppCompatActivity {
     String TAG = "FavouritesActivity";
-    private Realm realm = Realm.getDefaultInstance();
+    private Realm realm;
     private List<FavouritesModel> favouritesDay1 =  new ArrayList<>();
     private List<FavouritesModel> favouritesDay2 =  new ArrayList<>();
     private List<FavouritesModel> favouritesDay3 =  new ArrayList<>();
@@ -73,6 +73,7 @@ public class FavouritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.favourites);
         setContentView(R.layout.activity_favourites);
+        realm = Realm.getDefaultInstance();
         context=this;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

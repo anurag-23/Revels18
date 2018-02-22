@@ -150,7 +150,11 @@ public class TabbedDialog extends DialogFragment {
                 fragment = tf;
             }else{
                 DescriptionFragment df = new DescriptionFragment();
-                df.setDescription(schedule.getDescription());
+                try {
+                    df.setDescription(schedule.getDescription());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 fragment = df;
             }
             return fragment;
@@ -256,6 +260,10 @@ public class TabbedDialog extends DialogFragment {
     @Override
     public void onPause() {
         super.onPause();
-        dismiss();
+        try {
+            dismiss();
+        }catch (Exception e){
+            e.printStackTrace();;
+        }
     }
 }

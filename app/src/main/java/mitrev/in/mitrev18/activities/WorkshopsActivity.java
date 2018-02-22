@@ -21,7 +21,7 @@ import mitrev.in.mitrev18.models.events.ScheduleModel;
 import mitrev.in.mitrev18.models.workshops.WorkshopModel;
 
 public class WorkshopsActivity extends AppCompatActivity {
-    Realm realm = Realm.getDefaultInstance();
+    private Realm realm;
     List<WorkshopModel> workshopList = new ArrayList<>();
     WorkshopsAdapter adapter = null;
     LinearLayout noData;
@@ -31,6 +31,7 @@ public class WorkshopsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workshops);
         setTitle(R.string.workshops);
+        realm = Realm.getDefaultInstance();
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RealmResults<WorkshopModel> realmResults = realm.where(WorkshopModel.class).findAll().sort("date");
         workshopList = realm.copyFromRealm(realmResults);
@@ -70,6 +71,13 @@ public class WorkshopsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

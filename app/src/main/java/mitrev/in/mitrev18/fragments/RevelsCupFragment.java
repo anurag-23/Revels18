@@ -55,7 +55,7 @@ public class RevelsCupFragment extends Fragment{
     Context context;
     AppBarLayout appBarLayout;
     List<RevelsCupEventModel> eventScheduleList = new ArrayList<>();
-    Realm realm = Realm.getDefaultInstance();
+    private Realm realm;
     private String TAG = "RevelsCupFragment";
     public RevelsCupFragment() {
         // Required empty public constructor
@@ -72,6 +72,7 @@ public class RevelsCupFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.bottom_nav_revels_cup);
+        realm = Realm.getDefaultInstance();
         try{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
@@ -247,5 +248,11 @@ public class RevelsCupFragment extends Fragment{
         revelsCupRV.setVisibility(View.GONE);
         noData.setVisibility(View.GONE);
         noConnection.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }
