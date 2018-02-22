@@ -81,7 +81,6 @@ public class RevelsCupResultsFragment extends Fragment {
         resultsRecyclerView.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
         resultsRecyclerView.setLayoutManager(gridLayoutManager);
-        displayData();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,6 +89,13 @@ public class RevelsCupResultsFragment extends Fragment {
         });
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayData();
+    }
+
     private void refreshData(View view){
         boolean isConnectedTemp = NetworkUtils.isInternetConnected(getContext());
         if(isConnectedTemp){updateData();}
@@ -111,7 +117,7 @@ public class RevelsCupResultsFragment extends Fragment {
             return;
         }
 
-        RealmResults<SportsModel> results = mDatabase.where(SportsModel.class).findAllSorted("eventName", Sort.ASCENDING, "position", Sort.ASCENDING);
+        List<SportsModel> results = mDatabase.copyFromRealm(mDatabase.where(SportsModel.class).findAllSorted("eventName", Sort.ASCENDING, "position", Sort.ASCENDING));
 
         if (!results.isEmpty()){
             resultsList.clear();
@@ -166,7 +172,11 @@ public class RevelsCupResultsFragment extends Fragment {
                     resultsAvailable.setVisibility(View.GONE);
                     noResultsLayout.setVisibility(View.VISIBLE);
                 }
-                Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
+                try {
+                    Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

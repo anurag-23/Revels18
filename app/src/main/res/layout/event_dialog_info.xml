@@ -301,6 +301,7 @@
                         android:paddingRight="@dimen/padding_default"
                         android:paddingEnd="@dimen/padding_default"
                         android:textColor="@color/colorAccent"
+                        android:autoLink="phone"
                         android:text="TextView"/>
                 </LinearLayout>
             </LinearLayout>

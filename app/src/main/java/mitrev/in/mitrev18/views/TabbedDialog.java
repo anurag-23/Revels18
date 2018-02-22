@@ -150,7 +150,11 @@ public class TabbedDialog extends DialogFragment {
                 fragment = tf;
             }else{
                 DescriptionFragment df = new DescriptionFragment();
-                df.setDescription(schedule.getDescription());
+                try {
+                    df.setDescription(schedule.getDescription());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 fragment = df;
             }
             return fragment;
@@ -218,14 +222,6 @@ public class TabbedDialog extends DialogFragment {
 
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
                 eventContact.setText( "(".concat(schedule.getContactNo()).concat(")"));
-                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                eventContact.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
-                        getActivity().startActivity(intent);
-                    }
-                });
             }
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
@@ -264,6 +260,10 @@ public class TabbedDialog extends DialogFragment {
     @Override
     public void onPause() {
         super.onPause();
-        dismiss();
+        try {
+            dismiss();
+        }catch (Exception e){
+            e.printStackTrace();;
+        }
     }
 }

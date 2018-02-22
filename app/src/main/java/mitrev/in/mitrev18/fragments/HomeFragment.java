@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
     private int processes = 0;
     private SliderLayout imageSlider;
     String TAG = "HomeFragment";
-    Realm mDatabase = Realm.getDefaultInstance();
+    private Realm mDatabase;
     private List<EventResultModel> resultsList = new ArrayList<>();
     private List<CategoryModel> categoriesList = new ArrayList<>();
     private List<ScheduleModel> eventsList = new ArrayList<>();
@@ -114,6 +114,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.fest_name);
         setHasOptionsMenu(true);
+        mDatabase = Realm.getDefaultInstance();
 
         try{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -546,4 +547,9 @@ public class HomeFragment extends Fragment {
         super.onStop();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDatabase.close();
+    }
 }

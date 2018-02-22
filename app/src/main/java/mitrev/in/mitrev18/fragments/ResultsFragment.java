@@ -65,11 +65,6 @@ public class ResultsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_results, container, false);
@@ -82,8 +77,6 @@ public class ResultsFragment extends Fragment {
         resultsRecyclerView.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
         resultsRecyclerView.setLayoutManager(gridLayoutManager);
-        displayData();
-        Log.d(TAG, "onCreateView: Results Fragment : DisplayData called");
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -92,6 +85,13 @@ public class ResultsFragment extends Fragment {
         });
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayData();
+    }
+
     private void refreshData(View view){
         boolean isConnectedTemp = NetworkUtils.isInternetConnected(getContext());
         if(isConnectedTemp){updateData();}
@@ -172,7 +172,11 @@ public class ResultsFragment extends Fragment {
                     resultsAvailable.setVisibility(View.GONE);
                     noResultsLayout.setVisibility(View.VISIBLE);
                 }
-                Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
+                try {
+                    Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

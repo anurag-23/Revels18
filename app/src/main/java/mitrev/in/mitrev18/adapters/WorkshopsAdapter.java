@@ -85,34 +85,14 @@ public class WorkshopsAdapter extends RecyclerView.Adapter<WorkshopsAdapter.Even
 
         contact_name1.setText(R.string.cnt_wksp_1);
         contact_number1.setText("(".concat(workshop_view.getResources().getString(R.string.cntno_wksp_1)).concat(")"));
-        contact_number1.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         contact_name2.setText(R.string.cnt_wksp_2);
         contact_number2.setText("(".concat(workshop_view.getResources().getString(R.string.cntno_wksp_2)).concat(")"));
-        contact_number2.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         venue.setText(event.getVenue());
         time.setText(event.getStartTime()+" - "+event.getEndTime());
         date.setText(event.getDate());
         description.setText(event.getDesc());
         dialog.setContentView(workshop_view);
-        contact_number1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(event.getCatNo()==null || event.getCatNo().equals(""))
-                    return;
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + workshop_view.getResources().getString(R.string.cntno_wksp_1) ));
-                activity.startActivity(intent);
-            }
-        });
-        contact_number2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(event.getCatNo()==null || event.getCatNo().equals(""))
-                    return;
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + workshop_view.getResources().getString(R.string.cntno_wksp_2) ));
-                activity.startActivity(intent);
-            }
-        });
         dialog.show();
     }
     public class EventViewHolder extends RecyclerView.ViewHolder{
