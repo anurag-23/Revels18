@@ -218,14 +218,6 @@ public class TabbedDialog extends DialogFragment {
 
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
                 eventContact.setText( "(".concat(schedule.getContactNo()).concat(")"));
-                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                eventContact.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
-                        getActivity().startActivity(intent);
-                    }
-                });
             }
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());

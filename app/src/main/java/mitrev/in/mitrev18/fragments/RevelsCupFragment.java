@@ -46,6 +46,9 @@ public class RevelsCupFragment extends Fragment{
     RecyclerView revelsCupRV;
     LinearLayout noData;
     LinearLayout noConnection;
+    boolean noDataB= false;
+    boolean revelsCupRVB = false;
+    boolean noConnectionB=false;
     private SwipeRefreshLayout swipeRefreshLayout;
     RevelsCupAdapter adapter;
     View view;
@@ -84,6 +87,7 @@ public class RevelsCupFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: RevelsCupFrag");
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_revels_cup, container, false);
         revelsCupRV = (RecyclerView)view.findViewById(R.id.rc_recycler_view);
@@ -96,16 +100,31 @@ public class RevelsCupFragment extends Fragment{
         revelsCupRV.setLayoutManager(layoutManager);
         revelsCupRV.setItemAnimator(new DefaultItemAnimator());
         revelsCupRV.setAdapter(adapter);
-        swipeRefreshLayout.setRefreshing(true);
-        loadRevelsCupEventsFromInternet();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 reload();
             }
         });
+        swipeRefreshLayout.setRefreshing(true);
+        loadRevelsCupEventsFromInternet();
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: noDataB "+noDataB+" noConectionB "+noConnectionB+" revelscuprv "+revelsCupRVB);
+        if(noDataB)
+            noData.setVisibility(View.VISIBLE);
+        else if(noConnectionB)
+            noConnection.setVisibility(View.VISIBLE);
+        else if(revelsCupRVB)
+            revelsCupRV.setVisibility(View.VISIBLE);
+        else{
+        }
+    }
+
     private void loadRevelsCupEventsFromInternet(){
         Call<RevelsCupEventsListModel> revelsCupCall = APIClient.getAPIInterface().getRevelsCupEventsList();
         revelsCupCall.enqueue(new Callback<RevelsCupEventsListModel>() {
@@ -213,7 +232,18 @@ public class RevelsCupFragment extends Fragment{
     @Override
     public void onStop() {
         super.onStop();
+        Log.d(TAG, "onStop: RevelsCupFrag");
         swipeRefreshLayout.setRefreshing(false);
+        noDataB=revelsCupRVB=noConnectionB=false;
+        if(noData.getVisibility()==View.VISIBLE)
+            noDataB=true;
+        else if(revelsCupRV.getVisibility()==View.VISIBLE)
+            revelsCupRVB=true;
+        else if(noConnection.getVisibility()==View.VISIBLE)
+            noConnectionB=true;
+        else{
+            noDataB=revelsCupRVB=noConnectionB=false;
+        }
         revelsCupRV.setVisibility(View.GONE);
         noData.setVisibility(View.GONE);
         noConnection.setVisibility(View.GONE);
