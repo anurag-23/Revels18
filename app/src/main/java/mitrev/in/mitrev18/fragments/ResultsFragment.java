@@ -155,11 +155,15 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
                 if (response.isSuccess() && response.body() != null){
-                    results = response.body().getData();
-                    mDatabase.beginTransaction();
-                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(results);
-                    mDatabase.commitTransaction();
+                    try{
+                        results = response.body().getData();
+                        mDatabase.beginTransaction();
+                        mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(results);
+                        mDatabase.commitTransaction();
+                    }catch(Exception e){
+                        Log.d(TAG, "onResponse: "+e.toString());
+                    }
                     noResultsLayout.setVisibility(View.GONE);
                     resultsAvailable.setVisibility(View.VISIBLE);
                     displayData();
