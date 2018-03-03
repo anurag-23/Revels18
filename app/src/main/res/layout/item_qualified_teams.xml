@@ -17,7 +17,7 @@
         android:text="@string/team_position"
         android:textColor="@color/white"
         android:textSize="@dimen/typography_body"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
