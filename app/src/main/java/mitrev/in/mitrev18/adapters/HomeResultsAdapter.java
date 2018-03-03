@@ -56,7 +56,7 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
         public ImageView resultsLogo;
         public TextView resultsName;
         public TextView resultsRound;
-        public FrameLayout resultsItem;
+        public View resultsItem;
         public  HomeViewHolder(View view) {
             super(view);
             initializeViews(view);
@@ -66,12 +66,12 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
             if(resultsItem!=null) {
                 resultsName.setText(result.eventName);
                 resultsRound.setText("Round: ".concat(result.eventRound));
-                    resultsItem.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Log.i(TAG, "onClick: Item Clicked!");
-                            displayDialog(resultsList.get(getAdapterPosition()));
-                        }
+                resultsItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: Item Clicked!");
+                        displayDialog(resultsList.get(getAdapterPosition()));
+                    }
                     });
             }
         }
@@ -79,7 +79,7 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
             resultsLogo = (ImageView) view.findViewById(R.id.home_results_logo_image_view);
             resultsName = (TextView) view.findViewById(R.id.home_results_name_text_view);
             resultsRound = (TextView) view.findViewById(R.id.home_results_round_text_view);
-            resultsItem = (FrameLayout) view.findViewById(R.id.home_results_frame);
+            resultsItem =  view.findViewById(R.id.home_results_item_relative_layout);
             Log.i(TAG, "initializeViews:"+resultsItem);
         }
         public void displayDialog(EventResultModel result){
