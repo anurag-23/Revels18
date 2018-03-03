@@ -225,7 +225,9 @@ public class RevelsCupResultsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDatabase.close();
-        mDatabase = null;
+        if(mDatabase!=null) {
+            mDatabase.close();
+            mDatabase = null;
+        }
     }
 }

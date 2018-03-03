@@ -635,7 +635,10 @@ public class EventsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realm.close();
+        if(realm!=null) {
+            realm.close();
+            realm = null;
+        }
     }
 
     class DayTabListener implements TabLayout.OnTabSelectedListener{
