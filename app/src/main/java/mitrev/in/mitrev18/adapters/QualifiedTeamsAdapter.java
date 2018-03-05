@@ -34,6 +34,7 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
         ResultModel result = resultsList.get(position);
         holder.teamID.setText(result.getTeamID());
         if(result.getRound().toLowerCase().contains("f")||result.getRound().toLowerCase().contains("final")){
+            holder.teamPosition.setVisibility(View.VISIBLE);
             holder.teamPosition.setTextColor(ContextCompat.getColor(context, R.color.black));
             holder.teamPosition.setText(result.getPosition()+".");
         }
