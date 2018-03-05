@@ -155,7 +155,11 @@ public class SplashActivity extends AppCompatActivity {
                                 text.setVisibility(View.VISIBLE);
                                 container.setVisibility(View.VISIBLE);
                                 Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
-                                loadAllFromInternet();
+                                try {
+                                    loadAllFromInternet();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                             else{
                                 Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
@@ -165,7 +169,11 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else{Log.d(TAG," connected");
                     Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
-                    loadAllFromInternet();
+                    try {
+                        loadAllFromInternet();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
             }
@@ -244,7 +252,11 @@ public class SplashActivity extends AppCompatActivity {
                             text.setVisibility(View.VISIBLE);
                             container.setVisibility(View.VISIBLE);
                             Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
-                            loadAllFromInternet();
+                            try {
+                                loadAllFromInternet();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                         else{
                             Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
@@ -254,7 +266,11 @@ public class SplashActivity extends AppCompatActivity {
             }
             else{Log.d(TAG," connected");
                 Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
-                loadAllFromInternet();
+                try {
+                    loadAllFromInternet();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }

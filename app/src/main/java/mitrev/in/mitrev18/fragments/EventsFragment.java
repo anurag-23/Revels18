@@ -84,7 +84,7 @@ public class EventsFragment extends Fragment {
     private List<String> categoriesList = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
     private List<String> eventTypeList = new ArrayList<>();
-    String[] sortCriteria = {"startTime", "catName", "eventName"};
+    String[] sortCriteria = {"startTime","eventName", "catName"};
     Sort[] sortOrder = {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING};
     private int PREREVELS_DAY = -1;
     public static EventsFragment newInstance() {
@@ -119,7 +119,7 @@ public class EventsFragment extends Fragment {
         final View view= inflater.inflate(R.layout.fragment_events, container, false);
         rootView = view;
         initViews(view);
-        events = realm.copyFromRealm(realm.where(ScheduleModel.class).findAll());
+        events = realm.copyFromRealm(realm.where(ScheduleModel.class).findAllSorted(sortCriteria,sortOrder));
 
         if(events.size() ==0){
 
@@ -162,9 +162,9 @@ public class EventsFragment extends Fragment {
         Calendar day4 = new GregorianCalendar(2018, 2, 10);
         Calendar curDay = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
-        if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
+        /*if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
             tabNumber =0;
-        }else if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
+        }else */if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
             tabNumber = 1;
         }else if (curDay.getTimeInMillis() < day3.getTimeInMillis()){
             tabNumber = 2;
@@ -619,7 +619,7 @@ public class EventsFragment extends Fragment {
             adapter.updateList(currentDayEvents);
         }
     }
-    //TODO(Low Priority) : Search query persistance across tabs
+
     public void queryFilter(String query){
         query = query.toLowerCase();
         List<ScheduleModel> temp = new ArrayList<>();
