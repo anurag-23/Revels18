@@ -206,9 +206,9 @@ public class HomeFragment extends Fragment {
 
         int dayOfEvent;
 
-        if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
+        /*if(curDay.getTimeInMillis() < day1.getTimeInMillis()){
             dayOfEvent =0;
-        }else if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
+        }else */if (curDay.getTimeInMillis() < day2.getTimeInMillis()){
             dayOfEvent = 1;
         }else if (curDay.getTimeInMillis() < day3.getTimeInMillis()){
             dayOfEvent = 2;
@@ -223,16 +223,20 @@ public class HomeFragment extends Fragment {
 
         //PreRevels events
         if(dayOfEvent == 0){
-            List<ScheduleModel> eventsRealmResults = mDatabase.copyFromRealm((mDatabase.where(ScheduleModel.class).findAll()));
-            for(int i=0;i<eventsRealmResults.size();i++){
-                Log.d(TAG, "dayFilter Value: "+eventsRealmResults.get(i).getIsRevels());
-                if(eventsRealmResults.get(i).getIsRevels().contains("0")){
-                    eventsList.add(eventsRealmResults.get(i));
-                    if(isFavourite(eventsRealmResults.get(i))){
-                        eventsList.remove(eventsRealmResults.get(i));
-                        eventsList.add(0,eventsRealmResults.get(i));
+            try {
+                List<ScheduleModel> eventsRealmResults = mDatabase.copyFromRealm((mDatabase.where(ScheduleModel.class).findAll()));
+                for (int i = 0; i < eventsRealmResults.size(); i++) {
+                    Log.d(TAG, "dayFilter Value: " + eventsRealmResults.get(i).getIsRevels());
+                    if (eventsRealmResults.get(i).getIsRevels().contains("0")) {
+                        eventsList.add(eventsRealmResults.get(i));
+                        if (isFavourite(eventsRealmResults.get(i))) {
+                            eventsList.remove(eventsRealmResults.get(i));
+                            eventsList.add(0, eventsRealmResults.get(i));
+                        }
                     }
                 }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
         //Main Revels Events

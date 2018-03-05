@@ -157,7 +157,8 @@
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"
-                    android:src="@drawable/dev_icon_saptarshi" />
+                    android:src="@drawable/dev_icon_saptarshi"
+                    android:id="@+id/imageView" />
 
                 <TextView
                     android:layout_width="wrap_content"
