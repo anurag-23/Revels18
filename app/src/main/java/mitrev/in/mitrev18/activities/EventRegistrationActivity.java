@@ -107,7 +107,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
                             }
                         }
                     }).setCancelable(false).show();
-        }else if (status != 5){
+        }else{
             new AlertDialog.Builder(this).setTitle("Success").setMessage(message[status])
                     .setIcon(R.drawable.ic_success)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -130,18 +130,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements ZXin
                         finish();
                 }
             }).setCancelable(false).show();
-        }else{
-            String respMsg = "";
-            if (response.getMessage() != null)
-                respMsg = response.getMessage();
-
-            new AlertDialog.Builder(this).setMessage(respMsg)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    }).setCancelable(false).show();
         }
     }
 
