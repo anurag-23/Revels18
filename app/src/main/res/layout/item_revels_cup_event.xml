@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:gravity="bottom"
+            android:gravity="top"
             android:layout_marginBottom="@dimen/padding_half"
             >
             <LinearLayout
@@ -68,6 +68,7 @@
                     android:id="@+id/rc_team_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="start|left"
                     tools:text="Team 17 "
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
@@ -92,19 +93,12 @@
                     android:id="@+id/rc_team_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Team 5 "
+                    android:gravity="end|right"
+                    tools:text="Team 18 "
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
                     android:textSize="@dimen/typography_subheading"/>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"

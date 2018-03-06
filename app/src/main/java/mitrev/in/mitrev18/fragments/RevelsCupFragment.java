@@ -23,8 +23,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import mitrev.in.mitrev18.R;
@@ -135,6 +141,7 @@ public class RevelsCupFragment extends Fragment{
                     swipeRefreshLayout.setRefreshing(false);
                     eventScheduleList.clear();
                     eventScheduleList.addAll(response.body().getEvents());
+                    sortFixtures(eventScheduleList);
                     Log.d(TAG,"RevelsCup Events updated in background");
                     if(eventScheduleList.isEmpty()){
                         noConnection.setVisibility(View.GONE);
@@ -174,6 +181,47 @@ public class RevelsCupFragment extends Fragment{
                 }
             }
         });
+    }
+
+    void sortFixtures (List<RevelsCupEventModel> eventScheduleList){
+        try{
+            Collections.sort(eventScheduleList, new Comparator<RevelsCupEventModel>() {
+                @Override
+                public int compare(RevelsCupEventModel t1, RevelsCupEventModel t2) {
+                    int dateComp = t1.getDate().compareTo(t2.getDate());
+                    if (dateComp < 0)
+                        return -1;
+                    else if (dateComp > 0)
+                        return 1;
+                    else{
+                        SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm aa", Locale.US);
+                        try {
+                            Date d1 = sdf1.parse(t1.getTime());
+                            Date d2 = sdf1.parse(t2.getTime());
+                            long timeComp = d1.getTime() - d2.getTime();
+                            if (timeComp < 0)
+                                return -1;
+                            else if (timeComp > 0)
+                                return 1;
+                            else {
+                                int nameComp = t1.getSportName().compareTo(t2.getSportName());
+                                if (nameComp < 0)
+                                    return -1;
+                                else if (nameComp > 0)
+                                    return 1;
+                                else
+                                    return 0;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return -1;
+                        }
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void reload(){
