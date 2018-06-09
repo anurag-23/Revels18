@@ -20,7 +20,7 @@ import retrofit2.http.POST;
  */
 public class RegistrationClient {
     private static Retrofit retrofit = null;
-    private static final String BASE_URL = "https://mitportals.in/includes/";
+    private static final String BASE_URL = "";
 
     public static RegistrationInterface getRegistrationInterface(Context context){
         if (retrofit == null){

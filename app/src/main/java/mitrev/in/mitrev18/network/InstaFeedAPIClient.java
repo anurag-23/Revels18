@@ -27,7 +27,7 @@ public class InstaFeedAPIClient {
     public interface APIInterface {
         //Query TAG is set 'Revels18' for this year's app
         //TODO: Change search TAG accordingly
-        @GET("v1/tags/revels18/media/recent?access_token=630237785.f53975e.8dcfa635acf14fcbb99681c60519d04c")
+        @GET("")
         Call<InstagramFeed> getInstagramFeed();
 
     }
