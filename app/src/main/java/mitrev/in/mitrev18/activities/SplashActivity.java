@@ -329,15 +329,19 @@ public class SplashActivity extends AppCompatActivity {
         eventsCall.enqueue(new Callback<EventsListModel>() {
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
-                if (response.isSuccess() && response.body() != null && mDatabase != null) {
-                    apiCallsRecieved++;
-                    Log.d(TAG, "onResponse: Loading events....");
-                    mDatabase.beginTransaction();
-                    mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getEvents());
-                    mDatabase.commitTransaction();
-                    eventsDataAvailableLocally=true;
-                    Log.d(TAG,"Events");
+                try {
+                    if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                        apiCallsRecieved++;
+                        Log.d(TAG, "onResponse: Loading events....");
+                        mDatabase.beginTransaction();
+                        mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(response.body().getEvents());
+                        mDatabase.commitTransaction();
+                        eventsDataAvailableLocally = true;
+                        Log.d(TAG, "Events");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -351,14 +355,18 @@ public class SplashActivity extends AppCompatActivity {
         schedulesCall.enqueue(new Callback<ScheduleListModel>() {
             @Override
             public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
-                if (response.isSuccess() && response.body() != null && mDatabase != null) {
-                    apiCallsRecieved++;
-                    mDatabase.beginTransaction();
-                    mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getData());
-                    mDatabase.commitTransaction();
-                    schedulesDataAvailableLocally=true;
-                    Log.d(TAG,"Schedules");
+                try {
+                    if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                        apiCallsRecieved++;
+                        mDatabase.beginTransaction();
+                        mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(response.body().getData());
+                        mDatabase.commitTransaction();
+                        schedulesDataAvailableLocally = true;
+                        Log.d(TAG, "Schedules");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -373,14 +381,18 @@ public class SplashActivity extends AppCompatActivity {
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
             @Override
             public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
-                if (response.isSuccess() && response.body() != null && mDatabase != null) {
-                    apiCallsRecieved++;
-                    mDatabase.beginTransaction();
-                    mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getCategoriesList());
-                    mDatabase.commitTransaction();
-                    categoriesDataAvailableLocally=true;
-                    Log.d(TAG,"Categories");
+                try {
+                    if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                        apiCallsRecieved++;
+                        mDatabase.beginTransaction();
+                        mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(response.body().getCategoriesList());
+                        mDatabase.commitTransaction();
+                        categoriesDataAvailableLocally = true;
+                        Log.d(TAG, "Categories");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -394,12 +406,16 @@ public class SplashActivity extends AppCompatActivity {
         resultsCall.enqueue(new Callback<ResultsListModel>() {
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
-                if (response.isSuccess() && response.body() != null && mDatabase != null) {
-                    mDatabase.beginTransaction();
-                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getData());
-                    mDatabase.commitTransaction();
-                    Log.d(TAG,"Results");
+                try {
+                    if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                        mDatabase.beginTransaction();
+                        mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(response.body().getData());
+                        mDatabase.commitTransaction();
+                        Log.d(TAG, "Results");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -412,11 +428,15 @@ public class SplashActivity extends AppCompatActivity {
         call.enqueue(new Callback<SportsListModel>() {
             @Override
             public void onResponse(Call<SportsListModel> call, Response<SportsListModel> response) {
-                if (response.body() != null && mDatabase != null){
-                    mDatabase.beginTransaction();
-                    mDatabase.where(SportsModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getData());
-                    mDatabase.commitTransaction();
+                try {
+                    if (response.body() != null && mDatabase != null) {
+                        mDatabase.beginTransaction();
+                        mDatabase.where(SportsModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(response.body().getData());
+                        mDatabase.commitTransaction();
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
 
@@ -430,6 +450,5 @@ public class SplashActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
-
     }
 }

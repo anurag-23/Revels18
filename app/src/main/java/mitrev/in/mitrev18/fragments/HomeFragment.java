@@ -337,27 +337,30 @@ public class HomeFragment extends Fragment {
         });
     }
     public void updateResultsList(){
-        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
-        List<ResultModel> resultsArrayList=new ArrayList<>();
-        resultsArrayList=mDatabase.copyFromRealm(results);
-        if (!resultsArrayList.isEmpty()){
-            resultsList.clear();
-            List<String> eventNamesList = new ArrayList<>();
-            for (ResultModel result : resultsArrayList){
-                String eventName = result.getEventName()+" "+result.getRound();
-                if (eventNamesList.contains(eventName)){
-                    resultsList.get(eventNamesList.indexOf(eventName)).eventResultsList.add(result);
-                }
-                else{
-                    EventResultModel eventResult = new EventResultModel();
-                    eventResult.eventName = result.getEventName();
-                    eventResult.eventRound = result.getRound();
-                    eventResult.eventCategory = result.getCatName();
-                    eventResult.eventResultsList.add(result);
-                    resultsList.add(eventResult);
-                    eventNamesList.add(eventName);
+        try {
+            RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position", Sort.ASCENDING);
+            List<ResultModel> resultsArrayList = new ArrayList<>();
+            resultsArrayList = mDatabase.copyFromRealm(results);
+            if (!resultsArrayList.isEmpty()) {
+                resultsList.clear();
+                List<String> eventNamesList = new ArrayList<>();
+                for (ResultModel result : resultsArrayList) {
+                    String eventName = result.getEventName() + " " + result.getRound();
+                    if (eventNamesList.contains(eventName)) {
+                        resultsList.get(eventNamesList.indexOf(eventName)).eventResultsList.add(result);
+                    } else {
+                        EventResultModel eventResult = new EventResultModel();
+                        eventResult.eventName = result.getEventName();
+                        eventResult.eventRound = result.getRound();
+                        eventResult.eventCategory = result.getCatName();
+                        eventResult.eventResultsList.add(result);
+                        resultsList.add(eventResult);
+                        eventNamesList.add(eventName);
+                    }
                 }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         Log.i(TAG, "displayResults: resultsList size:"+resultsList.size());
         //Moving favourite results to top
@@ -449,16 +452,20 @@ public class HomeFragment extends Fragment {
             List<ResultModel> results = new ArrayList<>();
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
-                if (response.isSuccess() && response.body() != null){
-                    results = response.body().getData();
-                    mDatabase.beginTransaction();
-                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(results);
-                    mDatabase.commitTransaction();
-                    //homeResultsItem.setVisibility(View.VISIBLE);
-                    updateResultsList();
-                    resultsNone.setVisibility(View.GONE);
-                    resultsNone.setText("");
+                try {
+                    if (response.isSuccess() && response.body() != null) {
+                        results = response.body().getData();
+                        mDatabase.beginTransaction();
+                        mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                        mDatabase.copyToRealm(results);
+                        mDatabase.commitTransaction();
+                        //homeResultsItem.setVisibility(View.VISIBLE);
+                        updateResultsList();
+                        resultsNone.setVisibility(View.GONE);
+                        resultsNone.setText("");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
             @Override
